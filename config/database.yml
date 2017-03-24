@@ -1,0 +1,18 @@
+connection: &connection
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: Pc
+  password: 1234
+
+development:
+  <<: *connection
+  database: BackEnd_development
+
+test:
+  <<: *connection
+  database: BackEnd_test
+
+production:
+  <<: *connection
+  database: BackEnd_production
