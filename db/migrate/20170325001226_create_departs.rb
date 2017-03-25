@@ -4,7 +4,6 @@ class CreateDeparts < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :capital
       t.string :demonym
-
       t.timestamps
     end
   end

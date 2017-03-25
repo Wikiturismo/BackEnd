@@ -9,7 +9,6 @@ class CreateTowns < ActiveRecord::Migration[5.0]
       t.binary :airport
       t.binary :transpterminal
       t.references :depart, foreign_key: true
-
       t.timestamps
     end
   end
