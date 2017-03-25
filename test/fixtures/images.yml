@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  height: 1
+  width: 1
+  depart: one
+  town: one
+  place: one
+
+two:
+  height: 1
+  width: 1
+  depart: two
+  town: two
+  place: two

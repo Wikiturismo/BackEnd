@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mondayopen: 2017-03-24 19:55:28
+  mondayclose: 2017-03-24 19:55:28
+  tuesdayopen: 2017-03-24 19:55:28
+  tuesdayclose: 2017-03-24 19:55:28
+  wednesdayopen: 2017-03-24 19:55:28
+  wednesdayclose: 2017-03-24 19:55:28
+  thursdayopen: 2017-03-24 19:55:28
+  thursdayclose: 2017-03-24 19:55:28
+  fridayopen: 2017-03-24 19:55:28
+  fridayclose: 2017-03-24 19:55:28
+  saturdayopen: 2017-03-24 19:55:28
+  saturdayclose: 2017-03-24 19:55:28
+  sundayopen: 2017-03-24 19:55:28
+  sundayclose: 2017-03-24 19:55:28
+  place: one
+
+two:
+  mondayopen: 2017-03-24 19:55:28
+  mondayclose: 2017-03-24 19:55:28
+  tuesdayopen: 2017-03-24 19:55:28
+  tuesdayclose: 2017-03-24 19:55:28
+  wednesdayopen: 2017-03-24 19:55:28
+  wednesdayclose: 2017-03-24 19:55:28
+  thursdayopen: 2017-03-24 19:55:28
+  thursdayclose: 2017-03-24 19:55:28
+  fridayopen: 2017-03-24 19:55:28
+  fridayclose: 2017-03-24 19:55:28
+  saturdayopen: 2017-03-24 19:55:28
+  saturdayclose: 2017-03-24 19:55:28
+  sundayopen: 2017-03-24 19:55:28
+  sundayclose: 2017-03-24 19:55:28
+  place: two
