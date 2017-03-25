@@ -2,7 +2,7 @@ class CreatePlaces < ActiveRecord::Migration[5.0]
   def change
     create_table :places do |t|
       t.string :name
-      t.binary :state
+      t.boolean :state
       t.datetime :publicationdate
       t.text :description
       t.string :ubication

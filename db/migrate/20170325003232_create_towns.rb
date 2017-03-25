@@ -6,8 +6,8 @@ class CreateTowns < ActiveRecord::Migration[5.0]
       t.float :avertemper
       t.integer :altitude
       t.string :demonym
-      t.binary :airport
-      t.binary :transpterminal
+      t.boolean :airport
+      t.boolean :transpterminal
       t.references :depart, foreign_key: true
       t.timestamps
     end

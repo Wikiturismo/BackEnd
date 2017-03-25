@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170325133635) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.binary   "state"
+    t.boolean   "state"
     t.text     "content"
     t.datetime "publicationdate"
     t.integer  "town_id"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20170325133635) do
 
   create_table "places", force: :cascade do |t|
     t.string   "name"
-    t.binary   "state"
+    t.boolean   "state"
     t.datetime "publicationdate"
     t.text     "description"
     t.string   "ubication"
@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 20170325133635) do
     t.float    "avertemper"
     t.integer  "altitude"
     t.string   "demonym"
-    t.binary   "airport"
-    t.binary   "transpterminal"
+    t.boolean   "airport"
+    t.boolean   "transpterminal"
     t.integer  "depart_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
