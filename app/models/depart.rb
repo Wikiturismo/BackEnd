@@ -1,5 +1,6 @@
 class Depart < ApplicationRecord
   has_many :towns, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
 
   validates :name,:capital,:demonym, presence: {message: "Campo obligatorio"}
   validates :name,:capital, uniqueness: {case_sensitive: false ,message: "Ya esta registrado"}
