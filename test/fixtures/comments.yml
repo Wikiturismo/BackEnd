@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  state: 
+  content: MyText
+  publicationdate: 2017-03-24 19:53:35
+  town: one
+  place: one
+  user: one
+  depart: one
+
+two:
+  state: 
+  content: MyText
+  publicationdate: 2017-03-24 19:53:35
+  town: two
+  place: two
+  user: two
+  depart: two
