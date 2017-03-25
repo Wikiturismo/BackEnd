@@ -1,0 +1,2 @@
+class Depart < ApplicationRecord
+end
