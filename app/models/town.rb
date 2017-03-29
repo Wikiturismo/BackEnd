@@ -46,6 +46,6 @@ class Town < ApplicationRecord
 
   def self.towns_by_avertemper(avertemper,page = 1, per_page = 10)
     load_towns(page,per_page)
-        .where("avertemper = ?", avertemper)
+        .where("towns.avertemper = ?", avertemper)
   end
 end
