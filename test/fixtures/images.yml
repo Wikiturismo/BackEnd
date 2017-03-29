@@ -3,13 +3,11 @@
 one:
   height: 1
   width: 1
-  depart: one
-  town: one
-  place: one
+  imageable: 
+  true}: MyString
 
 two:
   height: 1
   width: 1
-  depart: two
-  town: two
-  place: two
+  imageable: 
+  true}: MyString
