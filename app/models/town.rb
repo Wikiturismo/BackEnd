@@ -29,22 +29,12 @@ class Town < ApplicationRecord
 
   def self.towns_by_airport(airport,page = 1, per_page = 10)
     load_towns(page,per_page)
-      .where('towns.airport = ?', true)
-  end
-
-  def self.towns_by_not_airport(airport,page = 1, per_page = 10)
-    load_towns(page,per_page)
-      .where('towns.airport = ?', false)
+      .where('towns.airport = ?', transpterminal)
   end
 
   def self.towns_by_transpterminal(transpterminal,page = 1, per_page = 10)
     load_towns(page,per_page)
-      .where('towns.transpterminal = ?', true)
-  end
-
-  def self.towns_by_not_transpterminal(transpterminal,page = 1, per_page = 10)
-    load_towns(page,per_page)
-      .where('towns.transpterminal = ?', false)
+      .where('towns.transpterminal = ?', transpterminal)
   end
 
   def self.towns_by_depart(name,page = 1, per_page = 10)
