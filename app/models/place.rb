@@ -52,13 +52,13 @@ class Place < ApplicationRecord
     end
 
     def self.places_by_depart(name,page = 1, per_page = 10)
-        joins(:depart).select("places.*, departs.id")
+        joins(:depart).select("places.*, departs.id,places.id")
             .where("departs.name = ? AND places.depart_id=departs.id", name)
                     .paginate(:page => page,:per_page => per_page)
     end
 
     def self.places_by_town(name,page = 1, per_page = 10)
-        joins(:town).select("places.*, towns.id")
+        joins(:town).select("places.*, towns.id,places.id")
             .where("towns.name = ? AND places.town_id=towns.id", name)
                 .paginate(:page => page,:per_page => per_page)
     end

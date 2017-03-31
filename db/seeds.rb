@@ -20,7 +20,7 @@ Town.destroy_all
                 demonym: "DemonymTown #{index}",
                 airport: true,
                 transpterminal: true,
-                depart_id: Faker::Number.between(1, 10))
+                depart_id: Faker::Number.between(1, 20))
 end
 
 p "Created #{Town.count} towns"
@@ -51,9 +51,9 @@ Place.destroy_all
                 kind: "Kind #{index}",
                 valoration: index%6,
                 entrycost: index,
-                town_id: index,
-                depart_id: index,
-                user_id: index)
+                town_id: Faker::Number.between(1, 20),
+                depart_id: Faker::Number.between(21, 40),
+                user_id: Faker::Number.between(41, 60))
 end
 
 p "Created #{Place.count} places"
@@ -65,10 +65,10 @@ Comment.destroy_all
                 state: true,
                 content: "Content from comment #{index}",
                 publicationdate:  DateTime.now.to_date,
-                town_id: index,
-                place_id: index,
-                user_id: index,
-                depart_id: index)
+                town_id: Faker::Number.between(1, 20),
+                place_id: Faker::Number.between(20, 40),
+                user_id: Faker::Number.between(41, 60),
+                depart_id: Faker::Number.between(61, 80))
 end
 
 p "Created #{Comment.count} comments"
@@ -91,7 +91,7 @@ Schedule.destroy_all
                     saturdayclose: Time.now.to_datetime.end_of_day,
                     sundayopen: Time.now.to_datetime,
                     sundayclose: Time.now.to_datetime.end_of_day,
-                    place_id: index)
+                    place_id: Faker::Number.between(1, 20))
 end
 
 p "Created #{Schedule.count} schedules"
@@ -103,9 +103,9 @@ Image.destroy_all
                 height: index+101,
                 width: index+101,
                 path: "Path #{index}",
-                depart_id: index,
-                town_id: index,
-                place_id: index)
+                depart_id: Faker::Number.between(1, 20),
+                town_id: Faker::Number.between(20, 40),
+                place_id: Faker::Number.between(40, 60))
 end
 
 p "Created #{Image.count} images"

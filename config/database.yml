@@ -2,13 +2,9 @@ connection: &connection
   adapter: postgresql
   encoding: unicode
   pool: 5
-<<<<<<< HEAD
+
   username: postgres
-  password: abcd1234 
-=======
-  username: jumcorredorro
-  password: a1234
->>>>>>> 7d8289d0b8c97f3658e64f0fe7acb02fc4b4a559
+  password: abcd1234
 
 development:
   <<: *connection

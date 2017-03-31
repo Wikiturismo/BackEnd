@@ -38,7 +38,7 @@ class Town < ApplicationRecord
   end
 
   def self.towns_by_depart(name,page = 1, per_page = 10)
-    joins(:depart).select("towns.*,departs.id")
+    joins(:depart).select("towns.*,departs.id,towns.id")
         .where("departs.name = ? AND towns.depart_id=departs.id", name)
             .paginate(:page => page,:per_page => per_page)
   end
