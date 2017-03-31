@@ -11,10 +11,10 @@ class Place < ApplicationRecord
     has_many :schedules, dependent: :destroy
     has_many :images, dependent: :destroy
 
-    validates :name,:state,:publicationdate,:description, :ubication, :address, :type, :depart_id, :town_id, :user_id, presence: true
-    validates :name,:ubication,:address, :type, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
-    validates :valoration, numericality: {only_integer: true, :greater_than => 0, :less_than => 50 ,message: "Debe estar entre 0 y 50"}
-    validates :entrycost, numericality: {only_integer: true, :greater_than => 0,message: "Debe ser mayor a 0"}
+    validates :name,:state,:publicationdate,:description, :ubication, :address, :kind, :depart_id, :town_id, :user_id, presence: true
+    validates :name,:ubication,:address, :kind, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
+    validates :valoration, numericality: {only_integer: true, :greater_than => -1, :less_than => 50 ,message: "Debe estar entre 0 y 50"}
+    validates :entrycost, numericality: {only_integer: true, :greater_than => -1,message: "Debe ser mayor a 0"}
 
     def self.load_places(page = 1, per_page = 10)
         includes(:images,:comments,user:[:comments],depart:[:images,:towns],town:[:comments,:images])
@@ -46,9 +46,9 @@ class Place < ApplicationRecord
         .where("places.publicationdate < ?", Date.today)
     end
 
-    def self.places_by_type(type,page = 1, per_page = 10)
+    def self.places_by_kind(kind,page = 1, per_page = 10)
         load_places(page,per_page)
-        .where("places.type LIKE ?", "#{type.downcase}")
+        .where("places.kind LIKE ?", "#{kind.downcase}")
     end
 
     def self.places_by_depart(name,page = 1, per_page = 10)

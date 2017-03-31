@@ -1,11 +1,11 @@
 class Image < ApplicationRecord
-  default_scope {order("comments.created_at ASC")}
 
   belongs_to :depart
   belongs_to :town
   belongs_to :place
 
-  validates :height, :width, :path presence: {message: "Campo obligatorio"}
+  validates :height, :width, :path, presence: {message: "Campo obligatorio"}
+  validates :path, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
   validates :height, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
   validates :width, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
 

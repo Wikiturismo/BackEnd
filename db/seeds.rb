@@ -30,10 +30,10 @@ User.destroy_all
 100.times do |index|
   User.create!(id:index,
                 name: "NameUser #{index}",
-                type: "TypeUser #{index}",
-                mail: "Mail #{index}",
+                kind: "KindUser #{index}",
+                mail: "Mailerrssssjgggg #{index}",
                 ubication: "UbicationUser #{index}",
-                registdate:  Date.today)
+                registdate:  DateTime.now.to_date)
 end
 
 p "Created #{User.count} users"
@@ -44,11 +44,11 @@ Place.destroy_all
   Place.create!(id:index,
                 name: "NamePlace #{index}",
                 state: true,
-                publicationdate:  DateTime.today,
+                publicationdate:  DateTime.now.to_date,
                 description: "Description from Place #{index}",
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
-                type: "Type #{index}",
+                kind: "Kind #{index}",
                 valoration: index%6,
                 entrycost: index,
                 town_id: index,
@@ -64,7 +64,7 @@ Comment.destroy_all
   Comment.create!(id:index,
                 state: true,
                 content: "Content from comment #{index}",
-                publicationdate:  DateTime.today,
+                publicationdate:  DateTime.now.to_date,
                 town_id: index,
                 place_id: index,
                 user_id: index,
@@ -96,12 +96,13 @@ end
 
 p "Created #{Schedule.count} schedules"
 
-Images.destroy_all
+Image.destroy_all
 
 100.times do |index|
-  Images.create!(id:index,
+  Image.create!(id:index,
                 height: index+101,
-                width: index+101)
+                width: index+101,
+                path: "Path #{index}")
 end
 
-p "Created #{Images.count} images"
+p "Created #{Image.count} images"

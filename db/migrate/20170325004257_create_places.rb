@@ -7,7 +7,7 @@ class CreatePlaces < ActiveRecord::Migration[5.0]
       t.text :description
       t.string :ubication
       t.string :address
-      t.string :type
+      t.string :kind
       t.integer :valoration
       t.integer :entrycost
       t.references :town, foreign_key: true

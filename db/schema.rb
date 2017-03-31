@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331031752) do
+ActiveRecord::Schema.define(version: 20170331051623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170331031752) do
   create_table "images", force: :cascade do |t|
     t.integer  "height"
     t.integer  "width"
+    t.string   "path"
     t.integer  "depart_id"
     t.integer  "town_id"
     t.integer  "place_id"
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170331031752) do
     t.text     "description"
     t.string   "ubication"
     t.string   "address"
-    t.string   "type"
+    t.string   "kind"
     t.integer  "valoration"
     t.integer  "entrycost"
     t.integer  "town_id"
@@ -109,7 +110,7 @@ ActiveRecord::Schema.define(version: 20170331031752) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "kind"
     t.string   "mail"
     t.string   "ubication"
     t.date     "registdate"

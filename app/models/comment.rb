@@ -1,6 +1,5 @@
 class Comment < ApplicationRecord
-  default_scope {order("comments.created_at ASC")}
-  
+
   belongs_to :town
   belongs_to :place
   belongs_to :user
@@ -12,7 +11,7 @@ class Comment < ApplicationRecord
     includes(place:[:images,:schedules],town:[:places,:images],user:[:places])
     .paginate(:page => page, :per_page => per_page)
   end
-  
+
   def self.comments_by_id(id)
     includes(place:[:images,:schedules],town:[:places,:images],user:[:places])
     .find_by_id(id)
@@ -33,14 +32,14 @@ class Comment < ApplicationRecord
           .select("comments. *")
             .paginate(:page => page,:per_page => per_page)
   end
-  
+
   def self.comments_by_place(place,page = 1, per_page = 10)
     joins(:places)
         .where("places.name LIKE ? AND comments.place_id=place.id", "#{place.downcase}")
           .select("comments. *")
             .paginate(:page => page,:per_page => per_page)
   end
-  
+
   def self.comments_by_user(user,page = 1, per_page = 10)
     joins(:users)
         .where("users.name LIKE ? AND comments.user_id=user.id", "#{user.downcase}")
