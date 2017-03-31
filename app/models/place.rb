@@ -17,12 +17,12 @@ class Place < ApplicationRecord
     validates :entrycost, numericality: {only_integer: true, :greater_than => 0,message: "Debe ser mayor a 0"}
 
     def self.load_places(page = 1, per_page = 10)
-        includes(:images,town:[:comments,:images],:comments,user:[:comments],:depart:[:images,:town])
+        includes(:images,town:[:comments,:images],:comments,user:[:comments],depart:[:images,:towns])
         .paginate(:page => page, :per_page => per_page)
     end
 
     def self.places_by_id(id)
-        includes(:images,town:[:comments,:images],:comments,user:[:comments],:depart:[:images,:town])
+        includes(:images,town:[:comments,:images],:comments,user:[:comments],depart:[:images,:towns])
        .find_by_id(id)
     end
 

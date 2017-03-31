@@ -19,11 +19,11 @@ class Comment < ApplicationRecord
   end
 
   def self.comments_by_state(state,page = 1, per_page = 10)
-    load_dcomments(page,per_page)
+    load_comments(page,per_page)
     .where("comments.state = ?", state)
   end
   def self.comments_by_publicationdate(page = 1, per_page = 10)
-    load_dcomments(page,per_page)
+    load_comments(page,per_page)
     .where("comments.publicationdate < ?", Date.today)
   end
 
