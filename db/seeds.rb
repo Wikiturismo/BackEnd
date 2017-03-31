@@ -20,7 +20,7 @@ Town.destroy_all
                 demonym: "DemonymTown #{index}",
                 airport: true,
                 transpterminal: true,
-                depart_id: index)
+                depart_id: Faker::Number.between(1, 10))
 end
 
 p "Created #{Town.count} towns"
@@ -31,7 +31,7 @@ User.destroy_all
   User.create!(id:index,
                 name: "NameUser #{index}",
                 kind: "KindUser #{index}",
-                mail: "Mailerrssssjgggg #{index}",
+                mail: "mail#{index}@gmail.com",
                 ubication: "UbicationUser #{index}",
                 registdate:  DateTime.now.to_date)
 end
@@ -102,7 +102,10 @@ Image.destroy_all
   Image.create!(id:index,
                 height: index+101,
                 width: index+101,
-                path: "Path #{index}")
+                path: "Path #{index}",
+                depart_id: index,
+                town_id: index,
+                place_id: index)
 end
 
 p "Created #{Image.count} images"

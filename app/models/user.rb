@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :mail, uniqueness: {case_sensitive: false ,message: "Ya esta registrado"}
   validates :name, length: { in: 3..50, message: "debe tener entre 3 y 50 caracteres"}
   validates :mail, length: { in: 12..60, message: "debe tener entre 12 y 60 caracteres"}
+  validates_format_of :mail, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :kind, length: { maximum: 20, message: "debe tener maximo 20 caracteres"}
   validates :ubication, length: { in: 5..80, message: "debe tener entre 5 y 80 caracteres"}
   def self.load_users(page = 1, per_page = 10)
