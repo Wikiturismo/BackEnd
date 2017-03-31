@@ -15,13 +15,20 @@ Town.destroy_all
   Town.create!(id:index,
                 name: "NameTown #{index}",
                 weather: "Weather #{index}",
-                avertemper: index-50,
-                altitude: index,
+                avertemper: Faker::Number.between(-10, 50),
+                altitude: Faker::Number.between(0, 6000),
                 demonym: "DemonymTown #{index}",
                 airport: true,
                 transpterminal: true,
                 depart_id: Faker::Number.between(1, 20))
 end
+
+100.times do |index|
+  n=Town.towns_by_id(index)
+  n.update_column(:airport, Faker::Boolean.boolean)
+  n.update_column(:transpterminal, Faker::Boolean.boolean)
+end
+
 
 p "Created #{Town.count} towns"
 
@@ -44,16 +51,21 @@ Place.destroy_all
   Place.create!(id:index,
                 name: "NamePlace #{index}",
                 state: true,
-                publicationdate:  DateTime.now.to_date,
+                publicationdate:  Faker::Date.backward(30),
                 description: "Description from Place #{index}",
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
                 kind: "Kind #{index}",
-                valoration: index%6,
-                entrycost: index,
+                valoration: Faker::Number.between(0, 5),
+                entrycost: Faker::Number.between(100, 5000),
                 town_id: Faker::Number.between(1, 20),
                 depart_id: Faker::Number.between(21, 40),
                 user_id: Faker::Number.between(41, 60))
+end
+
+100.times do |index|
+  n=Place.places_by_id(index)
+  n.update_column(:state, Faker::Boolean.boolean)
 end
 
 p "Created #{Place.count} places"
@@ -64,11 +76,16 @@ Comment.destroy_all
   Comment.create!(id:index,
                 state: true,
                 content: "Content from comment #{index}",
-                publicationdate:  DateTime.now.to_date,
+                publicationdate:  Faker::Date.backward(30),
                 town_id: Faker::Number.between(1, 20),
                 place_id: Faker::Number.between(20, 40),
                 user_id: Faker::Number.between(41, 60),
                 depart_id: Faker::Number.between(61, 80))
+end
+
+100.times do |index|
+  n=Comment.comments_by_id(index)
+  n.update_column(:state, Faker::Boolean.boolean)
 end
 
 p "Created #{Comment.count} comments"
@@ -100,8 +117,8 @@ Image.destroy_all
 
 100.times do |index|
   Image.create!(id:index,
-                height: index+101,
-                width: index+101,
+                height: Faker::Number.between(101, 4000),
+                width: Faker::Number.between(101, 4000),
                 path: "Path #{index}",
                 depart_id: Faker::Number.between(1, 20),
                 town_id: Faker::Number.between(20, 40),
