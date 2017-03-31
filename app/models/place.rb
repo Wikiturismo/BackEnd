@@ -28,7 +28,7 @@ class Place < ApplicationRecord
 
     def self.places_by_name(name,page = 1, per_page = 10)
         load_places(page,per_page)
-        .where("places.name LIKE ?", "#{name.downcase}")
+        .where("places.name = ?", name)
     end
 
     def self.places_by_valoration(valoration,page = 1, per_page = 10)
@@ -48,20 +48,20 @@ class Place < ApplicationRecord
 
     def self.places_by_kind(kind,page = 1, per_page = 10)
         load_places(page,per_page)
-        .where("places.kind LIKE ?", "#{kind.downcase}")
+        .where("places.kind = ?", kind)
     end
 
     def self.places_by_depart(name,page = 1, per_page = 10)
-        joins(:departs)
-            .where("departs.name LIKE ? AND places.depart_id=depart.id", "#{name.downcase}")
-                .select("place. *")
+        joins(:depart).select("places.id, departs.*")
+            .where("departs.name = ? AND places.depart_id=departs.id", name)
+                .group("places.id, departs.id")
                     .paginate(:page => page,:per_page => per_page)
     end
 
     def self.places_by_town(name,page = 1, per_page = 10)
-        joins(:towns)
-            .where("towns.name LIKE ? AND places.town_id=town.id", "#{name.downcase}")
-                .select("place. *")
+        joins(:town).select("places.id, towns.*")
+            .where("towns.name = ? AND places.town_id=towns.id", name)
+                .group("places.id, towns.id")
                 .paginate(:page => page,:per_page => per_page)
     end
 

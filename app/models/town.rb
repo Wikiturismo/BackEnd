@@ -24,12 +24,12 @@ class Town < ApplicationRecord
 
   def self.towns_by_name(name,page = 1, per_page = 10)
     load_towns(page,per_page)
-      .where("towns.name LIKE ?", "#{name.downcase}")
+      .where("towns.name = ?", name)
   end
 
   def self.towns_by_airport(airport,page = 1, per_page = 10)
     load_towns(page,per_page)
-      .where('towns.airport = ?', transpterminal)
+      .where('towns.airport = ?', airport)
   end
 
   def self.towns_by_transpterminal(transpterminal,page = 1, per_page = 10)
@@ -38,9 +38,9 @@ class Town < ApplicationRecord
   end
 
   def self.towns_by_depart(name,page = 1, per_page = 10)
-    joins(:departs)
-        .where("departs.name LIKE ? AND towns.depart_id=depart.id", "#{name.downcase}")
-          .select("town. *")
+    joins(:depart).select("towns.id,departs.*")
+        .where("departs.name = ? AND towns.depart_id=departs.id", name)
+          .group("towns.id, departs.id")
             .paginate(:page => page,:per_page => per_page)
   end
 

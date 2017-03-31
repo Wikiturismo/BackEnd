@@ -27,23 +27,23 @@ class Comment < ApplicationRecord
   end
 
   def self.comments_by_town(town,page = 1, per_page = 10)
-    joins(:towns)
-        .where("towns.name LIKE ? AND comments.town_id=town.id", "#{town.downcase}")
-          .select("comments. *")
+    joins(:town).select("comments.id,towns.*")
+        .where("towns.name = ? AND comments.town_id=towns.id", town)
+          .group("comments.id, towns.id")
             .paginate(:page => page,:per_page => per_page)
   end
 
   def self.comments_by_place(place,page = 1, per_page = 10)
-    joins(:places)
-        .where("places.name LIKE ? AND comments.place_id=place.id", "#{place.downcase}")
-          .select("comments. *")
+    joins(:place).select("comments.id, places.*")
+        .where("places.name = ? AND comments.place_id=places.id", place)
+          .group("comments.id, places.id")
             .paginate(:page => page,:per_page => per_page)
   end
 
   def self.comments_by_user(user,page = 1, per_page = 10)
-    joins(:users)
-        .where("users.name LIKE ? AND comments.user_id=user.id", "#{user.downcase}")
-          .select("comments. *")
+    joins(:user).select("comments.id, users.*")
+        .where("users.name = ? AND comments.user_id=users.id", user)
+          .group("comments.id, users.id")
             .paginate(:page => page,:per_page => per_page)
   end
 end

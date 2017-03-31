@@ -20,11 +20,15 @@ class User < ApplicationRecord
        .find_by_id(id)
     end
     def self.users_by_name(name,page = 1, per_page = 10)
-        load_places(page,per_page)
-        .where("users.name LIKE ?", "#{name.downcase}")
+        load_users(page,per_page)
+        .where("users.name = ?", name)
     end
     def self.users_by_mail(mail,page = 1, per_page = 10)
-        load_places(page,per_page)
-        .where("users.mail LIKE ?", "#{mail.downcase}")
+        load_users(page,per_page)
+        .where("users.mail = ?", mail)
+    end
+    def self.users_by_kind(kind,page = 1, per_page = 10)
+        load_users(page,per_page)
+        .where("users.kind = ?", kind)
     end
 end
