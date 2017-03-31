@@ -22,14 +22,14 @@ class User < ApplicationRecord
     end
     def self.users_by_name(name,page = 1, per_page = 10)
         load_users(page,per_page)
-        .where("users.name = ?", name)
+        .where("lower(users.name) = ?", name.downcase)
     end
     def self.users_by_mail(mail,page = 1, per_page = 10)
         load_users(page,per_page)
-        .where("users.mail = ?", mail)
+        .where("lower(users.mail) = ?", mail.downcase)
     end
     def self.users_by_kind(kind,page = 1, per_page = 10)
         load_users(page,per_page)
-        .where("users.kind = ?", kind)
+        .where("lower(users.kind) = ?", kind.downcase)
     end
 end

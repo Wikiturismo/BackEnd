@@ -22,7 +22,7 @@ class Depart < ApplicationRecord
 
   def self.departs_by_name(name,page = 1, per_page = 10)
     load_departs(page,per_page)
-      .where("departs.name = ?", name)
+      .where("lower(departs.name) = ?", name.downcase)
   end
 
 end

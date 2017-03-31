@@ -21,17 +21,17 @@ class Image < ApplicationRecord
 
   def self.images_by_depart(name,page = 1, per_page = 10)
         joins(:depart).select("images.*, departs.id,images.id")
-            .where("departs.name = ? AND images.depart_id=departs.id", name)
+            .where("lower(departs.name) = ? AND images.depart_id=departs.id", name.downcase)
                     .paginate(:page => page,:per_page => per_page)
     end
     def self.images_by_town(name,page = 1, per_page = 10)
         joins(:town).select("images.*, towns.id,images.id")
-            .where("towns.name = ? AND images.town_id=towns.id", name)
+            .where("lower(towns.name) = ? AND images.town_id=towns.id", name.downcase)
                     .paginate(:page => page,:per_page => per_page)
     end
     def self.images_by_place(name,page = 1, per_page = 10)
         joins(:place).select("images.*, places.id,images.id")
-            .where("places.name = ? AND images.place_id=places.id", name)
+            .where("lower(places.name) = ? AND images.place_id=places.id", name.downcase)
                     .paginate(:page => page,:per_page => per_page)
     end
 end
