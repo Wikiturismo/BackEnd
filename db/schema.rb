@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325133635) do
+ActiveRecord::Schema.define(version: 20170331051623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.boolean   "state"
+    t.boolean  "state"
     t.text     "content"
     t.datetime "publicationdate"
     t.integer  "town_id"
@@ -42,18 +42,25 @@ ActiveRecord::Schema.define(version: 20170325133635) do
   create_table "images", force: :cascade do |t|
     t.integer  "height"
     t.integer  "width"
+    t.string   "path"
+    t.integer  "depart_id"
+    t.integer  "town_id"
+    t.integer  "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["depart_id"], name: "index_images_on_depart_id", using: :btree
+    t.index ["place_id"], name: "index_images_on_place_id", using: :btree
+    t.index ["town_id"], name: "index_images_on_town_id", using: :btree
   end
 
   create_table "places", force: :cascade do |t|
     t.string   "name"
-    t.boolean   "state"
+    t.boolean  "state"
     t.datetime "publicationdate"
     t.text     "description"
     t.string   "ubication"
     t.string   "address"
-    t.string   "type"
+    t.string   "kind"
     t.integer  "valoration"
     t.integer  "entrycost"
     t.integer  "town_id"
@@ -93,8 +100,8 @@ ActiveRecord::Schema.define(version: 20170325133635) do
     t.float    "avertemper"
     t.integer  "altitude"
     t.string   "demonym"
-    t.boolean   "airport"
-    t.boolean   "transpterminal"
+    t.boolean  "airport"
+    t.boolean  "transpterminal"
     t.integer  "depart_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -103,7 +110,7 @@ ActiveRecord::Schema.define(version: 20170325133635) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "kind"
     t.string   "mail"
     t.string   "ubication"
     t.date     "registdate"
@@ -115,6 +122,9 @@ ActiveRecord::Schema.define(version: 20170325133635) do
   add_foreign_key "comments", "places"
   add_foreign_key "comments", "towns"
   add_foreign_key "comments", "users"
+  add_foreign_key "images", "departs"
+  add_foreign_key "images", "places"
+  add_foreign_key "images", "towns"
   add_foreign_key "places", "departs"
   add_foreign_key "places", "towns"
   add_foreign_key "places", "users"
