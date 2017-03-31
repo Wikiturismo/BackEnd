@@ -3,6 +3,7 @@ class Depart < ApplicationRecord
   scope :order_by_name, -> (type) {order("departs.name  #{type}")}
 
   has_many :towns, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   validates :name,:capital,:demonym, presence: {message: "Campo obligatorio"}
   validates :name,:capital, uniqueness: {case_sensitive: false ,message: "Ya esta registrado"}

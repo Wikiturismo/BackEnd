@@ -3,11 +3,15 @@
 one:
   height: 1
   width: 1
-  imageable: 
-  true}: MyString
+  path: MyString
+  depart: one
+  town: one
+  place: one
 
 two:
   height: 1
   width: 1
-  imageable: 
-  true}: MyString
+  path: MyString
+  depart: two
+  town: two
+  place: two
