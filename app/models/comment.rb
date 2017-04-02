@@ -37,6 +37,17 @@ class Comment < ApplicationRecord
         .where("lower(places.name) = ? AND comments.place_id=places.id", place.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
+  def self.comments_by_place_town(town,page = 1, per_page = 10)
+    joins(:place, :town).select("comments.*, towns.id, places.id,comments.id")
+        .where("lower(towns.name) = ? AND places.town_id=towns.id AND comments.place_id=places.id", town.downcase)
+            .paginate(:page => page,:per_page => per_page)
+  end
+  
+  def self.comments_by_place_town_depart(depart,page = 1, per_page = 10)
+    joins(:place, :town, :depart).select("comments.*, departs.id, towns.id, places.id,comments.id")
+        .where("lower(departs.name) = ? AND towns.depart_id=departs.id AND places.town_id=towns.id AND comments.place_id=places.id", depart.downcase)
+            .paginate(:page => page,:per_page => per_page)
+  end
 
   def self.comments_by_user(user,page = 1, per_page = 10)
     joins(:user).select("comments.*, users.id,comments.id")

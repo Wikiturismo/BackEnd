@@ -58,8 +58,8 @@ Place.destroy_all
                 kind: "Kind #{index}",
                 valoration: Faker::Number.between(0, 5),
                 entrycost: Faker::Number.between(100, 5000),
-                town_id: Faker::Number.between(1, 20),
-                depart_id: Faker::Number.between(21, 40),
+                town_id: Faker::Number.between(1, 10),
+                depart_id: Faker::Number.between(1, 20),
                 user_id: Faker::Number.between(41, 60))
 end
 
@@ -77,10 +77,10 @@ Comment.destroy_all
                 state: true,
                 content: "Content from comment #{index}",
                 publicationdate:  Faker::Date.backward(30),
-                town_id: Faker::Number.between(1, 20),
-                place_id: Faker::Number.between(20, 40),
+                town_id: Faker::Number.between(1, 10),
+                place_id: Faker::Number.between(1, 10),
                 user_id: Faker::Number.between(41, 60),
-                depart_id: Faker::Number.between(61, 80))
+                depart_id: Faker::Number.between(1, 20))
 end
 
 100.times do |index|
