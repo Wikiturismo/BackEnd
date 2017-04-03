@@ -1,7 +1,7 @@
-class CreateComments < ActiveRecord::Migration[5.0]
+class CreateCommentplaces < ActiveRecord::Migration[5.0]
   def change
-    create_table :comments do |t|
-      t.boolean :state
+    create_table :commentplaces do |t|
+      t.binary :state
       t.text :content
       t.datetime :publicationdate
       t.references :town, foreign_key: true

@@ -4,8 +4,8 @@ class Town < ApplicationRecord
 
   belongs_to :depart
   has_many :places, dependent: :destroy
-  has_many :images, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :imagetowns, dependent: :destroy
+  has_many :commenttowns, dependent: :destroy
 
   validates :name,:airport,:transpterminal, :depart_id, presence: {message: "Campo obligatorio"}
   validates :name,:weather,:demonym, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
@@ -13,12 +13,12 @@ class Town < ApplicationRecord
   validates :altitude, numericality: {only_integer: true, :greater_than => -1, :less_than => 6000 ,message: "Debe estar entre 0 y 60000"}
 
   def self.load_towns(page = 1, per_page = 10)
-    includes(:images,:places,:comments,depart:[:images])
+    includes(:imagetowns,:places,:commenttowns,depart:[:imagedeparts])
       .paginate(:page => page, :per_page => per_page)
   end
 
   def self.towns_by_id(id)
-    includes(:images,:places,:comments,depart:[:images])
+    includes(:imagetowns,:places,:commenttowns,depart:[:imagedeparts])
       .find_by_id(id)
   end
 

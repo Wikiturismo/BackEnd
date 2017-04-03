@@ -70,25 +70,44 @@ end
 
 p "Created #{Place.count} places"
 
-Comment.destroy_all
+Commentplace.destroy_all
 
 100.times do |index|
-  Comment.create!(id:index,
+  Commentplace.create!(id:index,
                 state: true,
-                content: "Content from comment #{index}",
+                content: "Content from comment Place #{index}",
                 publicationdate:  Faker::Date.backward(30),
-                town_id: Faker::Number.between(1, 10),
-                place_id: Faker::Number.between(1, 10),
-                user_id: Faker::Number.between(41, 60),
+                town_id: Faker::Number.between(1, 20),
+                place_id: Faker::Number.between(1, 20),
+                user_id: Faker::Number.between(1, 20),
                 depart_id: Faker::Number.between(1, 20))
 end
 
 100.times do |index|
-  n=Comment.comments_by_id(index)
+  n=Commentplace.commentplaces_by_id(index)
   n.update_column(:state, Faker::Boolean.boolean)
 end
 
-p "Created #{Comment.count} comments"
+p "Created #{Commentplace.count} commentplaces"
+
+Commenttown.destroy_all
+
+100.times do |index|
+  Commenttown.create!(id:index,
+                state: true,
+                content: "Content from comment Town #{index}",
+                publicationdate:  Faker::Date.backward(30),
+                town_id: Faker::Number.between(1, 20),
+                user_id: Faker::Number.between(1, 20),
+                depart_id: Faker::Number.between(1, 20))
+end
+
+100.times do |index|
+  n=Commenttown.commenttowns_by_id(index)
+  n.update_column(:state, Faker::Boolean.boolean)
+end
+
+p "Created #{Commenttown.count} commenttowns"
 
 Schedule.destroy_all
 
@@ -113,16 +132,38 @@ end
 
 p "Created #{Schedule.count} schedules"
 
-Image.destroy_all
+Imagedepart.destroy_all
 
 100.times do |index|
-  Image.create!(id:index,
+  Imagedepart.create!(id:index,
                 height: Faker::Number.between(101, 4000),
                 width: Faker::Number.between(101, 4000),
                 path: "Path #{index}",
-                depart_id: Faker::Number.between(1, 20),
-                town_id: Faker::Number.between(20, 40),
-                place_id: Faker::Number.between(40, 60))
+                depart_id: Faker::Number.between(1, 20))
 end
 
-p "Created #{Image.count} images"
+p "Created #{Imagedepart.count} imagedeparts"
+
+Imagetown.destroy_all
+
+100.times do |index|
+  Imagetown.create!(id:index,
+                height: Faker::Number.between(101, 4000),
+                width: Faker::Number.between(101, 4000),
+                path: "Path #{index}",
+                town_id: Faker::Number.between(1, 20))
+end
+
+p "Created #{Imagetown.count} imagetowns"
+
+Imageplace.destroy_all
+
+100.times do |index|
+  Imageplace.create!(id:index,
+                height: Faker::Number.between(101, 4000),
+                width: Faker::Number.between(101, 4000),
+                path: "Path #{index}",
+                place_id: Faker::Number.between(1, 20))
+end
+
+p "Created #{Imageplace.count} imageplaces"

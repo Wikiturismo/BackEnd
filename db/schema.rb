@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331051623) do
+ActiveRecord::Schema.define(version: 20170403023936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comments", force: :cascade do |t|
-    t.boolean  "state"
+  create_table "commentplaces", force: :cascade do |t|
+    t.binary   "state"
     t.text     "content"
     t.datetime "publicationdate"
     t.integer  "town_id"
@@ -25,10 +25,24 @@ ActiveRecord::Schema.define(version: 20170331051623) do
     t.integer  "depart_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["depart_id"], name: "index_comments_on_depart_id", using: :btree
-    t.index ["place_id"], name: "index_comments_on_place_id", using: :btree
-    t.index ["town_id"], name: "index_comments_on_town_id", using: :btree
-    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+    t.index ["depart_id"], name: "index_commentplaces_on_depart_id", using: :btree
+    t.index ["place_id"], name: "index_commentplaces_on_place_id", using: :btree
+    t.index ["town_id"], name: "index_commentplaces_on_town_id", using: :btree
+    t.index ["user_id"], name: "index_commentplaces_on_user_id", using: :btree
+  end
+
+  create_table "commenttowns", force: :cascade do |t|
+    t.binary   "state"
+    t.text     "content"
+    t.datetime "publicationdate"
+    t.integer  "town_id"
+    t.integer  "user_id"
+    t.integer  "depart_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["depart_id"], name: "index_commenttowns_on_depart_id", using: :btree
+    t.index ["town_id"], name: "index_commenttowns_on_town_id", using: :btree
+    t.index ["user_id"], name: "index_commenttowns_on_user_id", using: :btree
   end
 
   create_table "departs", force: :cascade do |t|
@@ -39,18 +53,34 @@ ActiveRecord::Schema.define(version: 20170331051623) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "imagedeparts", force: :cascade do |t|
     t.integer  "height"
     t.integer  "width"
     t.string   "path"
     t.integer  "depart_id"
-    t.integer  "town_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["depart_id"], name: "index_imagedeparts_on_depart_id", using: :btree
+  end
+
+  create_table "imageplaces", force: :cascade do |t|
+    t.integer  "height"
+    t.integer  "width"
+    t.string   "path"
     t.integer  "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["depart_id"], name: "index_images_on_depart_id", using: :btree
-    t.index ["place_id"], name: "index_images_on_place_id", using: :btree
-    t.index ["town_id"], name: "index_images_on_town_id", using: :btree
+    t.index ["place_id"], name: "index_imageplaces_on_place_id", using: :btree
+  end
+
+  create_table "imagetowns", force: :cascade do |t|
+    t.integer  "height"
+    t.integer  "width"
+    t.string   "path"
+    t.integer  "town_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["town_id"], name: "index_imagetowns_on_town_id", using: :btree
   end
 
   create_table "places", force: :cascade do |t|
@@ -118,13 +148,16 @@ ActiveRecord::Schema.define(version: 20170331051623) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "comments", "departs"
-  add_foreign_key "comments", "places"
-  add_foreign_key "comments", "towns"
-  add_foreign_key "comments", "users"
-  add_foreign_key "images", "departs"
-  add_foreign_key "images", "places"
-  add_foreign_key "images", "towns"
+  add_foreign_key "commentplaces", "departs"
+  add_foreign_key "commentplaces", "places"
+  add_foreign_key "commentplaces", "towns"
+  add_foreign_key "commentplaces", "users"
+  add_foreign_key "commenttowns", "departs"
+  add_foreign_key "commenttowns", "towns"
+  add_foreign_key "commenttowns", "users"
+  add_foreign_key "imagedeparts", "departs"
+  add_foreign_key "imageplaces", "places"
+  add_foreign_key "imagetowns", "towns"
   add_foreign_key "places", "departs"
   add_foreign_key "places", "towns"
   add_foreign_key "places", "users"

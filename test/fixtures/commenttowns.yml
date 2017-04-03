@@ -3,17 +3,15 @@
 one:
   state: 
   content: MyText
-  publicationdate: 2017-03-24 19:53:35
+  publicationdate: 2017-04-02 21:39:36
   town: one
-  place: one
   user: one
   depart: one
 
 two:
   state: 
   content: MyText
-  publicationdate: 2017-03-24 19:53:35
+  publicationdate: 2017-04-02 21:39:36
   town: two
-  place: two
   user: two
   depart: two
