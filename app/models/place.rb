@@ -7,9 +7,9 @@ class Place < ApplicationRecord
     belongs_to :town
     belongs_to :depart
     belongs_to :user
-    has_many :comments, dependent: :destroy
+    has_many :commentplaces, dependent: :destroy
     has_many :schedules, dependent: :destroy
-    has_many :images, dependent: :destroy
+    has_many :imageplaces, dependent: :destroy
 
     validates :name,:state,:publicationdate,:description, :ubication, :address, :kind, :depart_id, :town_id, :user_id, presence: true
     validates :name,:ubication,:address, :kind, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
@@ -17,12 +17,12 @@ class Place < ApplicationRecord
     validates :entrycost, numericality: {only_integer: true, :greater_than => -1,message: "Debe ser mayor a 0"}
 
     def self.load_places(page = 1, per_page = 10)
-        includes(:images,:comments,user:[:comments],depart:[:images,:towns],town:[:comments,:images])
+        includes(:imageplaces,:commentplaces,user:[:commentplaces,:commenttowns],depart:[:imagedeparts,:towns],town:[:commenttowns,:imagetowns])
         .paginate(:page => page, :per_page => per_page)
     end
 
     def self.places_by_id(id)
-        includes(:images,:comments,user:[:comments],depart:[:images,:towns],town:[:comments,:images])
+        includes(:imageplaces,:commentplaces,user:[:commentplaces,:commenttowns],depart:[:imagedeparts,:towns],town:[:commenttowns,:imagetowns])
        .find_by_id(id)
     end
 
