@@ -31,15 +31,15 @@ class Commentplace < ApplicationRecord
         .where("lower(places.name) = ? AND commentplaces.place_id=places.id", place.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
-  def self.commentplaces_by_place_town(town,page = 1, per_page = 10)
-    joins(:place, :town).select("commentplaces.*, towns.id, places.id,commentplaces.id")
-        .where("lower(towns.name) = ? AND places.town_id=towns.id AND commentplaces.place_id=places.id", town.downcase)
+  def self.commentplaces_by_town(town,page = 1, per_page = 10)
+    joins(:town).select("commentplaces.*, towns.id,commentplaces.id")
+        .where("lower(towns.name) = ? AND commentplaces.place_id=places.id", town.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
 
-  def self.commentplaces_by_place_town_depart(depart,page = 1, per_page = 10)
-    joins(:place, :town, :depart).select("commentplaces.*, departs.id, towns.id, places.id,commentplaces.id")
-        .where("lower(departs.name) = ? AND towns.depart_id=departs.id AND places.town_id=towns.id AND commentplaces.place_id=places.id", depart.downcase)
+  def self.commentplaces_by_depart(depart,page = 1, per_page = 10)
+    joins(:depart).select("commentplaces.*, departs.id,commentplaces.id")
+        .where("lower(departs.name) = ? AND commentplaces.place_id=places.id", depart.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
 

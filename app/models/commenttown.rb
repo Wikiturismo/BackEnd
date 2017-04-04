@@ -31,9 +31,9 @@ class Commenttown < ApplicationRecord
             .paginate(:page => page,:per_page => per_page)
   end
 
-  def self.commenttowns_by_town_depart(depart,page = 1, per_page = 10)
-    joins(:town, :depart).select("commenttowns.*, departs.id, towns.id,commenttowns.id")
-        .where("lower(departs.name) = ? AND towns.depart_id=departs.id AND commenttowns.town_id=towns.id", depart.downcase)
+  def self.commenttowns_by_depart(depart,page = 1, per_page = 10)
+    joins(:depart).select("commenttowns.*, departs.id,commenttowns.id")
+        .where("lower(departs.name) = ? AND commenttowns.depart_id=departs.id", depart.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
 
