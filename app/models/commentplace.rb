@@ -39,7 +39,7 @@ class Commentplace < ApplicationRecord
 
   def self.commentplaces_by_depart(depart,page = 1, per_page = 10)
     joins(:depart).select("commentplaces.*, departs.id,commentplaces.id")
-        .where("lower(departs.name) = ? AND commentplaces.place_id=places.id", depart.downcase)
+        .where("lower(departs.name) = ? AND commentplaces.depart_id=departs.id", depart.downcase)
             .paginate(:page => page,:per_page => per_page)
   end
 

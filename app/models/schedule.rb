@@ -23,13 +23,30 @@ class Schedule < ApplicationRecord
     .where("schedules.tuesdayopen <= ? AND schedules.tuesdayclose >= ?", tuesdayopen,tuesdayclose)
   end
 
+  def self.schedules_by_wednesday(wednesdayopen,wednesdayclose,page = 1, per_page = 10)
+    load_schedules(page,per_page)
+    .where("schedules.wednesdayopen <= ? AND schedules.wednesdayclose >= ?", wednesdayopen,wednesdayclose)
+  end
+
+  def self.schedules_by_thursday(thursdayopen,thursdayclose,page = 1, per_page = 10)
+    load_schedules(page,per_page)
+    .where("schedules.thursdayopen <= ? AND schedules.thursdayclose >= ?", thursdayopen,thursdayclose)
+  end
+
   def self.schedules_by_friday(fridayopen,fridayclose,page = 1, per_page = 10)
     load_schedules(page,per_page)
     .where("schedules.fridayopen <= ? AND schedules.fridayclose >= ?", fridayopen,fridayclose)
   end
 
+  def self.schedules_by_saturday(saturdayopen,saturdayclose,page = 1, per_page = 10)
+    load_schedules(page,per_page)
+    .where("schedules.saturdayopen <= ? AND schedules.saturdayclose >= ?", saturdayopen,saturdayclose)
+  end
 
-
+  def self.schedules_by_saturday(sundayopen,sundayclose,page = 1, per_page = 10)
+    load_schedules(page,per_page)
+    .where("schedules.sundayopen <= ? AND schedules.sundayclose >= ?", sundayopen,sundayclose)
+  end
 
   def self.schedules_by_place(name,page = 1, per_page = 10)
       joins(:place).select("schedules.*, places.id,schedules.id")
