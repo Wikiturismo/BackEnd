@@ -1,0 +1,2 @@
+class ImageplacesController < ApplicationController
+end

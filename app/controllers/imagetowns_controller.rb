@@ -1,0 +1,2 @@
+class ImagetownsController < ApplicationController
+end

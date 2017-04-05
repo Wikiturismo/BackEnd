@@ -1,0 +1,2 @@
+class CommenttownsController < ApplicationController
+end

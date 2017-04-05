@@ -1,0 +1,2 @@
+class ImagedepartsController < ApplicationController
+end

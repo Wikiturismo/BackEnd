@@ -1,0 +1,2 @@
+class CommentplacesController < ApplicationController
+end
