@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get '/airport/:airport', to: 'towns#airport', as: 'townairport'
       get '/terminal/:transpterminal', to: 'towns#terminal', as: 'townterminal'
       get '/temper/:avertemper', to: 'towns#temper', as: 'towntemper'
+      get '/name/:townname/imagetowns', to: 'imagetowns#bytown', as: 'imagetown'
     end
   end
 
@@ -26,9 +27,11 @@ Rails.application.routes.draw do
       get '/cost/:entrycost', to: 'places#cost', as: 'placecost'
       get '/date', to: 'places#date', as: 'placedate'
       get '/kind/:kind', to: 'places#kind', as: 'placekind'
+      get '/name/:placename/imageplaces', to: 'imageplaces#byplace', as: 'imageplace'
+
     end
   end
-  
+
   resources :users do
    collection do
      get '/name/:name', to: 'users#name', as: 'username'
@@ -38,5 +41,9 @@ Rails.application.routes.draw do
  end
 
  resources :imagedeparts, only: [:show, :index]
+
+ resources :imageplaces, only: [:show, :index]
+
+ resources :imagetowns, only: [:show, :index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
