@@ -1,3 +1,3 @@
 class DepartSerializer < ActiveModel::Serializer
-  attributes :id, :name, :capital, :denonym
+  attributes :id, :name, :capital, :demonym
 end
