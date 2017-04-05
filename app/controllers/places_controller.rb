@@ -36,14 +36,14 @@ class PlacesController < ApplicationController
     render json: @places, root: "data"
   end
 
-  def depart
-    nam=params[:name]
+  def bydepart
+    nam=params[:departname]
     @places = Place.places_by_depart(nam.tr('+', ' '))
     render json: @places, root: "data"
   end
 
-  def town
-    nam=params[:name]
+  def bytown
+    nam=params[:townname]
     @places = Place.places_by_town(nam.tr('+', ' '))
     render json: @places, root: "data"
   end

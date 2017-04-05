@@ -44,7 +44,7 @@ class Commentplace < ApplicationRecord
   end
 
   def self.commentplaces_by_user(user,page = 1, per_page = 10)
-    joins(:user).select("commentplaces.*, users.id,comments.id")
+    joins(:user).select("commentplaces.*, users.id,commentplaces.id")
         .where("lower(users.name) = ? AND commentplaces.user_id=users.id", user.downcase)
             .paginate(:page => page,:per_page => per_page)
   end

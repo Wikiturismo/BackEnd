@@ -30,8 +30,8 @@ class TownsController < ApplicationController
     render json: @towns, root: "data"
   end
 
-  def depart
-    nam=params[:name]
+  def bydepart
+    nam=params[:departname]
     @towns = Town.towns_by_depart(nam.tr('+', ' '))
     render json: @towns, root: "data"
   end
