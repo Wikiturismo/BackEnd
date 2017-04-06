@@ -1,4 +1,9 @@
 class Imagedepart < ApplicationRecord
+
+  attr_accessible :gallery_id, :name, :imagen
+  belongs_to :gallery
+  mount_uploader :imagen, ImagenUploader
+
   belongs_to :depart
 
   validates :height, :width, :path, presence: {message: "Campo obligatorio"}
