@@ -1,15 +1,16 @@
 class Place < ApplicationRecord
-
-    default_scope {order("places.created_at ASC")}
+    #default_scope {order("places.created_at ASC")}
     scope :order_by_name, -> (type) {order("places.name  #{type}")}
-
+    scope :top, -> {order("places.valoration DESC").limit(10)}
+    scope :recent, ->{order("places.created_at DESC").limit(3)}
 
     belongs_to :town
     belongs_to :depart
     belongs_to :user
-    has_many :commentplaces, dependent: :destroy
-    has_many :schedules, dependent: :destroy
-    has_many :imageplaces, dependent: :destroy
+    has_many :commentplaces,  :dependent => :destroy
+    has_many :schedules, :dependent => :destroy
+    has_many :imageplaces, :dependent => :destroy
+    has_many :commentplaces, :dependent => :destroy
 
     validates :name,:state,:publicationdate,:description, :ubication, :address, :kind, :depart_id, :town_id, :user_id, presence: true
     validates :name,:ubication,:address, :kind, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}

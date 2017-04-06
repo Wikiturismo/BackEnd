@@ -1,6 +1,6 @@
 class Imagedepart < ApplicationRecord
 
-  attr_accessible :gallery_id, :name, :imagen
+  attr_accessor :gallery_id, :name, :imagen
   belongs_to :gallery
   mount_uploader :imagen, ImagenUploader
 

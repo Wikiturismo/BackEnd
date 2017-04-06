@@ -9,17 +9,6 @@ class UsersController < ApplicationController
     render json: @users, root: "data"
   end
 
-  def destroy
-    @users = User.users_by_id(params[:id])
-    if @users == nil
-      #render status: 400
-    else
-      @users.destroy
-      #render status: 200
-    end
-  end
-
-
   def name
     nam=params[:name]
     @users = User.users_by_name(nam.tr('+', ' '))

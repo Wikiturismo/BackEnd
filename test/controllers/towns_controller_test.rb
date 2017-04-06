@@ -3,7 +3,7 @@ require 'test_helper'
 class TownsControllerTest < ActionDispatch::IntegrationTest
   test 'should destroy town' do
     assert_difference('Town.count', -1) do
-        delete '/towns/1'
+        delete '/towns/10'
     end
   end
 

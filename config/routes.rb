@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :departs do
+  resources :departs , only: [:show, :index] do
     collection do
       get '/name/:name', to: 'departs#name', as: 'departname'
       get '/name/:departname/towns', to: 'towns#bydepart', as: 'departtowns'
@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :towns do
+    resources :commenttowns do
+      get '/state/:state', to: 'commenttowns#state', as: 'towncomments'
+      get '/date', to: 'commenttowns#date', as:'towncommentsdate'
+    end
     collection do
       get '/name/:name', to: 'towns#name', as: 'townname'
       get '/name/:townname/comments', to: 'commenttowns#bytown', as: 'towncomments'
@@ -21,15 +25,17 @@ Rails.application.routes.draw do
       get '/terminal/:transpterminal', to: 'towns#terminal', as: 'townterminal'
       get '/temper/:avertemper', to: 'towns#temper', as: 'towntemper'
       get '/name/:townname/imagetowns', to: 'imagetowns#bytown', as: 'townimages'
-      resources :commenttowns do
-        get '/state/:state', to: 'commenttowns#state', as: 'towncomments'
-        get '/date', to: 'commenttowns#date', as:'towncommentsdate'
-      end
     end
   end
 
   resources :places do
+    resources :commentplaces do
+      get '/state/:state', to: 'commentplaces#state', as: 'placecomments'
+      get '/date', to: 'commentplaces#date', as:'placecommentsdate'
+    end
     collection do
+      get '/top', to: 'places#top', as:'placetop'
+      get '/last', to: 'places#last', as:'placelast'
       get '/name/:name', to: 'places#name', as: 'placename'
       get '/valoration/:valoration', to: 'places#valoration', as: 'placevaloration'
       get '/cost/:entrycost', to: 'places#cost', as: 'placecost'
@@ -37,14 +43,10 @@ Rails.application.routes.draw do
       get '/kind/:kind', to: 'places#kind', as: 'placekind'
       get '/name/:placename/imageplaces', to: 'imageplaces#byplace', as: 'placeimages'
       get '/name/:placename/comments', to: 'commentplaces#bytown', as: 'placecomments'
-      resources :commentplaces do
-        get '/state/:state', to: 'commentplaces#state', as: 'placecomments'
-        get '/date', to: 'commentplaces#date', as:'placecommentsdate'
-      end
     end
   end
 
-  resources :users do
+  resources :users, only: [:show, :index, :create] do
    collection do
      get '/name/:name', to: 'users#name', as: 'username'
      get '/name/:username/commenttowns', to: 'commenttowns#byuser', as: 'usercommenttowns'

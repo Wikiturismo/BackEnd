@@ -6,7 +6,17 @@ class PlacesController < ApplicationController
 
   def show
     @places = Place.places_by_id(params[:id])
-    render json: @towns, root: "data"
+    render json: @places, root: "data"
+  end
+
+  def top
+    @places = Place.top
+    render json: @places, root: "data"
+  end
+
+  def last
+    @places = Place.recent
+    render json: @places, root: "data"
   end
 
   def destroy
