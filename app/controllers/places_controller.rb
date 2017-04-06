@@ -9,6 +9,16 @@ class PlacesController < ApplicationController
     render json: @towns, root: "data"
   end
 
+  def destroy
+    @cplace = Place.places_by_id(params[:id])
+    if @cplace == nil
+      #render status: 400
+    else
+      @cplace.destroy
+      #respond_with(@post, :status => :create)
+    end
+  end
+
   def name
     nam=params[:name]
     @places = Place.places_by_name(nam.tr('+', ' '))

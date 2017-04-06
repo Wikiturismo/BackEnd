@@ -1,4 +1,5 @@
 class CommentplacesController < ApplicationController
+
   def index
     @commentplaces = Commentplace.all
     render json: @commentplaces, root: "data"
@@ -7,6 +8,16 @@ class CommentplacesController < ApplicationController
   def show
     @commentplaces = Commentplace.commentplaces_by_id(params[:id])
     render json: @commentplaces, root: "data"
+  end
+
+  def destroy
+    @comment = Commentplace.commentplaces_by_id(params[:id])
+    if @comment == nil
+      #render status: 400
+    else
+      @comment.destroy
+      #respond_with(@post, :status => :create)
+    end
   end
 
   def state

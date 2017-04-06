@@ -5,8 +5,18 @@ class ImageplacesController < ApplicationController
   end
 
   def show
-    @images = Imageplace.imagedeplaces_by_id(params[:id])
+    @images = Imageplace.imageplaces_by_id(params[:id])
     render json: @images, root: "data"
+  end
+
+  def destroy
+    @image = Imageplace.imageplaces_by_id(params[:id])
+    if @image == nil
+      #render status: 400
+    else
+      @image.destroy
+      #respond_with(@post, :status => :create)
+    end
   end
 
   def byplace

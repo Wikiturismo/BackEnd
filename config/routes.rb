@@ -54,10 +54,11 @@ Rails.application.routes.draw do
    end
  end
 
- resources :imagedeparts, only: [:show, :index]
-
- resources :imageplaces, only: [:show, :index]
-
- resources :imagetowns, only: [:show, :index]
+ resources :imagedeparts, only: [:show, :index, :destroy]
+ resources :imageplaces, only: [:show, :index, :destroy]
+ resources :commentplaces, only: [:show, :index,:destroy]
+ resources :commenttowns, only: [:show, :index,:destroy]
+ resources :imagetowns, only: [:show, :index, :destroy]
+ resources :schedules, only: [:show, :index, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

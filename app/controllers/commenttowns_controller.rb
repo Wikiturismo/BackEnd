@@ -9,6 +9,16 @@ class CommenttownsController < ApplicationController
     render json: @commenttowns, root: "data"
   end
 
+  def destroy
+    @comment = Commenttown.commenttowns_by_id(params[:id])
+    if @comment == nil
+      #render status: 400
+    else
+      @comment.destroy
+      #render status: 200
+    end
+  end
+
   def state
     @commenttowns = Commenttown.commenttowns_by_state(params[:state])
     render json: @commenttowns, root: "data"
