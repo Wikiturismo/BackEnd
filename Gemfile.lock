@@ -84,6 +84,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
@@ -96,6 +97,7 @@ GEM
     pg (0.20.0-x64-mingw32)
     puma (3.8.2)
     rack (2.0.1)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.2)
@@ -170,8 +172,10 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.5)
   jquery-rails
+  mini_magick
   pg (~> 0.18)
   puma (~> 3.0)
+  rack-cors
   rails (~> 5.0.2)
   sass-rails (~> 5.0)
   turbolinks (~> 5)

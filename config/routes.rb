@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :imgtowns
   resources :departs , only: [:show, :index] do
     collection do
       get '/name/:name', to: 'departs#name', as: 'departname'

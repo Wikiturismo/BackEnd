@@ -1,9 +1,5 @@
 class Imagetown < ApplicationRecord
 
-  attr_accessor :gallery_id, :name, :imagen
-  belongs_to :gallery
-  mount_uploader :imagen, ImagenUploader
-
   belongs_to :town
 
   validates :height, :width, :path, presence: {message: "Campo obligatorio"}
