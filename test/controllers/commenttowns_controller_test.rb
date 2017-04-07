@@ -20,4 +20,9 @@ class CommenttownsControllerTest < ActionDispatch::IntegrationTest
       end
       assert_redirected_to '/commenttowns/1000'
     end
+
+    test "should update commenttown" do
+      content = "Comentario prueba de update"
+      post commenttowns_url, params: { commenttowns: { id: '', state: '' , content:content, publicationdate: "", town_id: '', user_id:'',depart_id:''} }
+    end
 end

@@ -23,6 +23,12 @@ class ImagetownsController < ApplicationController
       params.require(:imagetowns).permit(:id,:height, :width, :path, :depart_id, :imagen)
    end
 
+   def update
+     @imagetown = Imagetown.imagetowns_by_id(params[:id])
+     @imagetown.update_attributes(imagetown_params)
+     redirect_to @imagetown
+   end
+
   def create
     @image = Imagetown.new(imagetowns_params)
     @image.save

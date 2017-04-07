@@ -22,6 +22,12 @@ class CommenttownsController < ApplicationController
       params.require(:commenttowns).permit(:id, :state, :content, :publicationdate, :town_id, :user_id, :depart_id)
    end
 
+   def update
+     @commenttown = Commenttown.commenttowns_by_id(params[:id])
+     @commenttown.update_attributes(commenttown_params)
+     redirect_to @commenttown
+   end
+
   def create
     @comment = Commenttown.new(commenttown_params)
     @comment.save

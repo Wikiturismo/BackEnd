@@ -19,4 +19,9 @@ class TownsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/towns/1000'
   end
+
+  test "should update town" do
+    name = "Medellin"
+    post towns_url, params: { towns: { id: '', name: name , weather: "", avertemper: '', altitude: '', demonym: "", airport: '', transpterminal:'', valoration: '', depart_id:''} }
+  end
 end

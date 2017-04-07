@@ -23,6 +23,12 @@ class ImagedepartsController < ApplicationController
       params.require(:imagedeparts).permit(:id,:height, :width, :path, :depart_id, :imagen)
    end
 
+   def update
+     @imagedepart = Imagedepart.imagedeparts_by_id(params[:id])
+     @imagedepart.update_attributes(imagedepart_params)
+     redirect_to @imagedepart
+   end
+
   def create
     @image = Imagedepart.new(imagedepart_params)
     @image.save

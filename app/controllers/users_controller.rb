@@ -13,6 +13,12 @@ class UsersController < ApplicationController
       params.require(:users).permit(:id,:name, :kind, :mail, :ubication, :registdate)
    end
 
+   def update
+     @user = User.users_by_id(params[:id])
+     @user.update_attributes(users_params)
+     redirect_to @user
+   end
+
   def create
     @users = User.new(users_params)
     @users.save

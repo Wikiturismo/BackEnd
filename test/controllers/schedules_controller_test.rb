@@ -20,4 +20,10 @@ class SchedulesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/schedules/1000'
   end
+
+  test "should update schedule" do
+    name = '12:00'
+    post schedules_url, params: { schedules: { id: '', mondayopen: name , mondayclose: "", tuesdayopen: "", tuesdayclose: "", wednesdayopen: "", wednesdayclose: "", thursdayopen:"", thursdayclose: "", fridayopen:"", fridayclose: "", saturdayopen: "" , saturdayclose:"" ,
+      sundayopen: "" , sundayclose: "", place_id:""} }
+  end
 end

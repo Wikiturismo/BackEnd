@@ -7,4 +7,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/users/1000'
   end
+
+  test "should update user" do
+    name = "Manuel"
+    post users_url, params: { users: { id: '', name: name , kind: "", mail: "", ubication: "", registdate: ""} }
+  end
 end

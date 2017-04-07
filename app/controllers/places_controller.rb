@@ -33,6 +33,12 @@ class PlacesController < ApplicationController
       params.require(:places).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
    end
 
+   def update
+     @place = Place.places_by_id(params[:id])
+     @place.update_attributes(places_params)
+     redirect_to @place
+   end
+
   def create
     @places = Place.new(places_params)
     @places.save

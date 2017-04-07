@@ -20,4 +20,9 @@ class CommentplacesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/commentplaces/1000'
   end
+
+  test "should update commentplace" do
+    content = "Comentario prueba de update de place"
+    post commentplaces_url, params: { commenttowns: { id: '', state: '' , content:content, publicationdate: "", town_id: '', user_id:'',depart_id:''} }
+  end
 end

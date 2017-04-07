@@ -19,4 +19,9 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/places/1000'
   end
+
+  test "should update place" do
+    name = "la fonda updateada"
+    post places_url, params: { places: { id: '', name: name , state: '', publicationdate: "", description: "", ubication: "", address: "", kind:"", valoration: '', entrycost:'', town_id: '',depart_id:'', user_id:''} }
+  end
 end

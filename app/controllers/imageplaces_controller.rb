@@ -23,6 +23,12 @@ class ImageplacesController < ApplicationController
       params.require(:imageplaces).permit(:id,:height, :width, :path, :depart_id, :imagen)
    end
 
+   def update
+     @imageplace = Imageplace.imageplaces_by_id(params[:id])
+     @imageplace.update_attributes(imageplace_params)
+     redirect_to @imageplace
+   end
+
   def create
     @image = Imageplace.new(imageplace_params)
     @image.save

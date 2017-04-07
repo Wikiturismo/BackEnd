@@ -13,4 +13,9 @@ class ImagetownsControllerTest < ActionDispatch::IntegrationTest
         delete '/imagetowns/150'
     end
   end
+
+  test "should update imagetown" do
+    path = "path/nuevo"
+    post imageplaces_url, params: { imageplaces: { id: '', height: '' , width:'', path:path, town_id:3 , imagen:''} }
+  end
 end

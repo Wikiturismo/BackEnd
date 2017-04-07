@@ -30,6 +30,12 @@ class CommentplacesController < ApplicationController
     redirect_to @comment
   end
 
+  def update
+    @commentplace = Commentplace.commentplaces_by_id(params[:id])
+    @commentplace.update_attributes(commentplace_params)
+    redirect_to @commentplace
+  end
+
   def state
     @commentplaces = Commentplace.commentplaces_by_state(params[:state])
     render json: @commentplaces, root: "data"

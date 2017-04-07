@@ -14,6 +14,10 @@ class ImagedepartsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "should update imagedepart" do
+    path = "path/nuevo"
+    post imagedeparts_url, params: { imagedeparts: { id: '', height: '' , width:'', path:path, depart_id:3 , imagen:''} }
+  end
   #test "should create imagedepartment" do
   #  assert_difference('Imagedepart.count') do
   #    post imagedeparts_url, params: { imagedeparts: { id: 1000, height: 500 , width:500, path:"path/real", depart_id:3 , imagen:"imageeeeennnn"} }
