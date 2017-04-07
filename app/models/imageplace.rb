@@ -1,4 +1,6 @@
 class Imageplace < ApplicationRecord
+
+
   belongs_to :place
 
   validates :height, :width, :path, presence: {message: "Campo obligatorio"}
@@ -15,9 +17,10 @@ class Imageplace < ApplicationRecord
     .find_by_id(id)
   end
 
-  def self.imageplaces_by_place(name,page = 1, per_page = 10)
+  def self.imageplaces_by_place(name,page, per_page = 10)
       joins(:place).select("imageplaces.*, places.id,imageplaces.id")
           .where("lower(places.name) = ? AND imageplaces.place_id=places.id", name.downcase)
+            .includes(place:[:commentplaces,:schedules])
                   .paginate(:page => page,:per_page => per_page)
   end
 end

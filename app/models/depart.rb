@@ -1,9 +1,9 @@
 class Depart < ApplicationRecord
-  default_scope {order("departs.created_at ASC")}
+  #default_scope {order("departs.created_at ASC")}
   scope :order_by_name, -> (type) {order("departs.name  #{type}")}
 
-  has_many :towns, dependent: :destroy
-  has_many :imagedeparts, dependent: :destroy
+  has_many :towns, :dependent => :destroy
+  has_many :imagedeparts, :dependent => :destroy
 
   validates :name,:capital,:demonym, presence: {message: "Campo obligatorio"}
   validates :name,:capital, uniqueness: {case_sensitive: false ,message: "Ya esta registrado"}

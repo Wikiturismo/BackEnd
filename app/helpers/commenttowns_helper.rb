@@ -1,0 +1,2 @@
+module CommenttownsHelper
+end

@@ -1,4 +1,5 @@
 class Imagedepart < ApplicationRecord
+
   belongs_to :depart
 
   validates :height, :width, :path, presence: {message: "Campo obligatorio"}
@@ -15,9 +16,10 @@ class Imagedepart < ApplicationRecord
     .find_by_id(id)
   end
 
-  def self.imagedeparts_by_depart(name,page = 1, per_page = 10)
+  def self.imagedeparts_by_depart(name,page, per_page = 10)
         joins(:depart).select("imagedeparts.*, departs.id,imagedeparts.id")
             .where("lower(departs.name) = ? AND imagedeparts.depart_id=departs.id", name.downcase)
+              .includes(depart:[:towns])
                     .paginate(:page => page,:per_page => per_page)
     end
 end

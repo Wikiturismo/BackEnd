@@ -48,9 +48,10 @@ class Schedule < ApplicationRecord
     .where("schedules.sundayopen <= ? AND schedules.sundayclose >= ?", sundayopen,sundayclose)
   end
 
-  def self.schedules_by_place(name,page = 1, per_page = 10)
+  def self.schedules_by_place(name,page, per_page = 10)
       joins(:place).select("schedules.*, places.id,schedules.id")
           .where("lower(places.name) = ? AND schedules.place_id=places.id", name.downcase)
+            .includes(place:[:commentplaces,:imageplaces])
               .paginate(:page => page,:per_page => per_page)
   end
 

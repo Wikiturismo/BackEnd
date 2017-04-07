@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates_format_of :mail, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :kind, length: { maximum: 20, message: "debe tener maximo 20 caracteres"}
   validates :ubication, length: { in: 5..80, message: "debe tener entre 5 y 80 caracteres"}
+
   def self.load_users(page = 1, per_page = 10)
         includes(:commentplaces,:commenttowns,:places)
         .paginate(:page => page, :per_page => per_page)
@@ -29,7 +30,7 @@ class User < ApplicationRecord
         load_users(page,per_page)
         .where("lower(users.mail) = ?", mail.downcase)
     end
-    def self.users_by_kind(kind,page = 1, per_page = 10)
+    def self.users_by_kind(kind,page, per_page = 10)
         load_users(page,per_page)
         .where("lower(users.kind) = ?", kind.downcase)
     end
