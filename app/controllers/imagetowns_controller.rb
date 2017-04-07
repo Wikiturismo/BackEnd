@@ -19,6 +19,16 @@ class ImagetownsController < ApplicationController
     end
   end
 
+  def imagetowns_params
+      params.require(:imagetowns).permit(:id,:height, :width, :path, :depart_id, :imagen)
+   end
+
+  def create
+    @image = Imagetown.new(imagetowns_params)
+    @image.save
+    redirect_to @image
+  end
+
   def bytown
     name=params[:townname]
     @images = Imagetown.imagetowns_by_town(name.tr('+', ' '))

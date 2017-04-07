@@ -19,6 +19,16 @@ class TownsController < ApplicationController
     end
   end
 
+  def towns_params
+      params.require(:towns).permit(:id,:name, :weather, :avertemper, :altitude, :demonym, :airport, :transpterminal, :depart_id)
+   end
+
+  def create
+    @town = Town.new(towns_params)
+    @town.save
+    redirect_to @town
+  end
+
   def name
     nam=params[:name]
     @towns = Town.towns_by_name(nam.tr('+', ' '))

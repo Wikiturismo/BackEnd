@@ -20,6 +20,16 @@ class CommentplacesController < ApplicationController
     end
   end
 
+  def commentplace_params
+      params.require(:commenttowns).permit(:id, :state, :content, :publicationdate, :town_id,:place_id, :user_id, :depart_id)
+   end
+
+  def create
+    @comment = Commentplace.new(commentplace_params)
+    @comment.save
+    redirect_to @comment
+  end
+
   def state
     @commentplaces = Commentplace.commentplaces_by_state(params[:state])
     render json: @commentplaces, root: "data"

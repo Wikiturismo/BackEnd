@@ -18,7 +18,6 @@ class CommenttownsController < ApplicationController
       #render status: 200
     end
   end
-  #create magico inservible
   def commenttown_params
       params.require(:commenttowns).permit(:id, :state, :content, :publicationdate, :town_id, :user_id, :depart_id)
    end
@@ -28,7 +27,6 @@ class CommenttownsController < ApplicationController
     @comment.save
     redirect_to @comment
   end
-#fin de la magia
   def state
     @commenttowns = Commenttown.commenttowns_by_state(params[:state])
     render json: @commenttowns, root: "data"

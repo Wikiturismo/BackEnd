@@ -12,4 +12,11 @@ class TownsControllerTest < ActionDispatch::IntegrationTest
         delete '/towns/150'
     end
   end
+
+  test "should create town" do
+    assert_difference('Town.count') do
+      post towns_url, params: { towns: { id: 1000, name: "Bogota" , weather: "templado", avertemper: 20, altitude: 2500, demonym: "Bogotano", airport: true, transpterminal:true, valoration: 4, depart_id:2} }
+    end
+    assert_redirected_to '/towns/1000'
+  end
 end

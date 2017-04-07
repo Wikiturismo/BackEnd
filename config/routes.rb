@@ -42,7 +42,8 @@ Rails.application.routes.draw do
       get '/date', to: 'places#date', as: 'placedate'
       get '/kind/:kind', to: 'places#kind', as: 'placekind'
       get '/name/:placename/imageplaces', to: 'imageplaces#byplace', as: 'placeimages'
-      get '/name/:placename/comments', to: 'commentplaces#bytown', as: 'placecomments'
+      get '/name/:placename/comments', to: 'commentplaces#byplace', as: 'placecomments'
+      get '/name/:placename/schedules', to: 'schedules#byplace', as: 'placeschedules'
     end
   end
 
@@ -56,11 +57,11 @@ Rails.application.routes.draw do
    end
  end
 
- resources :imagedeparts, only: [:show, :index, :destroy]
- resources :imageplaces, only: [:show, :index, :destroy]
- resources :commentplaces, only: [:show, :index,:destroy]
- resources :commenttowns, only: [:show, :index,:destroy]
- resources :imagetowns, only: [:show, :index, :destroy]
- resources :schedules, only: [:show, :index, :destroy]
+ resources :imagedeparts
+ resources :imageplaces
+ resources :commentplaces
+ resources :commenttowns
+ resources :imagetowns
+ resources :schedules
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

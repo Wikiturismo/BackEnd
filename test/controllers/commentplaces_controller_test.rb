@@ -14,4 +14,10 @@ class CommentplacesControllerTest < ActionDispatch::IntegrationTest
         delete '/commentplaces/150'
     end
   end
+  test "should create commentplace" do
+    assert_difference('Commentplace.count') do
+      post commentplaces_url, params: { commenttowns: { id: 1000, state: true , content:"Comenatario de la ciudad", publicationdate: "2017-03-24 00:00:00", town_id: 2, place_id: 3, user_id:4,depart_id:3} }
+    end
+    assert_redirected_to '/commentplaces/1000'
+  end
 end

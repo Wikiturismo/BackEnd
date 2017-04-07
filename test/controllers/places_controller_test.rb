@@ -12,4 +12,11 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
         delete '/places/150'
     end
   end
+
+  test "should create place" do
+    assert_difference('Place.count') do
+      post places_url, params: { places: { id: 1000, name: "la fonda" , state: true, publicationdate: "2017-03-20 00:00:00", description: "un lugar muy lindo", ubication: "cerca a tu casa", address: "cra2.No2", kind:"comidas rapidas", valoration: 4, entrycost:500, town_id: 2,depart_id:3, user_id:2} }
+    end
+    assert_redirected_to '/places/1000'
+  end
 end
