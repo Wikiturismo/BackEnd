@@ -20,9 +20,10 @@ class Imagetown < ApplicationRecord
     .find_by_id(id)
   end
 
-  def self.imagetowns_by_town(name,page = 1, per_page = 10)
+  def self.imagetowns_by_town(name,page, per_page = 10)
       joins(:town).select("imagetowns.*, towns.id,imagetowns.id")
           .where("lower(towns.name) = ? AND imagetowns.town_id=towns.id", name.downcase)
+            .includes(town:[:commenttowns])
                   .paginate(:page => page,:per_page => per_page)
   end
 

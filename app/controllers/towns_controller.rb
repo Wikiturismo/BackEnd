@@ -42,23 +42,23 @@ class TownsController < ApplicationController
   end
 
   def airport
-    @towns = Town.towns_by_airport(params[:airport])
+    @towns = Town.towns_by_airport(params[:airport], params[:page])
     render json: @towns, root: "data"
   end
 
   def terminal
-    @towns = Town.towns_by_transpterminal(params[:transpterminal])
+    @towns = Town.towns_by_transpterminal(params[:transpterminal], params[:page])
     render json: @towns, root: "data"
   end
 
   def temper
-    @towns = Town.towns_by_avertemper(params[:avertemper])
+    @towns = Town.towns_by_avertemper(params[:avertemper], params[:page])
     render json: @towns, root: "data"
   end
 
   def bydepart
     nam=params[:departname]
-    @towns = Town.towns_by_depart(nam.tr('+', ' '))
+    @towns = Town.towns_by_depart(nam.tr('+', ' '), params[:page])
     render json: @towns, root: "data"
   end
 end

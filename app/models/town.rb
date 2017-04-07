@@ -28,23 +28,24 @@ class Town < ApplicationRecord
       .where("lower(towns.name) = ?", name.downcase)
   end
 
-  def self.towns_by_airport(airport,page = 1, per_page = 10)
+  def self.towns_by_airport(airport,page, per_page = 10)
     load_towns(page,per_page)
       .where('towns.airport = ?', airport)
   end
 
-  def self.towns_by_transpterminal(transpterminal,page = 1, per_page = 10)
+  def self.towns_by_transpterminal(transpterminal,page, per_page = 10)
     load_towns(page,per_page)
       .where('towns.transpterminal = ?', transpterminal)
   end
 
-  def self.towns_by_depart(name,page = 1, per_page = 10)
+  def self.towns_by_depart(name,page, per_page = 10)
     joins(:depart).select("towns.*,departs.id, towns.id")
         .where("lower(departs.name) = ? AND towns.depart_id=departs.id", name.downcase)
+          .includes(:imagetowns,:commenttowns,:places,depart:[:imagedeparts])
             .paginate(:page => page,:per_page => per_page)
   end
 
-  def self.towns_by_avertemper(avertemper,page = 1, per_page = 10)
+  def self.towns_by_avertemper(avertemper,page, per_page = 10)
     load_towns(page,per_page)
         .where("towns.avertemper = ?", avertemper)
   end

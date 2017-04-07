@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def ukind
       nam=params[:kin]
-      @users = User.users_by_kind(nam.tr('+', ' '))
+      @users = User.users_by_kind(nam.tr('+', ' '),params[:page])
       render json: @users, root: "data"
   end
 end

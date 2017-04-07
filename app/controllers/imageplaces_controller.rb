@@ -37,7 +37,7 @@ class ImageplacesController < ApplicationController
 
   def byplace
     name=params[:placename]
-    @images = Imageplace.imageplaces_by_place(name.tr('+', ' '))
+    @images = Imageplace.imageplaces_by_place(name.tr('+', ' '), params[:page])
     render json: @images, root: "data"
   end
 end

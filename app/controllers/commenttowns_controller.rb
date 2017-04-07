@@ -34,30 +34,34 @@ class CommenttownsController < ApplicationController
     redirect_to @comment
   end
   def state
-    @commenttowns = Commenttown.commenttowns_by_state(params[:state])
+    if params[:state] == "1"
+      @commenttowns = Commenttown.commenttowns_by_state("true", params[:page])
+    else
+      @commenttowns = Commenttown.commenttowns_by_state("false", params[:page])
+    end
     render json: @commenttowns, root: "data"
   end
 
   def date
-    @commenttowns = Commenttown.commenttowns_by_publicationdate()
+    @commenttowns = Commenttown.commenttowns_by_publicationdate(params[:page])
     render json: @commenttowns, root: "data"
   end
 
   def bytown
     nam=params[:townname]
-    @commenttowns = Commenttown.commenttowns_by_town(nam.tr('+', ' '))
+    @commenttowns = Commenttown.commenttowns_by_town(nam.tr('+', ' '), params[:page])
     render json: @commenttowns, root: "data"
   end
 
   def bydepart
     nam=params[:departname]
-    @commenttowns = Commenttown.commenttowns_by_depart(nam.tr('+', ' '))
+    @commenttowns = Commenttown.commenttowns_by_depart(nam.tr('+', ' '), params[:page])
     render json: @commenttowns, root: "data"
   end
 
   def byuser
     nam=params[:username]
-    @commenttowns = Commenttown.commenttowns_by_user(nam.tr('+', ' '))
+    @commenttowns = Commenttown.commenttowns_by_user(nam.tr('+', ' '), params[:page])
     render json: @commenttowns, root: "data"
   end
 end

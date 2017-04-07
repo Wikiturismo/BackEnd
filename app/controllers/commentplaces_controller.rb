@@ -37,36 +37,40 @@ class CommentplacesController < ApplicationController
   end
 
   def state
-    @commentplaces = Commentplace.commentplaces_by_state(params[:state])
+    if params[:state] == "1"
+      @commentplaces = Commentplace.commentplaces_by_state("true",params[:page])
+    else
+      @commentplaces = Commentplace.commentplaces_by_state("false",params[:page])
+    end
     render json: @commentplaces, root: "data"
   end
 
   def date
-    @commentplaces = Commentplace.commentplaces_by_publicationdate()
+    @commentplaces = Commentplace.commentplaces_by_publicationdate(params[:page])
     render json: @commentplaces, root: "data"
   end
 
   def byplace
     nam=params[:placename]
-    @commentplaces = Commentplace.commentplaces_by_place(nam.tr('+', ' '))
+    @commentplaces = Commentplace.commentplaces_by_place(nam.tr('+', ' '),params[:page])
     render json: @commentplaces, root: "data"
   end
 
   def bytown
     nam=params[:townname]
-    @commentplaces = Commentplace.commentplaces_by_town(nam.tr('+', ' '))
+    @commentplaces = Commentplace.commentplaces_by_town(nam.tr('+', ' '),params[:page])
     render json: @commentplaces, root: "data"
   end
 
   def bydepart
     nam=params[:departname]
-    @commentplaces = Commentplace.commentplaces_by_depart(nam.tr('+', ' '))
+    @commentplaces = Commentplace.commentplaces_by_depart(nam.tr('+', ' '),params[:page])
     render json: @commentplaces, root: "data"
   end
 
   def byuser
     nam=params[:username]
-    @commentplaces = Commentplace.commentplaces_by_user(nam.tr('+', ' '))
+    @commentplaces = Commentplace.commentplaces_by_user(nam.tr('+', ' '),params[:page])
     render json: @commentplaces, root: "data"
   end
 end

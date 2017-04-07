@@ -37,7 +37,7 @@ class ImagetownsController < ApplicationController
 
   def bytown
     name=params[:townname]
-    @images = Imagetown.imagetowns_by_town(name.tr('+', ' '))
+    @images = Imagetown.imagetowns_by_town(name.tr('+', ' '),params[:page])
     render json: @images, root: "data"
   end
 end

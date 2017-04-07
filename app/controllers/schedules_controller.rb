@@ -37,7 +37,7 @@ class SchedulesController < ApplicationController
 
   def byplace
     name=params[:placename]
-    @schedule = Schedule.schedules_by_place(name.tr('+', ' '))
+    @schedule = Schedule.schedules_by_place(name.tr('+', ' '),params[:page])
     render json: @schedule, root: "data"
   end
 end

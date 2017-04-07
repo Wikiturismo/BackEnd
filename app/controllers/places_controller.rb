@@ -52,35 +52,35 @@ class PlacesController < ApplicationController
   end
 
   def valoration
-    @towns = Place.places_by_valoration(params[:valoration])
+    @towns = Place.places_by_valoration(params[:valoration],params[:page])
     render json: @towns, root: "data"
   end
 
   def cost
-    @towns = Place.places_by_entrycost(params[:entrycost])
+    @towns = Place.places_by_entrycost(params[:entrycost],params[:page])
     render json: @towns, root: "data"
   end
 
   def date
-    @towns = Place.places_by_publicationdate()
+    @towns = Place.places_by_publicationdate(params[:page])
     render json: @towns, root: "data"
   end
 
   def kind
     kin=params[:kind]
-    @places = Place.places_by_kind(kin.tr('+', ' '))
+    @places = Place.places_by_kind(kin.tr('+', ' '),params[:page])
     render json: @places, root: "data"
   end
 
   def bydepart
     nam=params[:departname]
-    @places = Place.places_by_depart(nam.tr('+', ' '))
+    @places = Place.places_by_depart(nam.tr('+', ' '),params[:page])
     render json: @places, root: "data"
   end
 
   def bytown
     nam=params[:townname]
-    @places = Place.places_by_town(nam.tr('+', ' '))
+    @places = Place.places_by_town(nam.tr('+', ' '),params[:page])
     render json: @places, root: "data"
   end
 end

@@ -37,7 +37,7 @@ class ImagedepartsController < ApplicationController
 
   def bydepart
     name=params[:departname]
-    @images = Imagedepart.imagedeparts_by_depart(name.tr('+', ' '))
+    @images = Imagedepart.imagedeparts_by_depart(name.tr('+', ' '), params[:page])
     render json: @images, root: "data"
   end
 end
