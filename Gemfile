@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#rack-cors
+gem 'rack-cors'
 
 gem 'active_model_serializers', '~> 0.10.0'
 

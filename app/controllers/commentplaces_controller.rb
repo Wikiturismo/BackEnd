@@ -37,11 +37,7 @@ class CommentplacesController < ApplicationController
   end
 
   def state
-    if params[:state] == "1"
-      @commentplaces = Commentplace.commentplaces_by_state("true",params[:page])
-    else
-      @commentplaces = Commentplace.commentplaces_by_state("false",params[:page])
-    end
+    @commentplaces = Commentplace.commentplaces_by_state(params[:state],params[:page])
     render json: @commentplaces, root: "data"
   end
 

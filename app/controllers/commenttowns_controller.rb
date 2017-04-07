@@ -34,11 +34,7 @@ class CommenttownsController < ApplicationController
     redirect_to @comment
   end
   def state
-    if params[:state] == "1"
-      @commenttowns = Commenttown.commenttowns_by_state("true", params[:page])
-    else
-      @commenttowns = Commenttown.commenttowns_by_state("false", params[:page])
-    end
+    @commenttowns = Commenttown.commenttowns_by_state(params[:state], params[:page])
     render json: @commenttowns, root: "data"
   end
 
