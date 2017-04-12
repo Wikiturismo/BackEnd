@@ -12,10 +12,10 @@ class CommenttownsController < ApplicationController
   def destroy
     @comment = Commenttown.commenttowns_by_id(params[:id])
     if @comment == nil
-      #render status: 400
+      head 400
     else
       @comment.destroy
-      #render status: 200
+      head 204
     end
   end
   def commenttown_params

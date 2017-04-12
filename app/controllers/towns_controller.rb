@@ -1,4 +1,6 @@
 class TownsController < ApplicationController
+
+
   def index
     @towns = Town.all
     render json: @towns, root: "data"
@@ -12,9 +14,10 @@ class TownsController < ApplicationController
   def destroy
     @town = Town.towns_by_id(params[:id])
     if @town == nil
-      #render status: 400
+      head 400
     else
       @town.destroy
+      head 200
       #respond_with(@post, :status => :create)
     end
   end
@@ -26,7 +29,8 @@ class TownsController < ApplicationController
    def update
      @town = Town.towns_by_id(params[:id])
      @town.update_attributes(towns_params)
-     redirect_to @place
+     @town = Town.towns_by_id(params[:id])
+     redirect_to @town
    end
 
   def create

@@ -13,10 +13,10 @@ class CommentplacesController < ApplicationController
   def destroy
     @comment = Commentplace.commentplaces_by_id(params[:id])
     if @comment == nil
-      #render status: 400
+      head 400
     else
       @comment.destroy
-      #respond_with(@post, :status => :create)
+      head 204
     end
   end
 

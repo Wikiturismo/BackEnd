@@ -1,4 +1,6 @@
 class PlacesController < ApplicationController
+
+
   def index
     @places = Place.all
     render json: @places, root: "data"
@@ -22,10 +24,10 @@ class PlacesController < ApplicationController
   def destroy
     @cplace = Place.places_by_id(params[:id])
     if @cplace == nil
-      #render status: 400
+      head 400
     else
       @cplace.destroy
-      #respond_with(@post, :status => :create)
+      head 204
     end
   end
 

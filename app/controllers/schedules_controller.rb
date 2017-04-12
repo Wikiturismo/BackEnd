@@ -12,10 +12,10 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule = Schedule.schedules_by_id(params[:id])
     if @schedule == nil
-      #render status: 400
+      head 400
     else
       @schedule.destroy
-      #respond_with(@post, :status => :create)
+      head 204
     end
   end
 
