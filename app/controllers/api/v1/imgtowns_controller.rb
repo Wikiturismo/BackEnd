@@ -1,4 +1,4 @@
-class ImgtownsController < ApplicationController
+class Api::V1::ImgtownsController < ApplicationController
   before_action :set_imgtown, only: [:show, :edit, :update, :destroy]
 
   # GET /imgtowns

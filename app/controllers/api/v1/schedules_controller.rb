@@ -1,4 +1,4 @@
-class SchedulesController < ApplicationController
+class Api::V1::SchedulesController < ApplicationController
   def index
     @schedule = Schedule.all
     render json: @schedule, root: "data"

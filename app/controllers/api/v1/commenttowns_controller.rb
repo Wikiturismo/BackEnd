@@ -1,4 +1,4 @@
-class CommenttownsController < ApplicationController
+class Api::V1::CommenttownsController < ApplicationController
   def index
     @commenttowns = Commenttown.all
     render json: @commenttowns, root: "data"

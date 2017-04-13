@@ -1,4 +1,4 @@
-class ImagetownsController < ApplicationController
+class Api::V1::ImagetownsController < ApplicationController
   def index
     @images = Imagetown.all
     render json: @images, root: "data"

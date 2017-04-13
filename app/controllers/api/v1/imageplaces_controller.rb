@@ -1,4 +1,4 @@
-class ImageplacesController < ApplicationController
+class Api::V1::ImageplacesController < ApplicationController
   def index
     @images = Imageplace.all
     render json: @images, root: "data"

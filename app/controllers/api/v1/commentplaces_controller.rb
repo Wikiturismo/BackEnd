@@ -1,4 +1,4 @@
-class CommentplacesController < ApplicationController
+class Api::V1::CommentplacesController < ApplicationController
 
   def index
     @commentplaces = Commentplace.all

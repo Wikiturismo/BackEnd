@@ -1,4 +1,4 @@
-class TownsController < ApplicationController
+class Api::V1::TownsController < ApplicationController
 
 
   def index
@@ -18,7 +18,6 @@ class TownsController < ApplicationController
     else
       @town.destroy
       head 200
-      #respond_with(@post, :status => :create)
     end
   end
 

@@ -1,4 +1,4 @@
-class ImagedepartsController < ApplicationController
+class Api::V1::ImagedepartsController < ApplicationController
   def index
     @images = Imagedepart.all
     render json: @images, root: "data"
