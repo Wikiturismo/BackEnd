@@ -32,19 +32,26 @@ class Api::V1::PlacesController < ApplicationController
   end
 
   def places_params
-      params.require(:places).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
+      params.require(:place).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
    end
 
    def update
      @place = Place.places_by_id(params[:id])
-     @place.update_attributes(places_params)
-     redirect_to @place
+     if @place.update_attributes(places_params)
+       @place = Place.places_by_id(params[:id])
+       render json: @place, root: "data"
+     else
+       render json: @place.errors
+     end
    end
 
   def create
     @places = Place.new(places_params)
-    @places.save
-    redirect_to @places
+    if @places.save
+      render json: @places, root: "data"
+    else
+      render json: @places.errors
+    end
   end
 
   def name

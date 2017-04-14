@@ -10,19 +10,26 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def users_params
-      params.require(:users).permit(:id,:name, :kind, :mail, :ubication, :registdate)
+      params.require(:user).permit(:id,:name, :kind, :mail, :ubication, :registdate)
    end
 
    def update
      @user = User.users_by_id(params[:id])
-     @user.update_attributes(users_params)
-     redirect_to @user
+     if @user.update_attributes(users_params)
+       @user = User.users_by_id(params[:id])
+       render json: @user, root: "data"
+     else
+       render json: @user.errors
+     end
    end
 
   def create
-    @users = User.new(users_params)
-    @users.save
-    redirect_to @users
+    @user = User.new(users_params)
+    if @user.save
+      render json: @user, root: "data"
+    else
+      render json: @user.errors
+    end
   end
 
   def name

@@ -20,19 +20,26 @@ class Api::V1::SchedulesController < ApplicationController
   end
 
   def schedules_params
-      params.require(:schedules).permit(:id,:mondayopen, :mondayclose, :tuesdayopen, :tuesdayclose, :wednesdayopen, :wednesdayclose, :thursdayopen, :thursdayclose, :fridayopen, :fridayclose, :saturdayopen, :saturdayclose, :sundayopen, :sundayclose, :place_id)
+      params.require(:schedule).permit(:id,:mondayopen, :mondayclose, :tuesdayopen, :tuesdayclose, :wednesdayopen, :wednesdayclose, :thursdayopen, :thursdayclose, :fridayopen, :fridayclose, :saturdayopen, :saturdayclose, :sundayopen, :sundayclose, :place_id)
    end
 
    def update
      @schedule = Schedule.schedules_by_id(params[:id])
-     @schedule.update_attributes(schedules_params)
-     redirect_to @schedule
+     if @schedule.update_attributes(schedules_params)
+       @schedule = Schedule.schedules_by_id(params[:id])
+       render json: @schedule, root: "data"
+     else
+       render json: @schedule.errors
+     end
    end
 
   def create
     @schedule = Schedule.new(schedules_params)
-    @schedule.save
-    redirect_to @schedule
+    if @schedule.save
+      render json: @schedule, root: "data"
+    else
+      render json: @schedule.errors
+    end
   end
 
   def byplace

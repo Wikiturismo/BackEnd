@@ -22,20 +22,26 @@ class Api::V1::TownsController < ApplicationController
   end
 
   def towns_params
-      params.require(:towns).permit(:id,:name, :weather, :avertemper, :altitude, :demonym, :airport, :transpterminal, :depart_id)
+      params.require(:town).permit(:id,:name, :weather, :avertemper, :altitude, :demonym, :airport, :transpterminal, :depart_id)
    end
 
    def update
      @town = Town.towns_by_id(params[:id])
-     @town.update_attributes(towns_params)
-     @town = Town.towns_by_id(params[:id])
-     redirect_to @town
+     if @town.update_attributes(towns_params)
+       @town = Town.towns_by_id(params[:id])
+       render json: @town, root: "data"
+     else
+       render json: @town.errors
+     end
    end
 
   def create
     @town = Town.new(towns_params)
-    @town.save
-    redirect_to @town
+    if @town.save
+      render json: @town, root: "data"
+    else
+      render json: @town.errors
+    end
   end
 
   def name

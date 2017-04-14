@@ -21,19 +21,26 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def commentplace_params
-      params.require(:commenttowns).permit(:id, :state, :content, :publicationdate, :town_id,:place_id, :user_id, :depart_id)
+      params.require(:commentplace).permit(:id, :state, :content, :publicationdate, :town_id,:place_id, :user_id, :depart_id)
    end
 
   def create
     @comment = Commentplace.new(commentplace_params)
-    @comment.save
-    redirect_to @comment
+    if @comment.save
+      render json: @comment, root: "data"
+    else
+      render json:@comment.errors
+    end
   end
 
   def update
     @commentplace = Commentplace.commentplaces_by_id(params[:id])
-    @commentplace.update_attributes(commentplace_params)
-    redirect_to @commentplace
+    if @commentplace.update_attributes(commentplace_params)
+      @commentplace = Commentplace.commentplaces_by_id(params[:id])
+      render json: @commentplace, root: "data"
+    else
+      render json: @commentplace.errors
+    end
   end
 
   def state
