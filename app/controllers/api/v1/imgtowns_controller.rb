@@ -5,6 +5,7 @@ class Api::V1::ImgtownsController < ApplicationController
   # GET /imgtowns.json
   def index
     @imgtowns = Imgtown.all
+    render json: @imgtowns, root: "data"
   end
 
   # GET /imgtowns/1
@@ -30,9 +31,11 @@ class Api::V1::ImgtownsController < ApplicationController
       if @imgtown.save
         format.html { redirect_to @imgtown, notice: 'Imgtown was successfully created.' }
         format.json { render :show, status: :created, location: @imgtown }
+        #render json: @imgtown, root: "data"
       else
         format.html { render :new }
         format.json { render json: @imgtown.errors, status: :unprocessable_entity }
+        #render json: @imgtown.errors
       end
     end
   end

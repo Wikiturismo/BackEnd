@@ -1,6 +1,4 @@
 class Api::V1::PlacesController < ApplicationController
-
-
   def index
     @places = Place.all
     render json: @places, root: "data"
@@ -18,6 +16,11 @@ class Api::V1::PlacesController < ApplicationController
 
   def last
     @places = Place.recent
+    render json: @places, root: "data"
+  end
+
+  def random
+    @places = Place.places_by_random_id
     render json: @places, root: "data"
   end
 

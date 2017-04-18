@@ -1,6 +1,4 @@
 class Api::V1::TownsController < ApplicationController
-
-
   def index
     @towns = Town.all
     render json: @towns, root: "data"
@@ -27,7 +25,7 @@ class Api::V1::TownsController < ApplicationController
 
    def update
      @town = Town.towns_by_id(params[:id])
-     if @town.update_attributes(towns_params)
+     if @town.update(towns_params)
        @town = Town.towns_by_id(params[:id])
        render json: @town, root: "data"
      else

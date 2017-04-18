@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         collection do
           get '/top', to: 'places#top', as:'placetop'
           get '/last', to: 'places#last', as:'placelast'
+          get '/random', to: 'places#random', as: 'placerandom'
           get '/name/:name', to: 'places#name', as: 'placename'
           get '/valoration/:valoration/:page', to: 'places#valoration', as: 'placevaloration'
           get '/cost/:entrycost/:page', to: 'places#cost', as: 'placecost'
