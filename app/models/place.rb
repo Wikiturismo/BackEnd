@@ -27,6 +27,12 @@ class Place < ApplicationRecord
        .find_by_id(id)
     end
 
+    def self.places_by_random_id(page = 1 , per_page = 10)
+      random_ids = Array.new(11) {rand(Town.count)}
+      load_places(page,per_page)
+      .where(id: random_ids)
+    end
+
     def self.places_by_name(name,page = 1, per_page = 10)
         load_places(page,per_page)
         .where("lower(places.name) = ?", name.downcase)

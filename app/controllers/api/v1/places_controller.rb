@@ -1,4 +1,4 @@
-class PlacesController < ApplicationController
+class Api::V1::PlacesController < ApplicationController
   def index
     @places = Place.all
     render json: @places, root: "data"
@@ -19,30 +19,42 @@ class PlacesController < ApplicationController
     render json: @places, root: "data"
   end
 
+  def random
+    @places = Place.places_by_random_id
+    render json: @places, root: "data"
+  end
+
   def destroy
     @cplace = Place.places_by_id(params[:id])
     if @cplace == nil
-      #render status: 400
+      head 400
     else
       @cplace.destroy
-      #respond_with(@post, :status => :create)
+      head 204
     end
   end
 
   def places_params
-      params.require(:places).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
+      params.require(:place).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
    end
 
    def update
      @place = Place.places_by_id(params[:id])
-     @place.update_attributes(places_params)
-     redirect_to @place
+     if @place.update_attributes(places_params)
+       @place = Place.places_by_id(params[:id])
+       render json: @place, root: "data"
+     else
+       render json: @place.errors
+     end
    end
 
   def create
     @places = Place.new(places_params)
-    @places.save
-    redirect_to @places
+    if @places.save
+      render json: @places, root: "data"
+    else
+      render json: @places.errors
+    end
   end
 
   def name

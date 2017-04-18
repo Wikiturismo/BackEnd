@@ -1,10 +1,28 @@
+departments =["Amazonas","Antioquia","Arauca","Atlantico","Bolivar",
+  "Boyaca","Caldas","Caqueta","Casanare","Cauca","Cesar",
+  "Choco","Cordoba","Cundinamarca","Guainia","Guaviare",
+  "Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander",
+  "Putumayo", "Quindio", "Risaralda","San Andres y Providencia","Santander",
+  "Sucre","Tolima", "Valle del Cauca", "Vaupes","Vichada"]
+capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
+  "Tunja","Manizales","Florencia","Yopal","Popayan","Valledupar",
+  "Quibdo","Monteria","Bogota","Puerto Inirida","San Jose del Guaviare",
+  "Neiva","Riohacha","Santa Marta","Villavicencio","Pasto","Cucuta",
+  "Mocoa","Armenia","Pereira","San Andres","Bucaramanga",
+  "Sincelejo","Ibague","Cali","Mitu","Puerto Carreño"]
+demonyms = ["Amazonicos","Antioquenos","Araucanos","Atlanticenses","Bolivarienses",
+  "Boyacenses","Caldenses","Caquetenos","Casanarenos","Caucanos","Cesarences",
+  "Chocoanos","Cordobeses","Cundinamarqueses","Guainarenses","Guaviarenses",
+  "Huilenses","Guajiros","Magdalenenses","Metenses","Narinenses","Nortesantandereanos",
+  "Putumayenses","Quindianos","Risaraldenses","Sanandresanos","Santandereanos",
+  "Sucrenos","Tolimenses","Vallecaucanos","Vaupenses","Vichadense"]
 Depart.destroy_all
 
-100.times do |index|
-  Depart.create!(id:index,
-                name: "NameDepart #{index}",
-                capital: "Capital #{index}",
-                demonym: "DemonymDepart #{index}")
+32.times do |index|
+  Depart.create!(id:index+1,
+                name: departments[index],
+                capital: capitals[index],
+                demonym: demonyms[index])
 end
 
 p "Created #{Depart.count} departs"
@@ -20,7 +38,7 @@ Town.destroy_all
                 demonym: "DemonymTown #{index}",
                 airport: true,
                 transpterminal: true,
-                depart_id: Faker::Number.between(1, 20))
+                depart_id: Faker::Number.between(1, 32))
 end
 
 100.times do |index|
@@ -59,7 +77,7 @@ Place.destroy_all
                 valoration: Faker::Number.between(0, 5),
                 entrycost: Faker::Number.between(100, 5000),
                 town_id: Faker::Number.between(1, 10),
-                depart_id: Faker::Number.between(1, 20),
+                depart_id: Faker::Number.between(1, 32),
                 user_id: Faker::Number.between(41, 60))
 end
 
@@ -80,7 +98,7 @@ Commentplace.destroy_all
                 town_id: Faker::Number.between(1, 20),
                 place_id: Faker::Number.between(1, 20),
                 user_id: Faker::Number.between(1, 20),
-                depart_id: Faker::Number.between(1, 20))
+                depart_id: Faker::Number.between(1, 32))
 end
 
 100.times do |index|
@@ -99,7 +117,7 @@ Commenttown.destroy_all
                 publicationdate:  Faker::Date.backward(30),
                 town_id: Faker::Number.between(1, 20),
                 user_id: Faker::Number.between(1, 20),
-                depart_id: Faker::Number.between(1, 20))
+                depart_id: Faker::Number.between(1, 32))
 end
 
 100.times do |index|
@@ -139,7 +157,7 @@ Imagedepart.destroy_all
                 height: Faker::Number.between(101, 4000),
                 width: Faker::Number.between(101, 4000),
                 path: "Path #{index}",
-                depart_id: Faker::Number.between(1, 20))
+                depart_id: Faker::Number.between(1, 32))
 end
 
 p "Created #{Imagedepart.count} imagedeparts"

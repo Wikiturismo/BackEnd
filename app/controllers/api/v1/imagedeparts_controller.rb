@@ -1,4 +1,4 @@
-class ImagedepartsController < ApplicationController
+class Api::V1::ImagedepartsController < ApplicationController
   def index
     @images = Imagedepart.all
     render json: @images, root: "data"
@@ -20,19 +20,25 @@ class ImagedepartsController < ApplicationController
   end
 
   def imagedepart_params
-      params.require(:imagedeparts).permit(:id,:height, :width, :path, :depart_id, :imagen)
+      params.require(:imagedepart).permit(:id,:height, :width, :path, :depart_id)
    end
 
    def update
      @imagedepart = Imagedepart.imagedeparts_by_id(params[:id])
-     @imagedepart.update_attributes(imagedepart_params)
-     redirect_to @imagedepart
+     if @imagedepart.update_attributes(imagedepart_params)
+       @imagedepart = Imagedepart.imagedeparts_by_id(params[:id])
+       render json: @imagedepart, root: "data"
+     else
+       render json: @imagedepart.errors
+     end
    end
 
   def create
     @image = Imagedepart.new(imagedepart_params)
-    @image.save
-    redirect_to @image
+    if @image.save
+      render json: @image, root: "data"
+    else
+      render json: @image.errors
   end
 
   def bydepart

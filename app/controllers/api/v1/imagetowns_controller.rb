@@ -1,4 +1,4 @@
-class ImagetownsController < ApplicationController
+class Api::V1::ImagetownsController < ApplicationController
   def index
     @images = Imagetown.all
     render json: @images, root: "data"
@@ -20,19 +20,26 @@ class ImagetownsController < ApplicationController
   end
 
   def imagetowns_params
-      params.require(:imagetowns).permit(:id,:height, :width, :path, :depart_id, :imagen)
+      params.require(:imagetown).permit(:id,:height, :width, :path, :depart_id)
    end
 
    def update
      @imagetown = Imagetown.imagetowns_by_id(params[:id])
-     @imagetown.update_attributes(imagetown_params)
-     redirect_to @imagetown
+     if @imagetown.update_attributes(imagetown_params)
+       @imagetown = Imagetown.imagetowns_by_id(params[:id])
+       render json: @imagetown, root: "data"
+     else
+       render json: @imagetown.errors
+     end
    end
 
   def create
     @image = Imagetown.new(imagetowns_params)
-    @image.save
-    redirect_to @image
+    if @image.save
+      render json: @image, root: "data"
+    else
+      render json: @image.errors
+    end
   end
 
   def bytown

@@ -16,13 +16,13 @@ class CommentplacesControllerTest < ActionDispatch::IntegrationTest
   end
   test "should create commentplace" do
     assert_difference('Commentplace.count') do
-      post commentplaces_url, params: { commenttowns: { id: 1000, state: true , content:"Comenatario de la ciudad", publicationdate: "2017-03-24 00:00:00", town_id: 2, place_id: 3, user_id:4,depart_id:3} }
+      post commentplaces_url, params: { commentplaces: { id: 1000, state: true , content:"Comenatario de la ciudad", publicationdate: "2017-03-24 00:00:00", town_id: 2, place_id: 3, user_id:4,depart_id:3} }
     end
     assert_redirected_to '/commentplaces/1000'
   end
 
   test "should update commentplace" do
     content = "Comentario prueba de update de place"
-    post commentplaces_url, params: { commenttowns: { id: '', state: '' , content:content, publicationdate: "", town_id: '', user_id:'',depart_id:''} }
+    post commentplaces_url, params: { commentplaces: { id: '', state: '' , content:content, publicationdate: "", town_id: '', user_id:'',depart_id:''} }
   end
 end

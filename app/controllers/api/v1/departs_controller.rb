@@ -1,4 +1,4 @@
-class DepartsController < ApplicationController
+class Api::V1::DepartsController < ApplicationController
   def index
     @departs = Depart.all
     render json: @departs, root: "data"

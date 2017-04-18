@@ -1,4 +1,4 @@
-class SchedulesController < ApplicationController
+class Api::V1::SchedulesController < ApplicationController
   def index
     @schedule = Schedule.all
     render json: @schedule, root: "data"
@@ -12,27 +12,34 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule = Schedule.schedules_by_id(params[:id])
     if @schedule == nil
-      #render status: 400
+      head 400
     else
       @schedule.destroy
-      #respond_with(@post, :status => :create)
+      head 204
     end
   end
 
   def schedules_params
-      params.require(:schedules).permit(:id,:mondayopen, :mondayclose, :tuesdayopen, :tuesdayclose, :wednesdayopen, :wednesdayclose, :thursdayopen, :thursdayclose, :fridayopen, :fridayclose, :saturdayopen, :saturdayclose, :sundayopen, :sundayclose, :place_id)
+      params.require(:schedule).permit(:id,:mondayopen, :mondayclose, :tuesdayopen, :tuesdayclose, :wednesdayopen, :wednesdayclose, :thursdayopen, :thursdayclose, :fridayopen, :fridayclose, :saturdayopen, :saturdayclose, :sundayopen, :sundayclose, :place_id)
    end
 
    def update
      @schedule = Schedule.schedules_by_id(params[:id])
-     @schedule.update_attributes(schedules_params)
-     redirect_to @schedule
+     if @schedule.update_attributes(schedules_params)
+       @schedule = Schedule.schedules_by_id(params[:id])
+       render json: @schedule, root: "data"
+     else
+       render json: @schedule.errors
+     end
    end
 
   def create
     @schedule = Schedule.new(schedules_params)
-    @schedule.save
-    redirect_to @schedule
+    if @schedule.save
+      render json: @schedule, root: "data"
+    else
+      render json: @schedule.errors
+    end
   end
 
   def byplace

@@ -1,4 +1,4 @@
-class CommenttownsController < ApplicationController
+class Api::V1::CommenttownsController < ApplicationController
   def index
     @commenttowns = Commenttown.all
     render json: @commenttowns, root: "data"
@@ -12,26 +12,30 @@ class CommenttownsController < ApplicationController
   def destroy
     @comment = Commenttown.commenttowns_by_id(params[:id])
     if @comment == nil
-      #render status: 400
+      head 400
     else
       @comment.destroy
-      #render status: 200
+      head 204
     end
   end
   def commenttown_params
-      params.require(:commenttowns).permit(:id, :state, :content, :publicationdate, :town_id, :user_id, :depart_id)
+      params.require(:commenttown).permit(:id, :state, :content, :publicationdate, :town_id, :user_id, :depart_id)
    end
 
    def update
      @commenttown = Commenttown.commenttowns_by_id(params[:id])
-     @commenttown.update_attributes(commenttown_params)
-     redirect_to @commenttown
+     if @commenttown.update_attributes(commenttown_params)
+       @commenttown = Commenttown.commenttowns_by_id(params[:id])
+       render json: @commenttown, root: "data"
+     else
+       render json: @commenttown.errors
+     end
    end
 
   def create
     @comment = Commenttown.new(commenttown_params)
     @comment.save
-    redirect_to @comment
+    render json: @comment, root: "data"
   end
   def state
     @commenttowns = Commenttown.commenttowns_by_state(params[:state], params[:page])
