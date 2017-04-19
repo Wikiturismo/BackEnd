@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :imgtowns
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :imgtowns
       resources :departs , only: [:show, :index] do
         collection do
           get '/name/:name', to: 'departs#name', as: 'departname'
