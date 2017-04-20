@@ -22,4 +22,5 @@ class Imagedepart < ApplicationRecord
               .includes(depart:[:towns])
                     .paginate(:page => page,:per_page => per_page)
     end
+      mount_uploader :image, ImagedepartsUploader 
 end

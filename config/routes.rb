@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :imgtowns
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :departs , only: [:show, :index] do

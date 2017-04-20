@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420035228) do
+ActiveRecord::Schema.define(version: 20170420071243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170420035228) do
     t.integer  "depart_id"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "image"
     t.index ["depart_id"], name: "index_imagedeparts_on_depart_id", using: :btree
   end
 
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20170420035228) do
     t.integer  "place_id"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "image"
     t.index ["place_id"], name: "index_imageplaces_on_place_id", using: :btree
   end
 
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170420035228) do
     t.integer  "town_id"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "image"
     t.index ["town_id"], name: "index_imagetowns_on_town_id", using: :btree
   end
 

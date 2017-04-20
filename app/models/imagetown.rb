@@ -22,5 +22,5 @@ class Imagetown < ApplicationRecord
             .includes(town:[:commenttowns])
                   .paginate(:page => page,:per_page => per_page)
   end
-
+mount_uploader :image, ImagetownsUploader 
 end
