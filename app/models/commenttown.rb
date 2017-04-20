@@ -4,7 +4,7 @@ class Commenttown < ApplicationRecord
   belongs_to :user
   belongs_to :depart
 
-  validates :content, :state, :publicationdate, :user_id, presence: {message: "Campo obligatorio"}
+  validates :content, :state, :user_id, presence: {message: "Campo obligatorio"}
 
   def self.load_commenttowns(page = 1, per_page = 10)
     includes(town:[:places,:imagetowns],user:[:places])
@@ -22,7 +22,7 @@ class Commenttown < ApplicationRecord
   end
   def self.commenttowns_by_publicationdate(page, per_page = 10)
     load_commenttowns(page,per_page)
-    .where("commenttowns.publicationdate < ?", Date.today)
+    .where("commenttowns.created_at < ?", Date.today)
   end
 
   def self.commenttowns_by_town(town,page, per_page = 10)

@@ -5,7 +5,7 @@ class Commentplace < ApplicationRecord
   belongs_to :user
   belongs_to :depart
 
-  validates :content, :state, :publicationdate, :user_id, presence: {message: "Campo obligatorio"}
+  validates :content, :state, :user_id, presence: {message: "Campo obligatorio"}
 
   def self.load_commentplaces(page = 1, per_page = 10)
     includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
@@ -23,7 +23,7 @@ class Commentplace < ApplicationRecord
   end
   def self.commentplaces_by_publicationdate(page, per_page = 10)
     load_commentplaces(page,per_page)
-    .where("commentplaces.publicationdate < ?", Date.today)
+    .where("commentplaces.created_at < ?", Date.today)
   end
 
   def self.commentplaces_by_place(place,page =1 , per_page = 10)

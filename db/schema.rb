@@ -16,15 +16,14 @@ ActiveRecord::Schema.define(version: 20170420071243) do
   enable_extension "plpgsql"
 
   create_table "commentplaces", force: :cascade do |t|
-    t.binary   "state",           default: "false",                 null: false
-    t.text     "content",         default: "Comenatario del lugar", null: false
-    t.datetime "publicationdate",                                   null: false
+    t.binary   "state",      default: "false",                 null: false
+    t.text     "content",    default: "Comenatario del lugar", null: false
     t.integer  "town_id"
     t.integer  "place_id"
     t.integer  "user_id"
     t.integer  "depart_id"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.index ["depart_id"], name: "index_commentplaces_on_depart_id", using: :btree
     t.index ["place_id"], name: "index_commentplaces_on_place_id", using: :btree
     t.index ["town_id"], name: "index_commentplaces_on_town_id", using: :btree
@@ -32,14 +31,13 @@ ActiveRecord::Schema.define(version: 20170420071243) do
   end
 
   create_table "commenttowns", force: :cascade do |t|
-    t.binary   "state",           default: "false",                           null: false
-    t.text     "content",         default: "Comenatario de la ciudad/pueblo", null: false
-    t.datetime "publicationdate",                                             null: false
+    t.binary   "state",      default: "false",                           null: false
+    t.text     "content",    default: "Comenatario de la ciudad/pueblo", null: false
     t.integer  "town_id"
     t.integer  "user_id"
     t.integer  "depart_id"
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.index ["depart_id"], name: "index_commenttowns_on_depart_id", using: :btree
     t.index ["town_id"], name: "index_commenttowns_on_town_id", using: :btree
     t.index ["user_id"], name: "index_commenttowns_on_user_id", using: :btree
@@ -86,34 +84,25 @@ ActiveRecord::Schema.define(version: 20170420071243) do
     t.index ["town_id"], name: "index_imagetowns_on_town_id", using: :btree
   end
 
-  create_table "imgtowns", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "places", force: :cascade do |t|
-    t.string   "name",            limit: 60, default: "Nombre del lugar", null: false
-    t.boolean  "state",                      default: false,              null: false
-    t.datetime "publicationdate",                                         null: false
-    t.text     "description",                default: "Descripcion",      null: false
-    t.string   "ubication",       limit: 80, default: "Ubicacion",        null: false
-    t.string   "address",         limit: 50, default: "Direccion",        null: false
-    t.string   "kind",            limit: 45, default: "Tipo",             null: false
-    t.float    "valoration",                 default: 0.0
-    t.integer  "entrycost",                  default: 0
+    t.string   "name",        limit: 60, default: "Nombre del lugar", null: false
+    t.boolean  "state",                  default: false,              null: false
+    t.text     "description",            default: "Descripcion",      null: false
+    t.string   "ubication",   limit: 80, default: "Ubicacion",        null: false
+    t.string   "address",     limit: 50, default: "Direccion",        null: false
+    t.string   "kind",        limit: 45, default: "Tipo",             null: false
+    t.float    "valoration",             default: 0.0
+    t.integer  "entrycost",              default: 0
     t.integer  "town_id"
     t.integer  "depart_id"
     t.integer  "user_id"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
-    t.integer  "valone",                     default: 0,                  null: false
-    t.integer  "valtwo",                     default: 0,                  null: false
-    t.integer  "valthree",                   default: 0,                  null: false
-    t.integer  "valfour",                    default: 0,                  null: false
-    t.integer  "valfive",                    default: 0,                  null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "valone",                 default: 0,                  null: false
+    t.integer  "valtwo",                 default: 0,                  null: false
+    t.integer  "valthree",               default: 0,                  null: false
+    t.integer  "valfour",                default: 0,                  null: false
+    t.integer  "valfive",                default: 0,                  null: false
     t.index ["depart_id"], name: "index_places_on_depart_id", using: :btree
     t.index ["town_id"], name: "index_places_on_town_id", using: :btree
     t.index ["user_id"], name: "index_places_on_user_id", using: :btree
@@ -159,7 +148,6 @@ ActiveRecord::Schema.define(version: 20170420071243) do
     t.string   "kind",       limit: 20, default: "Tipo",               null: false
     t.string   "mail",       limit: 60, default: "Correo electronico", null: false
     t.string   "ubication",             default: "Ubicacion"
-    t.date     "registdate",                                           null: false
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
   end
