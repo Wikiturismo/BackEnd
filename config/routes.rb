@@ -42,7 +42,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, only: [:show, :index, :create] do
+      resources :users do
        collection do
          get '/name/:name', to: 'users#name', as: 'username'
          get '/name/:username/commenttowns/:page', to: 'commenttowns#byuser', as: 'usercommenttowns'

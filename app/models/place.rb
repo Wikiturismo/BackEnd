@@ -14,7 +14,7 @@ class Place < ApplicationRecord
 
     validates :name,:state,:publicationdate,:description, :ubication, :address, :kind, :depart_id, :town_id, :user_id, presence: true
     validates :name,:ubication,:address, :kind, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
-    validates :valoration, numericality: {only_integer: true, :greater_than => -1, :less_than => 50 ,message: "Debe estar entre 0 y 50"}
+    validates :valoration, numericality: {only_float: true, :greater_than => -1.0, :less_than => 6.0 ,message: "Debe estar entre 0 y 5"}
     validates :entrycost, numericality: {only_integer: true, :greater_than => -1,message: "Debe ser mayor a 0"}
 
     def self.load_places(page = 1, per_page = 10)

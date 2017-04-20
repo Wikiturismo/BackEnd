@@ -84,6 +84,18 @@ end
 100.times do |index|
   n=Place.places_by_id(index)
   n.update_column(:state, Faker::Boolean.boolean)
+  val=Place.places_by_id(index).valoration
+  if val==1.0
+    n.update_column(:valone,1)
+  elsif val==2.0
+    n.update_column(:valtwo,1)
+  elsif val==3.0
+    n.update_column(:valthree,1)
+  elsif val==4.0
+    n.update_column(:valfour,1)
+  elsif val==5.0
+    n.update_column(:valfive,1)
+  end
 end
 
 p "Created #{Place.count} places"

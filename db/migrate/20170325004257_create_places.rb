@@ -8,7 +8,7 @@ class CreatePlaces < ActiveRecord::Migration[5.0]
       t.string :ubication, null:false, limit:80, default: "Ubicacion"
       t.string :address, null:false, limit:50, default: "Direccion"
       t.string :kind, null:false, limit:45, default: "Tipo"
-      t.integer :valoration, default: 0
+      t.float :valoration, default: 0
       t.integer :entrycost, default: 0
       t.references :town, foreign_key: true
       t.references :depart, foreign_key: true

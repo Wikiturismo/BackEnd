@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407151530) do
+ActiveRecord::Schema.define(version: 20170420035228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,13 +99,18 @@ ActiveRecord::Schema.define(version: 20170407151530) do
     t.string   "ubication",       limit: 80, default: "Ubicacion",        null: false
     t.string   "address",         limit: 50, default: "Direccion",        null: false
     t.string   "kind",            limit: 45, default: "Tipo",             null: false
-    t.integer  "valoration",                 default: 0
+    t.float    "valoration",                 default: 0.0
     t.integer  "entrycost",                  default: 0
     t.integer  "town_id"
     t.integer  "depart_id"
     t.integer  "user_id"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
+    t.integer  "valone",                     default: 0,                  null: false
+    t.integer  "valtwo",                     default: 0,                  null: false
+    t.integer  "valthree",                   default: 0,                  null: false
+    t.integer  "valfour",                    default: 0,                  null: false
+    t.integer  "valfive",                    default: 0,                  null: false
     t.index ["depart_id"], name: "index_places_on_depart_id", using: :btree
     t.index ["town_id"], name: "index_places_on_town_id", using: :btree
     t.index ["user_id"], name: "index_places_on_user_id", using: :btree
