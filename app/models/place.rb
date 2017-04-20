@@ -50,7 +50,7 @@ class Place < ApplicationRecord
 
     def self.places_by_publicationdate(page, per_page = 10)
         load_places(page,per_page)
-        .where("places.publicationdate < ?", Date.today)
+        .where("places.created_at < ?", Date.today)
     end
 
     def self.places_by_kind(kind,page, per_page = 10)

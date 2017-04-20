@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def users_params
-      params.require(:user).permit(:id,:name, :kind, :mail, :ubication, :registdate)
+      params.require(:user).permit(:id,:name, :kind, :mail, :ubication)
    end
 
    def update

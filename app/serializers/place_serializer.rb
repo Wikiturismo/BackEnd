@@ -1,5 +1,5 @@
 class PlaceSerializer < ActiveModel::Serializer
-  attributes :id, :name,:state,:publicationdate,:description, :ubication, :address, :kind, :valoration, :entrycost
+  attributes :id, :name,:state,:description, :ubication, :address, :kind, :valoration, :entrycost
 
   #belongs_to :town
   #belongs_to :depart
