@@ -23,4 +23,5 @@ class Imageplace < ApplicationRecord
             .includes(place:[:commentplaces,:schedules])
                   .paginate(:page => page,:per_page => per_page)
   end
+  mount_uploader :image, ImageplacesUploader 
 end

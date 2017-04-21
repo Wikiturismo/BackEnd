@@ -19,7 +19,7 @@ class Api::V1::CommenttownsController < ApplicationController
     end
   end
   def commenttown_params
-      params.require(:commenttown).permit(:id, :state, :content, :publicationdate, :town_id, :user_id, :depart_id)
+      params.require(:commenttown).permit(:id, :state, :content, :town_id, :user_id, :depart_id)
    end
 
    def update

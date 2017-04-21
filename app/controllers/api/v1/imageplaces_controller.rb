@@ -4,9 +4,11 @@ class Api::V1::ImageplacesController < ApplicationController
     render json: @images, root: "data"
   end
 
+
+
   def show
     @images = Imageplace.imageplaces_by_id(params[:id])
-    render json: @images, root: "data"
+    render json: @images.image.url, root: "data"
   end
 
   def destroy
@@ -20,7 +22,7 @@ class Api::V1::ImageplacesController < ApplicationController
   end
 
   def imageplace_params
-      params.require(:imageplace).permit(:id,:height, :width, :path, :depart_id)
+      params.permit(:id, :image)
    end
 
    def update
@@ -33,14 +35,15 @@ class Api::V1::ImageplacesController < ApplicationController
      end
    end
 
-  def create
-    @image = Imageplace.new(imageplace_params)
-    if @image.save
-      render json: @image, root: "data"
-    else
-      render json:@image.errors
-    end
-  end
+   def create
+     @upload = Imageplace.new(imageplace_params)
+
+     if @upload.save
+       render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
+     else
+       render @upload.errors
+     end
+   end
 
   def byplace
     name=params[:placename]

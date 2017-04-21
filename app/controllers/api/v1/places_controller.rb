@@ -35,7 +35,7 @@ class Api::V1::PlacesController < ApplicationController
   end
 
   def places_params
-      params.require(:place).permit(:id,:name, :state, :publicationdate, :description, :ubication, :address, :kind, :valoration, :entrycost, :town_id, :depart_id, :user_id)
+      params.require(:place).permit(:id,:name, :state, :description, :ubication, :address, :kind, :valoration, :valone, :valtwo, :valthree, :valfour, :valfive, :entrycost, :town_id, :depart_id, :user_id)
    end
 
    def update

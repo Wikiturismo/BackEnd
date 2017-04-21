@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :imgtowns
       resources :departs , only: [:show, :index] do
         collection do
           get '/name/:name', to: 'departs#name', as: 'departname'
@@ -42,7 +41,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, only: [:show, :index, :create] do
+      resources :users do
        collection do
          get '/name/:name', to: 'users#name', as: 'username'
          get '/name/:username/commenttowns/:page', to: 'commenttowns#byuser', as: 'usercommenttowns'

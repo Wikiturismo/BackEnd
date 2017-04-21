@@ -1,12 +1,18 @@
 class Api::V1::ImagetownsController < ApplicationController
+
+  def imagetown_params
+      params.permit(:id, :image)
+   end
+
   def index
     @images = Imagetown.all
     render json: @images, root: "data"
   end
 
+
   def show
     @images = Imagetown.imagetowns_by_id(params[:id])
-    render json: @images, root: "data"
+    render json: @images.image.url, root: "data"
   end
 
   def destroy
@@ -19,10 +25,6 @@ class Api::V1::ImagetownsController < ApplicationController
     end
   end
 
-  def imagetowns_params
-      params.require(:imagetown).permit(:id,:height, :width, :path, :depart_id)
-   end
-
    def update
      @imagetown = Imagetown.imagetowns_by_id(params[:id])
      if @imagetown.update_attributes(imagetown_params)
@@ -33,14 +35,15 @@ class Api::V1::ImagetownsController < ApplicationController
      end
    end
 
-  def create
-    @image = Imagetown.new(imagetowns_params)
-    if @image.save
-      render json: @image, root: "data"
-    else
-      render json: @image.errors
-    end
-  end
+   def create
+     @upload = Imagetown.new(imagetown_params)
+
+     if @upload.save
+       render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
+     else
+       render @upload.errors
+     end
+   end
 
   def bytown
     name=params[:townname]

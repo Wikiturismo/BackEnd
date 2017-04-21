@@ -1,5 +1,5 @@
 class CommentplaceSerializer < ActiveModel::Serializer
-  attributes :id, :content, :state, :publicationdate
+  attributes :id, :content, :state
 
   #belongs_to :town
   #belongs_to :place

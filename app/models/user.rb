@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :commenttowns
   has_many :places
 
-  validates :name,:kind,:mail,:registdate, presence: { message: "Campo obligatorio"}
+  validates :name,:kind,:mail, presence: { message: "Campo obligatorio"}
   validates :name, uniqueness: {case_sensitive: true ,message: "Ya esta registrado"}
   validates :mail, uniqueness: {case_sensitive: false ,message: "Ya esta registrado"}
   validates :name, length: { in: 3..50, message: "debe tener entre 3 y 50 caracteres"}

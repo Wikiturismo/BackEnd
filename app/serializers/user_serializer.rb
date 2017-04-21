@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :kind, :mail, :ubication, :registdate
+  attributes :id, :name, :kind, :mail, :ubication
 
   has_many :commentplaces
   has_many :commenttowns

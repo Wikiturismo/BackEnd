@@ -21,7 +21,7 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def commentplace_params
-      params.require(:commentplace).permit(:id, :state, :content, :publicationdate, :town_id,:place_id, :user_id, :depart_id)
+      params.require(:commentplace).permit(:id, :state, :content, :town_id,:place_id, :user_id, :depart_id)
    end
 
   def create
