@@ -209,3 +209,15 @@ Imageplace.destroy_all
 end
 
 p "Created #{Imageplace.count} imageplaces"
+
+Imageuser.destroy_all
+
+100.times do |index|
+  Imageuser.create!(id:index,
+                height: Faker::Number.between(101, 4000),
+                width: Faker::Number.between(101, 4000),
+                path: "Path #{index}",
+                user_id: Faker::Number.between(1, 20))
+end
+
+p "Created #{Imageuser.count} imageusers"

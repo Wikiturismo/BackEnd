@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ImagetownsControllerTest < ActionDispatch::IntegrationTest
-
   test 'should destroy imagetown' do
     assert_difference('Imagetown.count', -1) do
         delete '/imagetowns/1'
@@ -16,6 +15,6 @@ class ImagetownsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update imagetown" do
     path = "path/nuevo"
-    post imageplaces_url, params: { imageplaces: { id: '', height: '' , width:'', path:path, town_id:3 , imagen:''} }
+    post imagetowns_url, params: { imagetowns: { id: '', height: '' , width:'', path:path, town_id:3 , imagen:''} }
   end
 end

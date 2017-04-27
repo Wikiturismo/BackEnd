@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420071243) do
+ActiveRecord::Schema.define(version: 20170427030438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,17 @@ ActiveRecord::Schema.define(version: 20170420071243) do
     t.datetime "updated_at",                                   null: false
     t.string   "image"
     t.index ["town_id"], name: "index_imagetowns_on_town_id", using: :btree
+  end
+
+  create_table "imageusers", force: :cascade do |t|
+    t.integer  "height",                 default: 500,         null: false
+    t.integer  "width",                  default: 500,         null: false
+    t.string   "path",       limit: 100, default: "Direccion", null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "image"
+    t.index ["user_id"], name: "index_imageusers_on_user_id", using: :btree
   end
 
   create_table "places", force: :cascade do |t|
@@ -162,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170420071243) do
   add_foreign_key "imagedeparts", "departs"
   add_foreign_key "imageplaces", "places"
   add_foreign_key "imagetowns", "towns"
+  add_foreign_key "imageusers", "users"
   add_foreign_key "places", "departs"
   add_foreign_key "places", "towns"
   add_foreign_key "places", "users"
