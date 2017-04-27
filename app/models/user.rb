@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :commentplaces
   has_many :commenttowns
   has_many :places
+  has_many :imageusers, :dependent => :destroy
 
   validates :name,:kind,:mail, presence: { message: "Campo obligatorio"}
   validates :name, uniqueness: {case_sensitive: true ,message: "Ya esta registrado"}

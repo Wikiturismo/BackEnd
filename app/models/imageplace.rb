@@ -1,6 +1,5 @@
 class Imageplace < ApplicationRecord
 
-
   belongs_to :place
 
   validates :height, :width, :path, presence: {message: "Campo obligatorio"}
@@ -23,5 +22,5 @@ class Imageplace < ApplicationRecord
             .includes(place:[:commentplaces,:schedules])
                   .paginate(:page => page,:per_page => per_page)
   end
-  mount_uploader :image, ImageplacesUploader 
+  mount_uploader :image, ImageplacesUploader
 end
