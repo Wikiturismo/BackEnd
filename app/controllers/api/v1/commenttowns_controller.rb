@@ -26,6 +26,13 @@ class Api::V1::CommenttownsController < ApplicationController
     renderCommenttowns(params[:sort], comment)
   end
 
+  def count
+    comment = Commenttown.all
+    render json: {
+      count: comment.count
+    }
+  end
+
   def show
     @commenttowns = Commenttown.commenttowns_by_id(params[:id])
     render json: @commenttowns, root: "data"

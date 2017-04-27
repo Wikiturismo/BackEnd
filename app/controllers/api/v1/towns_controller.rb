@@ -26,6 +26,13 @@ class Api::V1::TownsController < ApplicationController
     renderTowns(params[:sort],town)
   end
 
+  def count
+    comment = Town.all
+    render json: {
+      count: comment.count
+    }
+  end
+
   def show
     @towns = Town.towns_by_id(params[:id])
     render json: @towns, root: "data"

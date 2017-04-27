@@ -26,6 +26,13 @@ class Api::V1::UsersController < ApplicationController
     renderUsers(params[:sort],user)
   end
 
+  def count
+    comment = User.all
+    render json: {
+      count: comment.count
+    }
+  end
+
   def show
     @users = User.users_by_id(params[:id])
     render json: @users, root: "data"

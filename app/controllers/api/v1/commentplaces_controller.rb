@@ -26,6 +26,13 @@ class Api::V1::CommentplacesController < ApplicationController
     renderCommentplaces(params[:sort], comment)
   end
 
+  def count
+    comment = Commentplace.all
+    render json: {
+      count: comment.count
+    }
+  end
+
   def show
     @commentplaces = Commentplace.commentplaces_by_id(params[:id])
     render json: @commentplaces, root: "data"

@@ -26,6 +26,13 @@ class Api::V1::PlacesController < ApplicationController
     renderPlaces(params[:sort], place)
   end
 
+  def count
+    comment = Place.all
+    render json: {
+      count: comment.count
+    }
+  end
+
   def show
     @places = Place.places_by_id(params[:id])
     render json: @places, root: "data"
