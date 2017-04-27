@@ -17,7 +17,7 @@ class Commentplace < ApplicationRecord
     .find_by_id(id)
   end
 
-  def self.commentplaces_by_state(state,page, per_page = 10)
+  def self.commentplaces_by_state(state,page=1, per_page = 10)
     load_commentplaces(page,per_page)
     .where("commentplaces.state = ?", state)
   end
@@ -32,14 +32,14 @@ class Commentplace < ApplicationRecord
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end
-  def self.commentplaces_by_town(town,page , per_page = 10)
+  def self.commentplaces_by_town(town,page=1 , per_page = 10)
     joins(:town).select("commentplaces.*, towns.id,commentplaces.id")
         .where("lower(towns.name) = ? AND commentplaces.town_id=towns.id", town.downcase)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end
 
-  def self.commentplaces_by_depart(depart,page, per_page = 10)
+  def self.commentplaces_by_depart(depart,page=1, per_page = 10)
     joins(:depart).select("commentplaces.*, departs.id,commentplaces.id")
         .where("lower(departs.name) = ? AND commentplaces.depart_id=departs.id", depart.downcase)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])

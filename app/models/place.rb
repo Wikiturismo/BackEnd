@@ -38,33 +38,33 @@ class Place < ApplicationRecord
         .where("lower(places.name) = ?", name.downcase)
     end
 
-    def self.places_by_valoration(valoration,page, per_page = 10)
+    def self.places_by_valoration(valoration,page=1, per_page = 10)
         load_places(page,per_page)
         .where("places.valoration = ?", valoration)
     end
 
-    def self.places_by_entrycost(entrycost,page, per_page = 10)
+    def self.places_by_entrycost(entrycost,page=1, per_page = 10)
         load_places(page,per_page)
         .where("places.entrycost = ?", entrycost)
     end
 
-    def self.places_by_publicationdate(page, per_page = 10)
+    def self.places_by_publicationdate(page=1, per_page = 10)
         load_places(page,per_page)
         .where("places.created_at < ?", Date.today)
     end
 
-    def self.places_by_kind(kind,page, per_page = 10)
+    def self.places_by_kind(kind,page=1, per_page = 10)
         load_places(page,per_page)
         .where("lower(places.kind) = ?", kind.downcase)
     end
 
-    def self.places_by_depart(name,page, per_page = 10)
+    def self.places_by_depart(name,page=1, per_page = 10)
         joins(:depart).select("places.*, departs.id,places.id")
             .where("lower(departs.name) = ? AND places.depart_id=departs.id", name.downcase)
                     .paginate(:page => page,:per_page => per_page)
     end
 
-    def self.places_by_town(name,page, per_page = 10)
+    def self.places_by_town(name,page=1, per_page = 10)
         joins(:town).select("places.*, towns.id,places.id")
             .where("lower(towns.name) = ? AND places.town_id=towns.id", name.downcase)
                 .paginate(:page => page,:per_page => per_page)

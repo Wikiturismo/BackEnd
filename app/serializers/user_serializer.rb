@@ -4,5 +4,4 @@ class UserSerializer < ActiveModel::Serializer
   has_many :commentplaces
   has_many :commenttowns
   has_many :places
-  has_many :imageusers
 end

@@ -10,7 +10,7 @@ class Depart < ApplicationRecord
   validates :demonym, uniqueness: {message: "Ya esta registrado"}
   validates :name,:capital,:demonym, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
 
-  def self.load_departs(page = 1, per_page = 10)
+  def self.load_departs(page=1, per_page = 10)
     includes(:imagedeparts,:towns)
       .paginate(:page => page, :per_page => per_page)
   end

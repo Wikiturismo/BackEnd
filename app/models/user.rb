@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_many :commentplaces
   has_many :commenttowns
   has_many :places
-  has_many :imageusers, :dependent => :destroy
 
   validates :name,:kind,:mail, presence: { message: "Campo obligatorio"}
   validates :name, uniqueness: {case_sensitive: true ,message: "Ya esta registrado"}
@@ -31,7 +30,7 @@ class User < ApplicationRecord
         load_users(page,per_page)
         .where("lower(users.mail) = ?", mail.downcase)
     end
-    def self.users_by_kind(kind,page, per_page = 10)
+    def self.users_by_kind(kind,page=1, per_page = 10)
         load_users(page,per_page)
         .where("lower(users.kind) = ?", kind.downcase)
     end
