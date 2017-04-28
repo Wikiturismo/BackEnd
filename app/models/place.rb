@@ -22,50 +22,68 @@ class Place < ApplicationRecord
         .paginate(:page => page, :per_page => per_page)
     end
 
-    def self.places_by_id(id)
+    def self.places_by_id(id, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         includes(:imageplaces,:commentplaces,user:[:commentplaces,:commenttowns],depart:[:imagedeparts,:towns],town:[:commenttowns,:imagetowns])
+        .select(columns)
        .find_by_id(id)
     end
 
-    def self.places_by_random_id(page = 1 , per_page = 10)
+    def self.places_by_random_id(page = 1 , per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
       random_ids = Array.new(11) {rand(Town.count)}
       load_places(page,per_page)
+      .select(columns)
       .where(id: random_ids)
     end
 
-    def self.places_by_name(name,page = 1, per_page = 10)
+    def self.places_by_name(name,page = 1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
+        .select(columns)
         .where("lower(places.name) = ?", name.downcase)
     end
 
-    def self.places_by_valoration(valoration,page, per_page = 10)
+    def self.places_by_valoration(valoration,page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
+        .select(columns)
         .where("places.valoration = ?", valoration)
     end
 
-    def self.places_by_entrycost(entrycost,page, per_page = 10)
+    def self.places_by_entrycost(entrycost,page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
+        .select(columns)
         .where("places.entrycost = ?", entrycost)
     end
 
-    def self.places_by_publicationdate(page, per_page = 10)
+    def self.places_by_publicationdate(page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
+        .select(columns)
         .where("places.created_at < ?", Date.today)
     end
 
-    def self.places_by_kind(kind,page, per_page = 10)
+    def self.places_by_kind(kind,page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
+        .select(columns)
         .where("lower(places.kind) = ?", kind.downcase)
     end
 
-    def self.places_by_depart(name,page, per_page = 10)
+    def self.places_by_depart(name,page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         joins(:depart).select("places.*, departs.id,places.id")
+        .select(columns)
             .where("lower(departs.name) = ? AND places.depart_id=departs.id", name.downcase)
                     .paginate(:page => page,:per_page => per_page)
     end
 
-    def self.places_by_town(name,page, per_page = 10)
+    def self.places_by_town(name,page=1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, town_id" : "places.*, user_id, town_id"
         joins(:town).select("places.*, towns.id,places.id")
+          .select(columns)
             .where("lower(towns.name) = ? AND places.town_id=towns.id", name.downcase)
                 .paginate(:page => page,:per_page => per_page)
     end

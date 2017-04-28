@@ -1,7 +1,29 @@
 class Api::V1::SchedulesController < ApplicationController
+
+  def renderSchedules(sort, schedule)
+    if(params[:sort])
+      options=["id ASC", "id DESC", "created_at ASC", "created_at DESC", "place_id ASC", "place_id DESC"]
+      if (options.include? sort)
+          if(sort=="id ASC")
+            sort="schedules.id ASC"
+          elsif (sort=="id DESC")
+            sort="schedules.id DESC"
+          end
+        schedule = schedule.order (sort)
+        render json: schedule, root: "data"
+      else
+        render status: 400, json: {
+          message: options
+          }
+      end
+    else
+      render json: schedule, root: "data"
+    end
+  end
+
   def index
-    @schedule = Schedule.all
-    render json: @schedule, root: "data"
+    schedule = Schedule.all
+    renderSchedules(params[:sort],schedule)
   end
 
   def show
@@ -43,8 +65,14 @@ class Api::V1::SchedulesController < ApplicationController
   end
 
   def byplace
-    name=params[:placename]
-    @schedule = Schedule.schedules_by_place(name.tr('+', ' '),params[:page])
-    render json: @schedule, root: "data"
+    if(params[:q])
+      nam=params[:q]
+      schedule = Schedule.schedules_by_place(nam.tr('+', ' '),params[:page])
+      renderSchedules(params[:sort],schedule)
+    else
+      render status: 400,json: {
+        message: "place name(q) param missing"
+        }
+    end
   end
 end
