@@ -1,6 +1,6 @@
 class Api::V1::CommentplacesController < ApplicationController
 
-  def renderCommentplaces(sort, comment)
+  def renderCommentplaces(sort, comment, columns)
     if(params[:sort])
       options=["id ASC", "id DESC", "state ASC", "state DESC", "created_at ASC", "created_at DESC", "town_id ASC", "town_id DESC", "place_id ASC", "place_id DESC", "user_id ASC", "user_id DESC", "depart_id ASC", "depart_id DESC"]
       if (options.include? sort)
@@ -10,32 +10,36 @@ class Api::V1::CommentplacesController < ApplicationController
             sort="commentplaces.id DESC"
           end
         comment = comment.order (sort)
-        render json: comment, root: "data"
+        render json: comment,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data"
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: comment, root: "data"
+      render json: comment, root: "data", columns: columns || "all"
     end
   end
 
   def index
-    comment = Commentplace.all
-    renderCommentplaces(params[:sort], comment)
+    columns= params[:columns] ? params[:columns].split(",") : nil
+    comment= columns ? comment = Commentplace.all.select(columns) : comment = Commentplace.all
+    renderCommentplaces(params[:sort], comment, columns)
   end
 
   def count
-    comment = Commentplace.all
+    comment = Commentplace.count
     render json: {
-      count: comment.count
+      data:[
+        count: comment
+      ]
     }
   end
 
   def show
-    @commentplaces = Commentplace.commentplaces_by_id(params[:id])
-    render json: @commentplaces, root: "data"
+    columns= params[:columns] ? params[:columns]: nil
+    commentplaces = Commentplace.commentplaces_by_id(params[:id], columns)
+    render json: commentplaces, columns: columns || "all", root: "data"
   end
 
   def destroy
@@ -72,9 +76,10 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def state
+    columns= params[:columns] ? params[:columns]: nil
     if(params[:q])
-      comment = Commentplace.commentplaces_by_state(params[:q],params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment = Commentplace.commentplaces_by_state(params[:q],params[:page],columns)
+      renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
         message: "state(q) param missing"
@@ -83,9 +88,10 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def date
+    columns= params[:columns] ? params[:columns]: nil
     if(params[:q])
-      comment = Commentplace.commentplaces_by_publicationdate(params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment = Commentplace.commentplaces_by_publicationdate(params[:page],columns)
+      renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
         message: "date(q) param missing"
@@ -94,10 +100,12 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def byplace
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commentplace.commentplaces_by_place(nam.tr('+', ' '),params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment = Commentplace.commentplaces_by_place(nam.tr('+', ' '),params[:page],columns2)
+      renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
         message: "place name(q) param missing"
@@ -106,10 +114,12 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def bytown
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment= Commentplace.commentplaces_by_town(nam.tr('+', ' '),params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment= Commentplace.commentplaces_by_town(nam.tr('+', ' '),params[:page],columns2)
+      renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
         message: "town name(q) param missing"
@@ -118,10 +128,12 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def bydepart
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commentplace.commentplaces_by_depart(nam.tr('+', ' '),params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment = Commentplace.commentplaces_by_depart(nam.tr('+', ' '),params[:page],columns2)
+      renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
         message: "depart name(q) param missing"
@@ -130,14 +142,29 @@ class Api::V1::CommentplacesController < ApplicationController
   end
 
   def byuser
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commentplace.commentplaces_by_user(nam.tr('+', ' '),params[:page])
-      renderCommentplaces(params[:sort],comment)
+      comment = Commentplace.commentplaces_by_user(nam.tr('+', ' '),params[:page], columns2)
+      renderCommentplaces(params[:sort],comment, columns)
     else
       render status: 400,json: {
         message: "depart name(q) param missing"
         }
     end
   end
+
+  def renameColumns(columns)
+    if columns
+      aux=columns.split(",")
+      for i in 0..aux.length
+        aux[i]= aux[i]=="id"||aux[i]=="state"||aux[i]=="content"? "commentplaces."+aux[i] : aux[i]
+      end
+      return aux.join(",").chomp(",")
+    else
+      return columns
+    end
+  end
+
 end
