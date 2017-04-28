@@ -15,23 +15,35 @@ class User < ApplicationRecord
   validates :ubication, length: { in: 5..80, message: "debe tener entre 5 y 80 caracteres"}
 
   def self.load_users(page = 1, per_page = 10)
-        includes(:commentplaces,:commenttowns,:places)
-        .paginate(:page => page, :per_page => per_page)
-    end
-    def self.users_by_id(id)
-        includes(:commentplaces,:commenttowns,:places)
-       .find_by_id(id)
-    end
-    def self.users_by_name(name,page = 1, per_page = 10)
-        load_users(page,per_page)
-        .where("lower(users.name) = ?", name.downcase)
-    end
-    def self.users_by_mail(mail,page = 1, per_page = 10)
-        load_users(page,per_page)
-        .where("lower(users.mail) = ?", mail.downcase)
-    end
-    def self.users_by_kind(kind,page=1, per_page = 10)
-        load_users(page,per_page)
-        .where("lower(users.kind) = ?", kind.downcase)
-    end
+    includes(:commentplaces,:commenttowns,:places)
+    .paginate(:page => page, :per_page => per_page)
+  end
+
+  def self.users_by_id(id,columns)
+    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    includes(:commentplaces,:commenttowns,:places)
+    .select(columns)
+    .find_by_id(id)
+  end
+
+  def self.users_by_name(name,page = 1, per_page = 10, columns)
+    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    load_users(page,per_page)
+    .select(columns)
+    .where("lower(users.name) = ?", name.downcase)
+  end
+
+  def self.users_by_mail(mail,page = 1, per_page = 10, columns)
+    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    load_users(page,per_page)
+    .select(columns)
+    .where("lower(users.mail) = ?", mail.downcase)
+  end
+
+  def self.users_by_kind(kind,page=1, per_page = 10, columns)
+    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    load_users(page,per_page)
+    .select(columns)
+    .where("lower(users.kind) = ?", kind.downcase)
+  end
 end
