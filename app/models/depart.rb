@@ -15,13 +15,17 @@ class Depart < ApplicationRecord
       .paginate(:page => page, :per_page => per_page)
   end
 
-  def self.departs_by_id(id)
+  def self.departs_by_id(id,columns)
+    columns=columns ? columns : "departs.*"
     includes(:imagedeparts,:towns)
+      .select(columns)
       .find_by_id(id)
   end
 
-  def self.departs_by_name(name,page = 1, per_page = 10)
+  def self.departs_by_name(name,page = 1, per_page = 10,columns)
+    columns=columns ? columns : "departs.*"
     load_departs(page,per_page)
+      .select(columns)
       .where("lower(departs.name) = ?", name.downcase)
   end
 

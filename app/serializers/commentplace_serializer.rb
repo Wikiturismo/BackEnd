@@ -5,34 +5,50 @@ class CommentplaceSerializer < ActiveModel::Serializer
       belongs_to :user, if: :render_user?
 
       def render_id?
-        if(instance_options[:columns].include?("id") || instance_options[:columns]=="all")
-          return true
+        if(instance_options[:columns])
+          if(instance_options[:columns].include?("id") || instance_options[:columns]=="all")
+            return true
+          else
+            return false
+          end
         else
-          return false
+          return true
         end
       end
 
       def render_content?
-        if(instance_options[:columns].include?("content")|| instance_options[:columns]=="all")
-          return true
+        if(instance_options[:columns])
+          if(instance_options[:columns].include?("content")|| instance_options[:columns]=="all")
+            return true
+          else
+            return false
+          end
         else
-          return false
+          return true
         end
       end
 
       def render_state?
-        if(instance_options[:columns].include?("state")|| instance_options[:columns]=="all")
-          return true
+        if(instance_options[:columns])
+          if(instance_options[:columns].include?("state")|| instance_options[:columns]=="all")
+            return true
+          else
+            return false
+          end
         else
-          return false
+          return true
         end
       end
 
       def render_user?
-        if(instance_options[:columns].include?("user")|| instance_options[:columns]=="all")
-          return true
+        if(instance_options[:columns])
+          if(instance_options[:columns].include?("user")|| instance_options[:columns]=="all")
+            return true
+          else
+            return false
+          end
         else
-          return false
+          return true
         end
       end
 end

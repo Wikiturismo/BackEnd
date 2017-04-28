@@ -17,26 +17,38 @@ class CommenttownSerializer < ActiveModel::Serializer
     end
 
     def render_content?
-      if(instance_options[:columns].include?("content")|| instance_options[:columns]=="all")
+    	if(instance_options[:columns])
+	      if(instance_options[:columns].include?("content")|| instance_options[:columns]=="all")
+	        return true
+	      else
+	        return false
+	      end
+	  else
         return true
-      else
-        return false
       end
     end
 
     def render_state?
-      if(instance_options[:columns].include?("state")|| instance_options[:columns]=="all")
+    	if(instance_options[:columns])
+	      if(instance_options[:columns].include?("state")|| instance_options[:columns]=="all")
+	        return true
+	      else
+	        return false
+	      end
+		else
         return true
-      else
-        return false
       end
     end
 
     def render_user?
-      if(instance_options[:columns].include?("user")|| instance_options[:columns]=="all")
+    	if(instance_options[:columns])
+	      if(instance_options[:columns].include?("user")|| instance_options[:columns]=="all")
+	        return true
+	      else
+	        return false
+	      end
+	    else
         return true
-      else
-        return false
       end
     end
 

@@ -23,7 +23,8 @@ class Api::V1::CommentplacesController < ApplicationController
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
-    comment= columns ? comment = Commentplace.all.select(columns) : comment = Commentplace.all
+    columns2=renameColumns(columns)
+    comment= columns ? comment = Commentplace.all.select(columns2) : comment = Commentplace.all
     renderCommentplaces(params[:sort], comment, columns)
   end
 
@@ -38,7 +39,8 @@ class Api::V1::CommentplacesController < ApplicationController
 
   def show
     columns= params[:columns] ? params[:columns]: nil
-    commentplaces = Commentplace.commentplaces_by_id(params[:id], columns)
+    columns2=renameColumns(columns)
+    commentplaces = Commentplace.commentplaces_by_id(params[:id], columns2)
     render json: commentplaces, columns: columns || "all", root: "data"
   end
 
@@ -77,8 +79,9 @@ class Api::V1::CommentplacesController < ApplicationController
 
   def state
     columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
-      comment = Commentplace.commentplaces_by_state(params[:q],params[:page],columns)
+      comment = Commentplace.commentplaces_by_state(params[:q],params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
@@ -89,8 +92,9 @@ class Api::V1::CommentplacesController < ApplicationController
 
   def date
     columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
     if(params[:q])
-      comment = Commentplace.commentplaces_by_publicationdate(params[:page],columns)
+      comment = Commentplace.commentplaces_by_publicationdate(params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
