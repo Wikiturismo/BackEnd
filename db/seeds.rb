@@ -58,7 +58,7 @@ Town.destroy_all
 end
 
 32.times do |index|
-  n=Town.towns_by_id(index)
+  n=Town.towns_by_id(index,nil)
   n.update_column(:airport, Faker::Boolean.boolean)
   n.update_column(:transpterminal, Faker::Boolean.boolean)
 end
@@ -97,9 +97,9 @@ end
 
 
 32.times do |index|
-  n=Place.places_by_id(index)
+  n=Place.places_by_id(index,nil)
   n.update_column(:state, Faker::Boolean.boolean)
-  val=Place.places_by_id(index).valoration
+  val=Place.places_by_id(index,nil).valoration
   if val==1.0
     n.update_column(:valone,1)
   elsif val==2.0

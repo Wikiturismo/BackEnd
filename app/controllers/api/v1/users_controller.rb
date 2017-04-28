@@ -31,15 +31,16 @@ class Api::V1::UsersController < ApplicationController
   def count
     comment = User.count
     render json: {
-      data:[
+      data:{
         count: comment
-      ]
+      }
     }
   end
 
   def show
     columns= params[:columns] ? params[:columns]: nil
-    users = User.users_by_id(params[:id], columns)
+    columns2=renameColumns(columns)
+    users = User.users_by_id(params[:id], columns2)
     render json: users, columns: columns || "all", root: "data"
   end
 

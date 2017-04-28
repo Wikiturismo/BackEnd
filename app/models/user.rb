@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def self.users_by_id(id,columns)
-    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    columns=columns ? columns : "users.*"
     includes(:commentplaces,:commenttowns,:places)
     .select(columns)
     .find_by_id(id)

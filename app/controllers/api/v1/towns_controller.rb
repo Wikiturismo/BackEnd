@@ -31,9 +31,9 @@ class Api::V1::TownsController < ApplicationController
   def count
     comment = Town.count
     render json: {
-      data:[
+      data:{
         count: comment
-      ]
+      }
     }
   end
 

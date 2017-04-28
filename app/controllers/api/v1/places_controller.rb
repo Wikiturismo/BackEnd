@@ -31,9 +31,9 @@ class Api::V1::PlacesController < ApplicationController
   def count
     comment = Place.count
     render json: {
-      data:[
+      data:{
         count: comment
-      ]
+      }
     }
   end
 

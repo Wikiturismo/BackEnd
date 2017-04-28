@@ -31,9 +31,9 @@ class Api::V1::CommentplacesController < ApplicationController
   def count
     comment = Commentplace.count
     render json: {
-      data:[
+      data:{
         count: comment
-      ]
+      }
     }
   end
 
