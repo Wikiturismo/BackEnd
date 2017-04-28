@@ -42,6 +42,8 @@ gem 'jbuilder', '~> 2.5'
 #rack-cors
 gem 'rack-cors'
 
+gem 'rack-attack'
+
 gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do

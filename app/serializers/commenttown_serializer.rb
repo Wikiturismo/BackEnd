@@ -3,7 +3,7 @@ class CommenttownSerializer < ActiveModel::Serializer
     attribute :content, if: :render_content?
     attribute :state, if: :render_state?
     belongs_to :user, if: :render_user?
-
+    
     def render_id?
       if(instance_options[:columns])
         if(instance_options[:columns].include?("id") || instance_options[:columns]=="all")

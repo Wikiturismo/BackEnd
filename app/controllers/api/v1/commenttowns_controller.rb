@@ -30,10 +30,7 @@ class Api::V1::CommenttownsController < ApplicationController
   def count
     comment = Commenttown.count
     render json: {
-      data:[
-        count: comment
-      ]
-    }
+      data:{ count: comment }}
   end
 
   def show
@@ -61,6 +58,8 @@ class Api::V1::CommenttownsController < ApplicationController
      if @comment.save
        render json: @comment, root: "data"
      else
+       puts(commenttown_params)
+       puts(render json:@comment.errors)
        render json:@comment.errors
      end
    end
