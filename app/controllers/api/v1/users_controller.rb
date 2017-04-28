@@ -27,9 +27,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def count
-    comment = User.all
+    comment = User.count
     render json: {
-      count: comment.count
+      data:[
+        count: comment
+      ]
     }
   end
 

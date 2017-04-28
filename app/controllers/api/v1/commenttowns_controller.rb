@@ -28,9 +28,9 @@ class Api::V1::CommenttownsController < ApplicationController
   end
 
   def count
-    comment = Commenttown.all
+    comment = Commenttown.count
     render json: {
-      data: [
+      data:[
         count: comment
       ]
     }

@@ -31,7 +31,9 @@ class Api::V1::PlacesController < ApplicationController
   def count
     comment = Place.count
     render json: {
-      data:{count: comment}
+      data:[
+        count: comment
+      ]
     }
   end
 
@@ -178,7 +180,7 @@ class Api::V1::PlacesController < ApplicationController
     end
   end
 
-  def bytown    
+  def bytown
       columns= params[:columns] ? params[:columns]: nil
       columns2=renameColumns(columns)
     if(params[:q])
