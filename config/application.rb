@@ -8,7 +8,8 @@ Bundler.require(*Rails.groups)
 
 module BackEnd
   class Application < Rails::Application
-      # Configure Rack CORS      
+
+  config.middleware.use Rack::Attack
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
       origins '*'
