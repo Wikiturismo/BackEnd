@@ -128,7 +128,7 @@ Commentplace.destroy_all
 end
 
 100.times do |index|
-  n=Commentplace.commentplaces_by_id(index)
+  n=Commentplace.commentplaces_by_id(index,nil)
   n.update_column(:state, Faker::Boolean.boolean)
 end
 
@@ -146,7 +146,7 @@ Commenttown.destroy_all
 end
 
 100.times do |index|
-  n=Commenttown.commenttowns_by_id(index)
+  n=Commenttown.commenttowns_by_id(index,nil)
   n.update_column(:state, Faker::Boolean.boolean)
 end
 

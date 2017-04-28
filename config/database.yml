@@ -3,7 +3,7 @@ connection: &connection
   encoding: unicode
   pool: 5
   username: postgres
-  password: 1234
+  password: abcd1234
 
 development:
   <<: *connection
