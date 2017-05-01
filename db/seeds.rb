@@ -174,39 +174,3 @@ Schedule.destroy_all
 end
 
 p "Created #{Schedule.count} schedules"
-
-Imagedepart.destroy_all
-
-100.times do |index|
-  Imagedepart.create!(id:index,
-                height: Faker::Number.between(101, 4000),
-                width: Faker::Number.between(101, 4000),
-                path: "Path #{index}",
-                depart_id: Faker::Number.between(0, 31))
-end
-
-p "Created #{Imagedepart.count} imagedeparts"
-
-Imagetown.destroy_all
-
-100.times do |index|
-  Imagetown.create!(id:index,
-                height: Faker::Number.between(101, 4000),
-                width: Faker::Number.between(101, 4000),
-                path: "Path #{index}",
-                town_id: Faker::Number.between(0, 20))
-end
-
-p "Created #{Imagetown.count} imagetowns"
-
-Imageplace.destroy_all
-
-100.times do |index|
-  Imageplace.create!(id:index,
-                height: Faker::Number.between(101, 4000),
-                width: Faker::Number.between(101, 4000),
-                path: "Path #{index}",
-                place_id: Faker::Number.between(0, 20))
-end
-
-p "Created #{Imageplace.count} imageplaces"

@@ -2,11 +2,8 @@ class Imagedepart < ApplicationRecord
 
   belongs_to :depart
 
-  validates :height, :width, :path, presence: {message: "Campo obligatorio"}
   validates :path, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
-  validates :height, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
-  validates :width, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
-
+  
   def self.load_imagedeparts(page = 1, per_page = 10)
         includes(depart:[:towns])
         .paginate(:page => page, :per_page => per_page)
@@ -22,5 +19,5 @@ class Imagedepart < ApplicationRecord
               .includes(depart:[:towns])
                     .paginate(:page => page,:per_page => per_page)
     end
-      mount_uploader :image, ImagedepartsUploader 
+      mount_uploader :image, ImagedepartsUploader
 end

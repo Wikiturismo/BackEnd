@@ -1,5 +1,5 @@
 class ImagedepartSerializer < ActiveModel::Serializer
-  attributes :id, :height, :width
+  attributes :id, :path
 
   #belongs_to :depart
 end

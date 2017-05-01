@@ -8,7 +8,7 @@ class Api::V1::ImageplacesController < ApplicationController
 
   def show
     @images = Imageplace.imageplaces_by_id(params[:id])
-    render json: @images.image.url, root: "data"
+    render json: @images.image.path, root: "data"
   end
 
   def destroy
@@ -22,7 +22,7 @@ class Api::V1::ImageplacesController < ApplicationController
   end
 
   def imageplace_params
-      params.permit(:id, :image)
+      params.permit(:id, :image, :place_id)
    end
 
    def update
@@ -37,8 +37,9 @@ class Api::V1::ImageplacesController < ApplicationController
 
    def create
      @upload = Imageplace.new(imageplace_params)
-
      if @upload.save
+       image_path=Imageplace.order("created_at").last
+       @upload.update(path: image_path.image.path)
        render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
        render @upload.errors
@@ -46,8 +47,14 @@ class Api::V1::ImageplacesController < ApplicationController
    end
 
   def byplace
-    name=params[:placename]
-    @images = Imageplace.imageplaces_by_place(name.tr('+', ' '), params[:page])
-    render json: @images, root: "data"
+    if(params[:q])
+      name=params[:q]
+      images = Imageplace.imageplaces_by_place(name.tr('+', ' '), params[:page])
+      render json: images, root: "data"
+    else
+      render status: 400,json: {
+        message: "depart name(q) param missing"
+        }
+    end
   end
 end

@@ -1,7 +1,7 @@
 class Api::V1::ImagetownsController < ApplicationController
 
   def imagetown_params
-      params.permit(:id, :image)
+      params.permit(:id, :image, :town_id)
    end
 
   def index
@@ -12,7 +12,7 @@ class Api::V1::ImagetownsController < ApplicationController
 
   def show
     @images = Imagetown.imagetowns_by_id(params[:id])
-    render json: @images.image.url, root: "data"
+    render json: @images.image.path, root: "data"
   end
 
   def destroy
@@ -37,8 +37,9 @@ class Api::V1::ImagetownsController < ApplicationController
 
    def create
      @upload = Imagetown.new(imagetown_params)
-
      if @upload.save
+       image_path=Imagetown.order("created_at").last
+       @upload.update(path: image_path.image.path)
        render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
        render @upload.errors
@@ -46,8 +47,14 @@ class Api::V1::ImagetownsController < ApplicationController
    end
 
   def bytown
-    name=params[:townname]
-    @images = Imagetown.imagetowns_by_town(name.tr('+', ' '),params[:page])
-    render json: @images, root: "data"
+    if(params[:q])
+      name=params[:q]
+      images = Imagetown.imagetowns_by_town(name.tr('+', ' '),params[:page])
+      render json: images, root: "data"
+    else
+      render status: 400,json: {
+        message: "depart name(q) param missing"
+        }
+    end
   end
 end

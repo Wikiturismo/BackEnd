@@ -7,7 +7,7 @@ class Api::V1::ImagedepartsController < ApplicationController
 
   def show
     @images = Imagedepart.imagedeparts_by_id(params[:id])
-    render json: @images.image.url, root: "data"
+    render json: @images.image.path, root: "data"
   end
 
   def destroy
@@ -21,7 +21,7 @@ class Api::V1::ImagedepartsController < ApplicationController
   end
 
   def imagedepart_params
-      params.permit(:id,:image)
+      params.permit(:id,:image, :depart_id)
    end
 
    def update
@@ -35,18 +35,25 @@ class Api::V1::ImagedepartsController < ApplicationController
    end
 
    def create
-     @upload = Imagedepart.new(imagedepart_params)
-
-     if @upload.save
-       render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
+     upload = Imagedepart.new(imagedepart_params)
+     if upload.save
+       image_path=Imagedepart.order("created_at").last
+       upload.update(path: image_path.image.path)
+       render json: upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
-       render @upload.errors
+       render upload.errors
      end
    end
 
   def bydepart
-    name=params[:departname]
-    @images = Imagedepart.imagedeparts_by_depart(name.tr('+', ' '), params[:page])
-    render json: @images, root: "data"
+    if(params[:q])
+      name=params[:q]
+      images = Imagedepart.imagedeparts_by_depart(name.tr('+', ' '), params[:page])
+      render json: images, root: "data"
+    else
+      render status: 400,json: {
+        message: "depart name(q) param missing"
+        }
+    end
   end
 end

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           get '/places', to: 'places#bydepart', as: 'departplaces'
           get '/commenttowns', to: 'commenttowns#bydepart', as: 'departcommenttowns'
           get '/commentplaces', to: 'commentplaces#bydepart', as: 'departcommentplaces'
+          get '/images', to: 'imagedeparts#bydepart', as: 'departimages'
         end
       end
 
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
           get '/airport', to: 'towns#airport', as: 'townairport'
           get '/terminal', to: 'towns#terminal', as: 'townterminal'
           get '/temper', to: 'towns#temper', as: 'towntemper'
+          get '/images', to: 'imagetowns#bytown', as: 'townimages'
         end
       end
 
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
           get '/kind', to: 'places#kind', as: 'placekind'
           get '/comments', to: 'commentplaces#byplace', as: 'placecomments'
           get '/schedules', to: 'schedules#byplace', as: 'placeschedules'
+          get '/images', to: 'imageplaces#byplace', as: 'placeimages'
         end
       end
 
@@ -49,11 +52,16 @@ Rails.application.routes.draw do
          get '/commentplaces', to: 'commentplaces#byuser', as: 'usercommentplaces'
          get '/email', to: 'users#mail', as: 'usermail'
          get '/kind', to: 'users#ukind', as: 'userkind'
+         get '/images', to: 'imageusers#byuser', as: 'userimages'
        end
      end
 
      resources :imagedeparts
      resources :imageplaces
+     resources :imagetowns
+     resources :schedules
+     resources :imageusers
+
      resources :commentplaces do
        collection do
          get '/count', to: 'commentplaces#count', as: 'commentplacecount'
@@ -68,8 +76,6 @@ Rails.application.routes.draw do
         get '/date', to: 'commenttowns#date', as:'towncommentsdate'
       end
      end
-     resources :imagetowns
-     resources :schedules
       # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     end
   end

@@ -2,10 +2,7 @@ class Imageuser < ApplicationRecord
 
   belongs_to :user
 
-  validates :height, :width, :path, presence: {message: "Campo obligatorio"}
   validates :path, length: {minimum: 3, message: "Debe ser mayor a 3 caracteres"}
-  validates :height, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
-  validates :width, numericality: {only_integer: true, :greater_than => 99,message: "Debe ser mayor a 100"}
 
   def self.load_imageusers(page = 1, per_page = 10)
         includes(user:[:places])

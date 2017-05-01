@@ -1,5 +1,5 @@
 class ImageuserSerializer < ActiveModel::Serializer
-  attributes :id, :height, :width
+  attributes :id, :path
 
   #belongs_to :user
 end
