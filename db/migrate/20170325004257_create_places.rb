@@ -2,7 +2,7 @@ class CreatePlaces < ActiveRecord::Migration[5.0]
   def change
     create_table :places do |t|
       t.string :name, null:false, limit:60, default: "Nombre del lugar"
-      t.boolean :state, null:false, default: false
+      t.integer :state, null:false, default: 0
       t.text :description, null:false, default: "Descripcion"
       t.string :ubication, null:false, limit:80, default: "Ubicacion"
       t.string :address, null:false, limit:50, default: "Direccion"

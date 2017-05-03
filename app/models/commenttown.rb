@@ -31,6 +31,7 @@ class Commenttown < ApplicationRecord
     load_commenttowns(page,per_page)
     .select(columns)
     .where("commenttowns.created_at < ?", Date.today)
+    .where(state:1)
   end
 
   def self.commenttowns_by_town(town,page=1, per_page = 10,columns)
@@ -39,6 +40,7 @@ class Commenttown < ApplicationRecord
       .select(columns)
         .where("lower(towns.name) = ? AND commenttowns.town_id=towns.id", town.downcase)
         .includes(town:[:places,:imagetowns],user:[:places])
+        .where(state:1)
             .paginate(:page => page,:per_page => per_page)
   end
 
@@ -47,15 +49,18 @@ class Commenttown < ApplicationRecord
     joins(:depart).select("commenttowns.*, departs.id,commenttowns.id")
       .select(columns)
         .where("lower(departs.name) = ? AND commenttowns.depart_id=departs.id", depart.downcase)
-        .includes(town:[:places,:imagetowns],user:[:places])
+        .where(state:1) 
+        .includes(town:[:places,:imagetowns],user:[:places], state:1)
             .paginate(:page => page,:per_page => per_page)
   end
 
   def self.commenttowns_by_user(user,page=1, per_page = 10, columns)
     columns=columns ? columns+", user_id" : "commenttowns.*, user_id"
     joins(:user).select("commenttowns.*, users.id,commenttowns.id")
+      .select(columns)
         .where("lower(users.name) = ? AND commenttowns.user_id=users.id", user.downcase)
-          .includes(town:[:places,:imagetowns],user:[:places])
+        .where(state:1)
+          .includes(town:[:places,:imagetowns],user:[:places], state:1)
             .paginate(:page => page,:per_page => per_page)
   end
 end

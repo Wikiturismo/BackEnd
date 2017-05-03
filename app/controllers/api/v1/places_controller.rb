@@ -59,7 +59,7 @@ class Api::V1::PlacesController < ApplicationController
   def random
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    @places = Place.places_by_random_id(columns2)
+    @places =   Place.random
     render json: @places,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
   end
 

@@ -52,17 +52,10 @@ Town.destroy_all
                 avertemper: Faker::Number.between(-10, 50),
                 altitude: Faker::Number.between(0, 5000),
                 demonym: demotowns[index],
-                airport: true,
-                transpterminal: true,
+                airport: Faker::Number.between(0,1),
+                transpterminal: Faker::Number.between(0,1),
                 depart_id: index)
 end
-
-32.times do |index|
-  n=Town.towns_by_id(index,nil)
-  n.update_column(:airport, Faker::Boolean.boolean)
-  n.update_column(:transpterminal, Faker::Boolean.boolean)
-end
-
 
 p "Created #{Town.count} towns"
 
@@ -83,7 +76,7 @@ Place.destroy_all
 32.times do |index|
   Place.create!(id:index,
                 name: placenames[index],
-                state: true,
+                state: 1,
                 description: descrip[Faker::Number.between(0, 2)],
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
@@ -119,17 +112,12 @@ Commentplace.destroy_all
 
 100.times do |index|
   Commentplace.create!(id:index,
-                state: true,
+                state: Faker::Number.between(0,1),
                 content: "Content from comment Place #{index}",
                 town_id: Faker::Number.between(0, 20),
                 place_id: Faker::Number.between(0, 20),
                 user_id: Faker::Number.between(0, 20),
                 depart_id: Faker::Number.between(0, 31))
-end
-
-100.times do |index|
-  n=Commentplace.commentplaces_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
 end
 
 p "Created #{Commentplace.count} commentplaces"
@@ -138,16 +126,11 @@ Commenttown.destroy_all
 
 100.times do |index|
   Commenttown.create!(id:index,
-                state: true,
+                state: Faker::Number.between(0,1),
                 content: "Content from comment Town #{index}",
                 town_id: Faker::Number.between(0, 20),
                 user_id: Faker::Number.between(0, 20),
                 depart_id: Faker::Number.between(0, 31))
-end
-
-100.times do |index|
-  n=Commenttown.commenttowns_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
 end
 
 p "Created #{Commenttown.count} commenttowns"

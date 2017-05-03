@@ -58,8 +58,6 @@ class Api::V1::CommenttownsController < ApplicationController
      if @comment.save
        render json: @comment, root: "data"
      else
-       puts(commenttown_params)
-       puts(render json:@comment.errors)
        render json:@comment.errors
      end
    end

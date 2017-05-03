@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   enable_extension "plpgsql"
 
   create_table "commentplaces", force: :cascade do |t|
-    t.binary   "state",      default: "false",                 null: false
+    t.integer  "state",      default: 0,                       null: false
     t.text     "content",    default: "Comenatario del lugar", null: false
     t.integer  "town_id"
     t.integer  "place_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "commenttowns", force: :cascade do |t|
-    t.binary   "state",      default: "false",                           null: false
+    t.integer  "state",      default: 0,                                 null: false
     t.text     "content",    default: "Comenatario de la ciudad/pueblo", null: false
     t.integer  "town_id"
     t.integer  "user_id"
@@ -52,8 +52,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imagedeparts", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "depart_id"
     t.datetime "created_at",                                   null: false
@@ -63,8 +61,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imageplaces", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "place_id"
     t.datetime "created_at",                                   null: false
@@ -74,8 +70,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imagetowns", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "town_id"
     t.datetime "created_at",                                   null: false
@@ -85,8 +79,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imageusers", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "user_id"
     t.datetime "created_at",                                   null: false
@@ -97,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
 
   create_table "places", force: :cascade do |t|
     t.string   "name",        limit: 60, default: "Nombre del lugar", null: false
-    t.boolean  "state",                  default: false,              null: false
+    t.integer  "state",                  default: 0,                  null: false
     t.text     "description",            default: "Descripcion",      null: false
     t.string   "ubication",   limit: 80, default: "Ubicacion",        null: false
     t.string   "address",     limit: 50, default: "Direccion",        null: false
@@ -146,8 +138,8 @@ ActiveRecord::Schema.define(version: 20170427030438) do
     t.float    "avertemper",                default: 0.0
     t.integer  "altitude",                  default: 0
     t.string   "demonym",        limit: 45, default: "Gentilicio"
-    t.boolean  "airport",                   default: true,            null: false
-    t.boolean  "transpterminal",            default: true,            null: false
+    t.integer  "airport",                   default: 0,               null: false
+    t.integer  "transpterminal",            default: 0,               null: false
     t.integer  "depart_id"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false

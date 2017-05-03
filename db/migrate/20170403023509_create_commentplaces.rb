@@ -1,7 +1,7 @@
 class CreateCommentplaces < ActiveRecord::Migration[5.0]
   def change
     create_table :commentplaces do |t|
-      t.binary :state, null:false, default: false
+      t.integer :state, null:false, default: 0
       t.text :content, null:false, limit:700, default: "Comenatario del lugar"
       t.references :town, foreign_key: true
       t.references :place, foreign_key: true

@@ -30,7 +30,7 @@ class Commentplace < ApplicationRecord
     columns=columns ? columns+", place_id, town_id, user_id" : "commentplaces.*, place_id, town_id, user_id"
     load_commentplaces(page,per_page)
     .select(columns)
-    .where("commentplaces.created_at < ?", Date.today)
+    .where("commentplaces.created_at < ?", Date.today, state: 1)
   end
 
   def self.commentplaces_by_place(place,page =1 , per_page = 10, columns)
@@ -38,6 +38,7 @@ class Commentplace < ApplicationRecord
     joins(:place).select("commentplaces.*, places.id,commentplaces.id")
       .select(columns)
         .where("lower(places.name) = ? AND commentplaces.place_id=places.id", place.downcase)
+        .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end
@@ -46,6 +47,7 @@ class Commentplace < ApplicationRecord
     joins(:town).select("commentplaces.*, towns.id,commentplaces.id")
       .select(columns)
         .where("lower(towns.name) = ? AND commentplaces.town_id=towns.id", town.downcase)
+        .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end
@@ -55,6 +57,7 @@ class Commentplace < ApplicationRecord
     joins(:depart).select("commentplaces.*, departs.id,commentplaces.id")
       .select(columns)
         .where("lower(departs.name) = ? AND commentplaces.depart_id=departs.id", depart.downcase)
+        .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end
@@ -64,6 +67,7 @@ class Commentplace < ApplicationRecord
     joins(:user).select("commentplaces.*, users.id,commentplaces.id")
       .select(columns)
         .where("lower(users.name) = ? AND commentplaces.user_id=users.id", user.downcase)
+        .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
   end

@@ -58,9 +58,9 @@ class Api::V1::UsersController < ApplicationController
    end
 
    def update
-     @user = User.users_by_id(params[:id])
+     @user = User.users_by_id(params[:id],nil)
      if @user.update_attributes(users_params)
-       @user = User.users_by_id(params[:id])
+       @user = User.users_by_id(params[:id],nil)
        render json: @user, root: "data"
      else
        render json: @user.errors

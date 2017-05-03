@@ -6,8 +6,8 @@ class CreateTowns < ActiveRecord::Migration[5.0]
       t.float :avertemper, default: 0
       t.integer :altitude, default: 0
       t.string :demonym, limit:45, default: "Gentilicio"
-      t.boolean :airport, null:false, default: true
-      t.boolean :transpterminal, null:false, default: true
+      t.integer :airport, null:false, default: 0
+      t.integer :transpterminal, null:false, default: 0
       t.references :depart, foreign_key: true
       t.timestamps
     end
