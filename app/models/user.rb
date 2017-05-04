@@ -36,21 +36,21 @@ class User < ApplicationRecord
   end
 
   def self.users_by_name(name,page = 1, per_page = 10, columns)
-    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*"
+    columns=columns ? columns : "users.*"
     load_users(page,per_page)
     .select(columns)
     .where("lower(users.name) = ?", name.downcase)
   end
 
   def self.users_by_mail(email,page = 1, per_page = 10, columns)
-    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    columns=columns ? columns : "users.*"
     load_users(page,per_page)
     .select(columns)
     .where("lower(users.email) = ?", email.downcase)
   end
 
   def self.users_by_kind(kind,page=1, per_page = 10, columns)
-    columns=columns ? columns+", commentplace_id, commenttown_id, place_id" : "users.*, commentplace_id, commenttown_id, place_id"
+    columns=columns ? columns : "users.*"
     load_users(page,per_page)
     .select(columns)
     .where("lower(users.kind) = ?", kind.downcase)
