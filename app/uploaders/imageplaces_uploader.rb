@@ -8,7 +8,7 @@ class ImageplacesUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   #storage :file
-   storage :file
+   storage :fog
 
 
    # store! nil's the cache_id after it finishes so we need to remember it for deletion
@@ -22,7 +22,7 @@ class ImageplacesUploader < CarrierWave::Uploader::Base
        FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
      end
    end
-   
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir

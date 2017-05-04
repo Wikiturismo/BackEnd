@@ -7,7 +7,7 @@ class Api::V1::ImagedepartsController < ApplicationController
 
   def show
     @images = Imagedepart.imagedeparts_by_id(params[:id])
-    render json: @images.image.path, root: "data"
+    render json: @images, root: "data"
   end
 
   def destroy
@@ -37,8 +37,6 @@ class Api::V1::ImagedepartsController < ApplicationController
    def create
      upload = Imagedepart.new(imagedepart_params)
      if upload.save
-       image_path=Imagedepart.order("created_at").last
-       upload.update(path: image_path.image.path)
        render json: upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
        render upload.errors

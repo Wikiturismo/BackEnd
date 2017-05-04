@@ -8,7 +8,7 @@ class Api::V1::ImageplacesController < ApplicationController
 
   def show
     @images = Imageplace.imageplaces_by_id(params[:id])
-    render json: @images.image.path, root: "data"
+    render json: @images, root: "data"
   end
 
   def destroy
@@ -38,8 +38,6 @@ class Api::V1::ImageplacesController < ApplicationController
    def create
      @upload = Imageplace.new(imageplace_params)
      if @upload.save
-       image_path=Imageplace.order("created_at").last
-       @upload.update(path: image_path.image.path)
        render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
        render @upload.errors

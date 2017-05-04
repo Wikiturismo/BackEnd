@@ -1,5 +1,5 @@
 class ImageplaceSerializer < ActiveModel::Serializer
-  attributes :id, :path
+  attributes :id, :image
 
   #belongs_to :place
 end
