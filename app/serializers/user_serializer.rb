@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   attribute :id, if: :render_id?
   attribute :name, if: :render_name?
   attribute :kind, if: :render_kind?
-  attribute :mail, if: :render_mail?
+  attribute :email, if: :render_mail?
   attribute :ubication, if: :render_ubication?
 
 
@@ -48,7 +48,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def render_mail?
     if(instance_options[:columns])
-      if(instance_options[:columns].include?("mail") || instance_options[:columns]=="all")
+      if(instance_options[:columns].include?("email") || instance_options[:columns]=="all")
         return true
       else
         return false

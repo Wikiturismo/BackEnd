@@ -64,11 +64,24 @@ User.destroy_all
 100.times do |index|
   User.create!(id:index,
                 name: "NameUser #{index}",
-                password: "password#{index}",
                 kind: "KindUser #{index}",
-                mail: "mail#{index}@gmail.com",
+                password: "password#{index}",
+                email: "mail#{index}@gmail.com",
                 ubication: "UbicationUser #{index}")
 end
+
+100.times do |index|
+  n = User.users_by_id(index,nil)
+  valor = Faker::Number.between(1, 3)
+  if valor==1.0
+    n.update_column(:kind,"usuario")
+  elsif valor==2.0
+    n.update_column(:kind,"administrador")
+  elsif valor==3.0
+    n.update_column(:kind,"dueño")
+  end
+end
+
 
 p "Created #{User.count} users"
 
@@ -77,7 +90,7 @@ Place.destroy_all
 32.times do |index|
   Place.create!(id:index,
                 name: placenames[index],
-                state: 1,
+                state: Faker::Number.between(0,1),
                 description: descrip[Faker::Number.between(0, 2)],
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
@@ -92,7 +105,6 @@ end
 
 32.times do |index|
   n=Place.places_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
   val=Place.places_by_id(index,nil).valoration
   if val==1.0
     n.update_column(:valone,1)
