@@ -38,6 +38,13 @@ class Place < ApplicationRecord
       .where(id: random_ids, state:1)
     end
 
+    def self.places_by_name(name,page = 1, per_page = 10, columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
+        load_places(page,per_page)
+        .select(columns)
+        .where("lower(places.name) = ?", name.downcase)
+    end
+
     def self.places_by_valoration(valoration,page=1, per_page = 10, columns)
       columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
