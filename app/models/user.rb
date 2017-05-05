@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :commentplaces
   has_many :commenttowns
   has_many :places
+  has_many :imageusers
 
   devise :database_authenticatable,
          :registerable,

@@ -45,7 +45,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def users_params
-      params.require(:user).permit(:id,:name, :kind, :mail, :ubication)
+      params.require(:user).permit(:id,:name, :kind, :email, :ubication)
    end
 
    def create
@@ -59,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
 
    def update
      @user = User.users_by_id(params[:id],nil)
-     if @user.update_attributes(users_params)
+     if @user.update(users_params)
        @user = User.users_by_id(params[:id],nil)
        render json: @user, root: "data"
      else
