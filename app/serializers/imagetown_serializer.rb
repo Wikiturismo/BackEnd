@@ -1,5 +1,5 @@
 class ImagetownSerializer < ActiveModel::Serializer
-  attributes :id, :path
+  attributes :id, :image
 
   #belongs_to :town
 end

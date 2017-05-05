@@ -5,11 +5,13 @@ departments =["Amazonas","Antioquia","Arauca","Atlantico","Bolivar",
   "Putumayo", "Quindio", "Risaralda","San Andres y Providencia","Santander",
   "Sucre","Tolima", "Valle del Cauca", "Vaupes","Vichada"]
 placenames = ["Reserva Natural Marasha","Edificio Coltejer","Parque Zoologico Matecaña","Museo del Caribe","Las Bovedas",
-  "Puente de Boyaca","Recinto del Pensamiento","Parque Caqueta","Parque Casanare","Parque Cauca","Parque Cesar",
-  "Parque Choco","Parque Cordoba","Museo Nacional","Parque Guainia","Parque Guaviare",
-  "Desierto de la Tatacoa","Hotel Taroa","Parque Magdalena","Parque Meta","Plaza del Carnaval","Hotel Villa Real",
-  "Hotel Huaca","Parque Quindio","Parque Risaralda","Johnny Cay","Parque Santander",
-  "Parque Sucre","Parque Tolima","Parque Poetas","Parque Vaupes","Parque Vichada"]
+  "Puente de Boyaca","Recinto del Pensamiento","Parque Natural Chiribiquete","Parque Natural la Iguana","Parque Arqueológico de Tierradentro","Centro Histórico de Valledupar",
+  "Catedral de Quibdó","Parque Ecológico de Montelíbano","Museo Nacional","Cerros de Mavecure","Parque Guaviare",
+  "Desierto de la Tatacoa","Hotel Taroa","Parque Natural Tayrona","Monumento a Los Fundadores","Plaza del Carnaval","Parque Grancolombiano",
+  "Monumento al Centenario","Parque del Café","Zoológico Matecaña","Johnny Cay","Cañón del Chicamocha",
+  "Plaza de Majagual","Vereda Veraguas","Parque Poetas","Parque Caraná","Parque Natural El Tuparro"]
+  placid = [1,1,1,2,2,3,3,4,4,4,5,5,6,6,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,18,19,19,20,20,21,21,22,23,24,24,
+    25,25,26,26,27,27,28,28,29,29,30,30,31,31,32,32]
 capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
   "Tunja","Manizales","Florencia","Yopal","Popayan","Valledupar",
   "Quibdo","Monteria","Bogota","Puerto Inirida","San Jose del Guaviare",
@@ -19,7 +21,7 @@ capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
 demonyms = ["Amazonicos","Antioquenos","Araucanos","Atlanticenses","Bolivarienses",
   "Boyacenses","Caldenses","Caquetenos","Casanarenos","Caucanos","Cesarences",
   "Chocoanos","Cordobeses","Cundinamarqueses","Guainarenses","Guaviarenses",
-  "Huilenses","Guajiros","Magdalenenses","Metenses","Narinenses","Nortesantandereanos",
+  "Huilenses","Guajiros","Magdalenenses","Metenses","Nariñenses","Nortesantandereanos",
   "Putumayenses","Quindianos","Risaraldenses","Sanandresanos","Santandereanos",
   "Sucrenos","Tolimenses","Vallecaucanos","Vaupenses","Vichadense"]
 demotowns = ["Leticianos","Medellinenses","Araucanos","Barranquilleros","Cartageneros",
@@ -35,7 +37,7 @@ descrip = ["Hermoso lugar con buena atencion a los turistas, con comodidades que
 Depart.destroy_all
 
 32.times do |index|
-  Depart.create!(id:index,
+  Depart.create!(id:index+1,
                 name: departments[index],
                 capital: capitals[index],
                 demonym: demonyms[index])
@@ -46,60 +48,66 @@ p "Created #{Depart.count} departs"
 Town.destroy_all
 
 32.times do |index|
-  Town.create!(id:index,
+  Town.create!(id:index+1,
                 name: capitals[index],
-                weather: "Weather #{index}",
+                weather: "Weather #{index+1}",
                 avertemper: Faker::Number.between(-10, 50),
                 altitude: Faker::Number.between(0, 5000),
                 demonym: demotowns[index],
-                airport: true,
-                transpterminal: true,
-                depart_id: index)
+                airport: Faker::Number.between(0,1),
+                transpterminal: Faker::Number.between(0,1),
+                depart_id: index+1)
 end
-
-32.times do |index|
-  n=Town.towns_by_id(index,nil)
-  n.update_column(:airport, Faker::Boolean.boolean)
-  n.update_column(:transpterminal, Faker::Boolean.boolean)
-end
-
 
 p "Created #{Town.count} towns"
 
 User.destroy_all
 
-100.times do |index|
-  User.create!(id:index,
-                name: "NameUser #{index}",
-                kind: "KindUser #{index}",
-                mail: "mail#{index}@gmail.com",
-                ubication: "UbicationUser #{index}")
+30.times do |index|
+  User.create!(id:index+1,
+                name: "NameUser #{index+1}",
+                kind: "KindUser #{index+1}",
+                password: "password#{index+1}",
+                email: "mail#{index+1}@gmail.com",
+                ubication: "UbicationUser #{index+1}")
 end
+
+30.times do |index|
+  n = User.users_by_id(index+1,nil)
+  valor = Faker::Number.between(1, 3)
+  if valor==1.0
+    n.update_column(:kind,"usuario")
+  elsif valor==2.0
+    n.update_column(:kind,"administrador")
+  elsif valor==3.0
+    n.update_column(:kind,"dueño")
+  end
+end
+
 
 p "Created #{User.count} users"
 
 Place.destroy_all
 
 32.times do |index|
-  Place.create!(id:index,
+  Place.create!(id:index+1,
                 name: placenames[index],
-                state: true,
+                state: Faker::Number.between(0,1),
                 description: descrip[Faker::Number.between(0, 2)],
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
                 kind: "Kind #{index}",
                 valoration: Faker::Number.between(1, 5),
                 entrycost: Faker::Number.between(100, 5000),
-                town_id: index,
-                depart_id: index,
-                user_id: Faker::Number.between(41, 60))
+                town_id: index+1,
+                depart_id: index+1,
+                user_id: Faker::Number.between(1, 30))
 end
 
 
 32.times do |index|
-  n=Place.places_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
-  val=Place.places_by_id(index,nil).valoration
+  n=Place.places_by_id(index+1,nil)
+  val=Place.places_by_id(index+1,nil).valoration
   if val==1.0
     n.update_column(:valone,1)
   elsif val==2.0
@@ -118,18 +126,13 @@ p "Created #{Place.count} places"
 Commentplace.destroy_all
 
 100.times do |index|
-  Commentplace.create!(id:index,
-                state: true,
+  Commentplace.create!(id:index+1,
+                state: Faker::Number.between(0,1),
                 content: "Content from comment Place #{index}",
-                town_id: Faker::Number.between(0, 20),
-                place_id: Faker::Number.between(0, 20),
-                user_id: Faker::Number.between(0, 20),
-                depart_id: Faker::Number.between(0, 31))
-end
-
-100.times do |index|
-  n=Commentplace.commentplaces_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
+                town_id: Faker::Number.between(1, 32),
+                place_id: Faker::Number.between(1, 32),
+                user_id: Faker::Number.between(1, 30),
+                depart_id: Faker::Number.between(1, 32))
 end
 
 p "Created #{Commentplace.count} commentplaces"
@@ -137,17 +140,12 @@ p "Created #{Commentplace.count} commentplaces"
 Commenttown.destroy_all
 
 100.times do |index|
-  Commenttown.create!(id:index,
-                state: true,
+  Commenttown.create!(id:index+1,
+                state: Faker::Number.between(0,1),
                 content: "Content from comment Town #{index}",
-                town_id: Faker::Number.between(0, 20),
-                user_id: Faker::Number.between(0, 20),
-                depart_id: Faker::Number.between(0, 31))
-end
-
-100.times do |index|
-  n=Commenttown.commenttowns_by_id(index,nil)
-  n.update_column(:state, Faker::Boolean.boolean)
+                town_id: Faker::Number.between(1, 32),
+                user_id: Faker::Number.between(1, 30),
+                depart_id: Faker::Number.between(1, 32))
 end
 
 p "Created #{Commenttown.count} commenttowns"
@@ -155,7 +153,7 @@ p "Created #{Commenttown.count} commenttowns"
 Schedule.destroy_all
 
 100.times do |index|
-  Schedule.create!(id:index,
+  Schedule.create!(id:index+1,
                     mondayopen: Faker::Time.between(2.days.ago, Date.today, :morning),
                     mondayclose: Faker::Time.between(2.days.ago, Date.today, :evening),
                     tuesdayopen: Faker::Time.between(2.days.ago, Date.today, :morning),
@@ -170,7 +168,22 @@ Schedule.destroy_all
                     saturdayclose: Faker::Time.between(2.days.ago, Date.today, :evening),
                     sundayopen: Faker::Time.between(2.days.ago, Date.today, :morning),
                     sundayclose:Faker::Time.between(2.days.ago, Date.today, :evening),
-                    place_id: Faker::Number.between(0, 20))
+                    place_id: Faker::Number.between(1, 32))
 end
 
 p "Created #{Schedule.count} schedules"
+
+Imageplace.destroy_all
+
+63.times do |index|
+  Imageplace.create!(id: index+1,
+                    place_id: placid[index],
+                    image: nil)
+end
+
+63.times do |index|
+  n=Imageplace.imageplaces_by_id(index+1)
+  n.update_column(:image , "image.jpg")
+end
+
+p "Created #{Imageplace.count} imageplaces"

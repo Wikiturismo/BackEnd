@@ -12,7 +12,7 @@ class Api::V1::ImageusersController < ApplicationController
 
   def show
     @images = Imageuser.imageusers_by_id(params[:id])
-    render json: @images.image.path, root: "data"
+    render json: @images, root: "data"
   end
 
   def destroy
@@ -36,13 +36,11 @@ class Api::V1::ImageusersController < ApplicationController
    end
 
    def create
-     @upload = Imageuser.new(imageuser_params)
-     if @upload.save
-       image_path=Imageuser.order("created_at").last
-       @upload.update(path: image_path.image.path)
-       render json: @upload, notice: 'Upload was successfully created.', status: :created, location: @picture
+     upload = Imageuser.new(imageuser_params)
+     if upload.save
+       render json: upload, notice: 'Upload was successfully created.', status: :created, location: @picture
      else
-       render @upload.errors
+       render upload.errors
      end
    end
 

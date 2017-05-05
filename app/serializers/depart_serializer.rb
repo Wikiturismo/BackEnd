@@ -7,49 +7,74 @@ class DepartSerializer < ActiveModel::Serializer
   has_many :imagedeparts, if: :render_imagedepart?
 
   def render_id?
-    if(instance_options[:columns].include?("id") || instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns].include?("id") || instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 
   def render_name?
-    if(instance_options[:columns].include?("name")|| instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns].include?("name")|| instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 
   def render_capital?
-    if(instance_options[:columns].include?("capital")|| instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns].include?("capital")|| instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 
   def render_demonym?
-    if(instance_options[:columns].include?("demonym")|| instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns].include?("demonym")|| instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
+
   def render_town?
-    if(instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 
   def render_imagedepart?
-    if(instance_options[:columns]=="all")
-      return true
+    if(instance_options[:columns])
+      if(instance_options[:columns]=="all")
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 

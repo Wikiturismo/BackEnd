@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   enable_extension "plpgsql"
 
   create_table "commentplaces", force: :cascade do |t|
-    t.binary   "state",      default: "false",                 null: false
+    t.integer  "state",      default: 0,                       null: false
     t.text     "content",    default: "Comenatario del lugar", null: false
     t.integer  "town_id"
     t.integer  "place_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "commenttowns", force: :cascade do |t|
-    t.binary   "state",      default: "false",                           null: false
+    t.integer  "state",      default: 0,                                 null: false
     t.text     "content",    default: "Comenatario de la ciudad/pueblo", null: false
     t.integer  "town_id"
     t.integer  "user_id"
@@ -52,8 +52,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imagedeparts", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "depart_id"
     t.datetime "created_at",                                   null: false
@@ -63,8 +61,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imageplaces", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "place_id"
     t.datetime "created_at",                                   null: false
@@ -74,8 +70,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imagetowns", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "town_id"
     t.datetime "created_at",                                   null: false
@@ -85,8 +79,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "imageusers", force: :cascade do |t|
-    t.integer  "height",                 default: 500,         null: false
-    t.integer  "width",                  default: 500,         null: false
     t.string   "path",       limit: 100, default: "Direccion", null: false
     t.integer  "user_id"
     t.datetime "created_at",                                   null: false
@@ -97,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170427030438) do
 
   create_table "places", force: :cascade do |t|
     t.string   "name",        limit: 60, default: "Nombre del lugar", null: false
-    t.boolean  "state",                  default: false,              null: false
+    t.integer  "state",                  default: 0,                  null: false
     t.text     "description",            default: "Descripcion",      null: false
     t.string   "ubication",   limit: 80, default: "Ubicacion",        null: false
     t.string   "address",     limit: 50, default: "Direccion",        null: false
@@ -146,8 +138,8 @@ ActiveRecord::Schema.define(version: 20170427030438) do
     t.float    "avertemper",                default: 0.0
     t.integer  "altitude",                  default: 0
     t.string   "demonym",        limit: 45, default: "Gentilicio"
-    t.boolean  "airport",                   default: true,            null: false
-    t.boolean  "transpterminal",            default: true,            null: false
+    t.integer  "airport",                   default: 0,               null: false
+    t.integer  "transpterminal",            default: 0,               null: false
     t.integer  "depart_id"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
@@ -155,12 +147,32 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",       limit: 50, default: "Nombre de usuario",  null: false
-    t.string   "kind",       limit: 20, default: "Tipo",               null: false
-    t.string   "mail",       limit: 60, default: "Correo electronico", null: false
-    t.string   "ubication",             default: "Ubicacion"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.string   "provider",                          default: "email",              null: false
+    t.string   "uid",                               default: "",                   null: false
+    t.string   "encrypted_password",                default: "",                   null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,                    null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "name",                   limit: 50, default: "Nombre de usuario",  null: false
+    t.string   "kind",                   limit: 20, default: "Tipo",               null: false
+    t.string   "email",                  limit: 60, default: "Correo electronico", null: false
+    t.string   "ubication",                         default: "Ubicacion"
+    t.json     "tokens"
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
   add_foreign_key "commentplaces", "departs"
