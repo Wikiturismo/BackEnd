@@ -10,14 +10,16 @@ class Api::V1::PlacesController < ApplicationController
             sort="places.id DESC"
           end
         place = place.order (sort)
-        render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+        pages=place.total_entries/10 +1
+        render json: place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      pages=place.total_entries/10 +1
+      render json: {data:place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
     end
   end
 

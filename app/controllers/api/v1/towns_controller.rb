@@ -10,14 +10,15 @@ class Api::V1::TownsController < ApplicationController
             sort="towns.id DESC"
           end
         town = town.order (sort)
-        render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+        pages=town.total_entries/10 +1
+        render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+      render json: town,each_serializer: TownSerializer, columns: columns || "all"
     end
   end
 

@@ -9,15 +9,16 @@ class Api::V1::CommenttownsController < ApplicationController
         elsif (sort=="id DESC")
           sort="commenttowns.id DESC"
         end
-        comment = comment.order (sort)
-        render json: comment,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data"
+        pages=comment.total_entries/10 +1
+        render json: {data:comment, pages: pages} ,each_serializer: CommenttownSerializer, columns: columns || "all"
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: comment, root: "data", columns: columns || "all"
+      pages=comment.total_entries/10 +1
+      render json: {data:comment, pages: pages} , root: "data", columns: columns || "all"
     end
   end
 

@@ -10,14 +10,16 @@ class Api::V1::UsersController < ApplicationController
             sort="users.id DESC"
           end
         user = user.order (sort)
-        render json: user,each_serializer: UserSerializer, columns: columns || "all", root: "data"
+        pages=user.total_entries/10 +1
+        render json: {data:user, pages: pages} ,each_serializer: UserSerializer, columns: columns || "all"
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: user, root: "data", columns: columns || "all"
+      pages=place.total_entries/10 +1
+      render json: {data:user, pages: pages} , root: "data", columns: columns || "all"
     end
   end
 
