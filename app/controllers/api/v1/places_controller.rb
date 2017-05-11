@@ -196,6 +196,20 @@ class Api::V1::PlacesController < ApplicationController
     end
   end
 
+  def lastbytown
+      columns= params[:columns] ? params[:columns]: nil
+      columns2=renameColumns(columns)
+    if(params[:q])
+      nam=params[:q]
+      place = Place.places_by_town(nam.tr('+', ' '),params[:page],columns2).order("places.created_at DESC").limit(5)
+      renderPlaces(params[:sort],place,columns)
+    else
+      render status: 400,json: {
+        message: "Name depart param(q) missing"
+        }
+    end
+  end
+
   def renameColumns(columns)
     if columns
       aux=columns.split(",")

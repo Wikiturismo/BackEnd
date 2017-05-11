@@ -25,6 +25,7 @@ Rails.application.routes.draw do
           get '/terminal', to: 'towns#terminal', as: 'townterminal'
           get '/temper', to: 'towns#temper', as: 'towntemper'
           get '/images', to: 'imagetowns#bytown', as: 'townimages'
+          get '/lastbydepart', to: 'towns#lastbydepart', as: 'townslastdepart'
         end
       end
 
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
           get '/comments', to: 'commentplaces#byplace', as: 'placecomments'
           get '/schedules', to: 'schedules#byplace', as: 'placeschedules'
           get '/images', to: 'imageplaces#byplace', as: 'placeimages'
+          get '/lastbytown', to: 'places#lastbytown', as: 'placelasttown'
         end
       end
 

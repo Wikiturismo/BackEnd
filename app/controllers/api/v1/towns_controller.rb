@@ -18,7 +18,8 @@ class Api::V1::TownsController < ApplicationController
           }
       end
     else
-      render json: town,each_serializer: TownSerializer, columns: columns || "all"
+    pages=town.total_entries/10 +1
+    render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
     end
   end
 
@@ -145,6 +146,21 @@ class Api::V1::TownsController < ApplicationController
         }
     end
   end
+
+  def lastbydepart
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
+    if(params[:q])
+      nam=params[:q]
+      town = Town.towns_by_depart(nam.tr('+', ' '),params[:page],columns2).order("towns.created_at DESC").limit(5)
+      renderTowns(params[:sort],town,columns)
+    else
+      render status: 400,json: {
+        message: "Name depart param(q) missing"
+        }
+    end
+  end
+
 def renameColumns(columns)
     if columns
       aux=columns.split(",")
