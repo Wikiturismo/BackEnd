@@ -18,6 +18,12 @@ class Town < ApplicationRecord
       .paginate(:page => page, :per_page => per_page)
   end
 
+  def self.lawea(page = 1, per_page = 10,columns)
+    columns=columns ? columns+",depart_id" : "towns.*,depart_id"
+    load_towns(page,per_page)
+    .select(columns)
+  end
+
   def self.towns_by_id(id,columns)
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     includes(:imagetowns,:commenttowns,:places,depart:[:imagedeparts])

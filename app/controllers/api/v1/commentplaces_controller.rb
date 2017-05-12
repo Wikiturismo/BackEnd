@@ -11,7 +11,8 @@ class Api::V1::CommentplacesController < ApplicationController
           end
         comment = comment.order (sort)
         pages=comment.total_entries/10 +1
-        render json: {data:comment, pages: pages} ,each_serializer: CommentplaceSerializer, columns: columns || "all"
+        #render json: {data:comment, pages: pages} ,each_serializer: CommentplaceSerializer, columns: columns || "all"
+        render json: comment ,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
@@ -19,14 +20,15 @@ class Api::V1::CommentplacesController < ApplicationController
       end
     else
       pages=comment.total_entries/10 +1
-      render json: {data:comment, pages: pages}, columns: columns || "all"
+      #render json: {data:comment, pages: pages}, columns: columns || "all"
+      render json: comment ,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    comment= columns ? comment = Commentplace.all.select(columns2) : comment = Commentplace.all
+    comment= columns ? Commentplace.lawea(columns2) : Commentplace.lawea(columns2)
     renderCommentplaces(params[:sort], comment, columns)
   end
 

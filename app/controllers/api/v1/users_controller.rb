@@ -11,21 +11,24 @@ class Api::V1::UsersController < ApplicationController
           end
         user = user.order (sort)
         pages=user.total_entries/10 +1
-        render json: {data:user, pages: pages} ,each_serializer: UserSerializer, columns: columns || "all"
+        #render json: {data:user, pages: pages} ,each_serializer: UserSerializer, columns: columns || "all"
+        render json: user ,each_serializer: UserSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      pages=place.total_entries/10 +1
-      render json: {data:user, pages: pages}, columns: columns || "all"
+      pages=user.total_entries/10 +1
+      #render json: {data:user, pages: pages}, columns: columns || "all"
+      render json: user ,each_serializer: UserSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
-    user= columns ? user = User.all.select(columns) : user = User.all
+    columns2=renameColumns(columns)
+    user= columns ? User.lawea(columns2) : User.lawea(columns2)
     renderUsers(params[:sort],user, columns)
   end
 

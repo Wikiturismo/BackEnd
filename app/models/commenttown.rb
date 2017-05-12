@@ -19,6 +19,12 @@ class Commenttown < ApplicationRecord
     .find_by_id(id)
   end
 
+  def self.lawea(page = 1, per_page = 10,columns)
+    columns=columns ? columns+", town_id, user_id" : "commenttowns.*, town_id, user_id"
+    load_commenttowns(page,per_page)
+    .select(columns)
+  end
+
   def self.commenttowns_by_state(state,page=1, per_page = 10, columns)
     columns=columns ? columns+", town_id, user_id" : "commenttowns.*, town_id, user_id"
     load_commenttowns(page,per_page)
@@ -49,7 +55,7 @@ class Commenttown < ApplicationRecord
     joins(:depart).select("commenttowns.*, departs.id,commenttowns.id")
       .select(columns)
         .where("lower(departs.name) = ? AND commenttowns.depart_id=departs.id", depart.downcase)
-        .where(state:1) 
+        .where(state:1)
         .includes(town:[:places,:imagetowns],user:[:places], state:1)
             .paginate(:page => page,:per_page => per_page)
   end

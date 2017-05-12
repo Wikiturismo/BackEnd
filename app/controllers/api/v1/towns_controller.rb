@@ -11,7 +11,8 @@ class Api::V1::TownsController < ApplicationController
           end
         town = town.order (sort)
         pages=town.total_entries/10 +1
-        render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+        #render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+        render json: town ,each_serializer: TownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
@@ -19,14 +20,15 @@ class Api::V1::TownsController < ApplicationController
       end
     else
     pages=town.total_entries/10 +1
-    render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+    #render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+    render json: town ,each_serializer: TownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    town= columns ? Town.all.select(columns2) : Town.all
+    town= columns ? Town.lawea(columns2) : Town.lawea(columns2)
     renderTowns(params[:sort],town,columns)
   end
 

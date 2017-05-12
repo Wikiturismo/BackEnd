@@ -12,6 +12,12 @@ class Commentplace < ApplicationRecord
     .paginate(:page => page, :per_page => per_page)
   end
 
+  def self.lawea(page = 1, per_page = 10,columns)
+    columns=columns ? columns+", place_id, town_id, user_id" : "commentplaces.*, place_id, town_id, user_id"
+    load_commentplaces(page,per_page)
+    .select(columns)
+  end
+
   def self.commentplaces_by_id(id,columns)
     columns=columns ? columns+", place_id, town_id, user_id" : "commentplaces.*, place_id, town_id, user_id"
     includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])

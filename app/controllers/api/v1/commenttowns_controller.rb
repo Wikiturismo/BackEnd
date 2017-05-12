@@ -10,7 +10,8 @@ class Api::V1::CommenttownsController < ApplicationController
           sort="commenttowns.id DESC"
         end
         pages=comment.total_entries/10 +1
-        render json: {data:comment, pages: pages} ,each_serializer: CommenttownSerializer, columns: columns || "all"
+        #render json: {data:comment, pages: pages} ,each_serializer: CommenttownSerializer, columns: columns || "all"
+        render json: comment ,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
@@ -18,13 +19,15 @@ class Api::V1::CommenttownsController < ApplicationController
       end
     else
       pages=comment.total_entries/10 +1
-      render json: {data:comment, pages: pages}, columns: columns || "all"
+      #render json: {data:comment, pages: pages}, columns: columns || "all"
+      render json: comment ,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
-    comment= columns ? comment = Commenttown.all.select(columns) : comment = Commenttown.all
+    columns2=renameColumns(columns)
+    comment= columns ? Commenttown.lawea(columns2) : Commenttown.lawea(columns2)
     renderCommenttowns(params[:sort], comment, columns)
   end
 

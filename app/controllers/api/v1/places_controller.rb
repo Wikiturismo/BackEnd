@@ -11,7 +11,8 @@ class Api::V1::PlacesController < ApplicationController
           end
         place = place.order (sort)
         pages=place.total_entries/10 +1
-        render json: {data: place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+        #render json: {data: place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+        render json: place ,each_serializer: PlaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
@@ -19,14 +20,15 @@ class Api::V1::PlacesController < ApplicationController
       end
     else
       pages=place.total_entries/10 +1
-      render json: {data:place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+      #render json: {data:place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+      render json: place ,each_serializer: PlaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    place= columns ? Place.all.select(columns2) : Place.all
+    place= columns ? Place.lawea(columns2) : Place.lawea(columns2)
     renderPlaces(params[:sort], place, columns)
   end
 
