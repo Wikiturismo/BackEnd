@@ -18,7 +18,7 @@ class Api::V1::CommenttownsController < ApplicationController
       end
     else
       pages=comment.total_entries/10 +1
-      render json: {data:comment, pages: pages} , root: "data", columns: columns || "all"
+      render json: {data:comment, pages: pages}, columns: columns || "all"
     end
   end
 

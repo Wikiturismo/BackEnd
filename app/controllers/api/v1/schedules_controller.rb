@@ -11,7 +11,7 @@ class Api::V1::SchedulesController < ApplicationController
           end
         schedule = schedule.order (sort)
         pages=schedule.total_entries/10 +1
-        render json: {data:schedule, pages: pages} , root: "data"
+        render json: {data:schedule, pages: pages}
       else
         render status: 400, json: {
           message: options
@@ -19,7 +19,7 @@ class Api::V1::SchedulesController < ApplicationController
       end
     else
       pages=schedule.total_entries/10 +1
-      render json: {data:schedule, pages: pages} , root: "data" root: "data"
+      render json: {data:schedule, pages: pages} 
     end
   end
 

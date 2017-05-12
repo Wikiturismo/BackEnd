@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
       end
     else
       pages=place.total_entries/10 +1
-      render json: {data:user, pages: pages} , root: "data", columns: columns || "all"
+      render json: {data:user, pages: pages}, columns: columns || "all"
     end
   end
 
