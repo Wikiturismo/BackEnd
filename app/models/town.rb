@@ -46,11 +46,11 @@ class Town < ApplicationRecord
       .where('towns.transpterminal = ?', transpterminal)
   end
 
-  def self.towns_by_depart(name,page=1, per_page = 10,columns)
+  def self.towns_by_depart(depart,page=1, per_page = 10,columns)
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     joins(:depart).select("towns.*,departs.id, towns.id")
       .select(columns)
-        .where("lower(departs.name) = ? AND towns.depart_id=departs.id", name.downcase)
+        .where("towns.depart_id=?", depart)
           .includes(:imagetowns,:commenttowns,:places,depart:[:imagedeparts])
             .paginate(:page => page,:per_page => per_page)
   end
