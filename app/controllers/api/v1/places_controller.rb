@@ -82,9 +82,9 @@ class Api::V1::PlacesController < ApplicationController
    end
 
    def update
-     @place = Place.places_by_id(params[:id])
-     if @place.update_attributes(places_params)
-       @place = Place.places_by_id(params[:id])
+     @place = Place.places_by_id(params[:id],nil)
+     if @place.update(places_params)
+       @place = Place.places_by_id(params[:id],nil)
        render json: @place, root: "data"
      else
        render json: @place.errors

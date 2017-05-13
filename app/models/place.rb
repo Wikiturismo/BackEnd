@@ -24,7 +24,7 @@ class Place < ApplicationRecord
     end
 
     def self.places_by_id(id, columns)
-      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
+      columns=columns ? columns : "places.*"
         includes(:imageplaces,:commentplaces,user:[:commentplaces,:commenttowns],depart:[:imagedeparts,:towns],town:[:commenttowns,:imagetowns])
         .select(columns)
        .find_by_id(id)
