@@ -7,14 +7,14 @@ class Api::V1::DepartsController < ApplicationController
       options=["id DESC", "id ASC", "name DESC", "name ASC", "capital DESC", "capital ASC", "created_at ASC", "created_at DESC"]
       if (options.include? sort)
         @departs = @departs.order (sort)
-        render json: @departs,each_serializer: DepartSerializer, columns: columns || "all"
+        render json: @departs,each_serializer: DepartSerializer, columns: columns || "all", root: "data"
       else
         render status: 400, json: {
           message: "Bad sort param, permited params: id DESC, id ASC, name DESC, name ASC, capital DESC, capital ASC"
           }
       end
     else
-      render json: @departs,each_serializer: DepartSerializer, columns: columns || "all"
+      render json: @departs,each_serializer: DepartSerializer, columns: columns || "all", root: "data"
     end
   end
 

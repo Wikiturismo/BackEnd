@@ -17,6 +17,7 @@ capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
   "Quibdo","Monteria","Bogota","Puerto Inirida","San Jose del Guaviare",
   "Neiva","Riohacha","Santa Marta","Villavicencio","Pasto","Cucuta",
   "Mocoa","Armenia","Pereira","San Andres","Bucaramanga",
+
   "Sincelejo","Ibague","Cali","Mitu","Puerto Carreño"]
 demonyms = ["Amazonicos","Antioquenos","Araucanos","Atlanticenses","Bolivarienses",
   "Boyacenses","Caldenses","Caquetenos","Casanarenos","Caucanos","Cesarences",
@@ -187,3 +188,58 @@ end
 end
 
 p "Created #{Imageplace.count} imageplaces"
+
+
+Imagedepart.destroy_all
+
+32.times do |index|
+  Imagedepart.create!(id: index+1,
+                    depart_id: index+1,
+                    image: nil)
+end
+
+32.times do |index|
+  n=Imagedepart.imagedeparts_by_id(index+1)
+  n.update_column(:image , "image.jpg")
+end
+
+p "Created #{Imagedepart.count} imagedeparts"
+
+
+Imageuser.destroy_all
+
+30.times do |index|
+  Imageuser.create!(id: index+1,
+                    user_id: index+1,
+                    image: nil)
+end
+
+30.times do |index|
+  n=Imageuser.imageusers_by_id(index+1)
+  n.update_column(:image , "image.jpg")
+end
+
+p "Created #{Imageuser.count} imageusers"
+
+
+
+Imagetown.destroy_all
+
+32.times do |index|
+  Imagetown.create!(id: index*2+1,
+                    town_id: index+1,
+                    image: nil)
+end
+
+32.times do |index|
+  Imagetown.create!(id: index*2+2,
+                    town_id: index+1,
+                    image: nil)
+end
+
+64.times do |index|
+  n=Imagetown.imagetowns_by_id(index+1)
+  n.update_column(:image , "image.jpg")
+end
+
+p "Created #{Imagetown.count} imagetowns"
