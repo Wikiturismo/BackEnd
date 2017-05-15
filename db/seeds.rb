@@ -11,7 +11,7 @@ placenames = ["Reserva Natural Marasha","Edificio Coltejer","Parque Zoologico Ma
   "Monumento al Centenario","Parque del Café","Zoológico Matecaña","Johnny Cay","Cañón del Chicamocha",
   "Plaza de Majagual","Vereda Veraguas","Parque Poetas","Parque Caraná","Parque Natural El Tuparro"]
   placid = [1,1,1,2,2,3,3,4,4,4,5,5,6,6,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,18,19,19,20,20,21,21,22,23,24,24,
-    25,25,26,26,27,27,28,28,29,29,30,30,31,31,32,32]
+    25,25,26,27,27,28,28,29,29,30,30,31,31,32,32]
 capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
   "Tunja","Manizales","Florencia","Yopal","Popayan","Valledupar",
   "Quibdo","Monteria","Bogota","Puerto Inirida","San Jose del Guaviare",
@@ -98,28 +98,22 @@ Place.destroy_all
                 ubication: "UbicationPlace #{index}",
                 address: "Address #{index}",
                 kind: "Kind #{index}",
-                valoration: Faker::Number.between(1, 5),
+                valoration: 0,
+                valone: Faker::Number.between(1, 30),
+                valtwo: Faker::Number.between(1, 30),
+                valthree: Faker::Number.between(1, 30),
+                valfour: Faker::Number.between(1, 30),
+                valfive: Faker::Number.between(1, 30),
                 entrycost: Faker::Number.between(100, 5000),
                 town_id: index+1,
                 depart_id: index+1,
                 user_id: Faker::Number.between(1, 30))
 end
 
-
 32.times do |index|
   n=Place.places_by_id(index+1,nil)
-  val=Place.places_by_id(index+1,nil).valoration
-  if val==1.0
-    n.update_column(:valone,1)
-  elsif val==2.0
-    n.update_column(:valtwo,1)
-  elsif val==3.0
-    n.update_column(:valthree,1)
-  elsif val==4.0
-    n.update_column(:valfour,1)
-  elsif val==5.0
-    n.update_column(:valfive,1)
-  end
+  val=((n.valone*1+n.valtwo*2+n.valthree*3+n.valfour*4+n.valfive*5).to_f/(n.valone+n.valtwo+n.valthree+n.valfour+n.valfive)).to_d.round(2, :truncate).to_f
+  n.update_column(:valoration,val)
 end
 
 p "Created #{Place.count} places"
