@@ -16,7 +16,7 @@ class Api::V1::ImagetownsController < ApplicationController
         count: comment
       }
     }
-  end 
+  end
 
   def show
     @images = Imagetown.imagetowns_by_id(params[:id])

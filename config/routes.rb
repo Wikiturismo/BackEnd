@@ -76,7 +76,11 @@ Rails.application.routes.draw do
        collection do
          get '/count', to: 'imagetowns#count', as: 'imagetownscount'
        end
+<<<<<<< HEAD
      end 
+=======
+     end
+>>>>>>> Ultima_Iteracion
      resources :schedules
      resources :imageusers
 
