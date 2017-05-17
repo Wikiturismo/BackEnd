@@ -28,7 +28,8 @@ class Api::V1::DepartsController < ApplicationController
     columns= params[:columns] ? params[:columns]: nil
     if(params[:q])
       nam=params[:q]
-      @departs = Depart.departs_by_name(nam.tr('+', ' '),columns)
+      nam=I18n.transliterate(nam).tr('+', ' ')
+      @departs = Depart.departs_by_name(nam,columns)
       render json: @departs,each_serializer: DepartSerializer, columns: columns || "all", root: "data"
     else
       render status: 400,json: {

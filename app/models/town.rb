@@ -35,7 +35,7 @@ class Town < ApplicationRecord
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     load_towns(page,per_page)
     .select(columns)
-      .where("lower(towns.name)  like ?", "%#{name.downcase}%")
+      .where("unaccent(lower(towns.name))  like ?", "%#{name.downcase}%")
   end
 
   def self.towns_by_airport(airport,page=1, per_page = 10,columns)

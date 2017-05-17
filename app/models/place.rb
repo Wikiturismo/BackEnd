@@ -48,7 +48,7 @@ class Place < ApplicationRecord
       columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
         .select(columns)
-        .where("lower(places.name) like ?", "%#{name.downcase}%")
+        .where("unaccent(lower(places.name)) like ?", "%#{name.downcase}%")
     end
 
     def self.places_by_valoration(valoration,page=1, per_page = 10, columns)

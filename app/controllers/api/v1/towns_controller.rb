@@ -86,7 +86,8 @@ class Api::V1::TownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      town = Town.towns_by_name(nam.tr('+', ' '),columns)
+      nam=I18n.transliterate(nam).tr('+', ' ')
+      town = Town.towns_by_name(nam,columns)
       render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
     else
       render status: 400,json: {
