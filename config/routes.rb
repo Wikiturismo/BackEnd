@@ -14,6 +14,13 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :valorations do
+        collection do
+          get '/val', to: 'valorations#val', as: 'valorations'
+          get '/userplace', to: 'valorations#userplace', as: 'userplace'
+        end
+      end
+
       resources :towns do
         collection do
           get '/count', to: 'towns#count', as: 'towncount'
@@ -60,8 +67,16 @@ Rails.application.routes.draw do
      end
 
      resources :imagedeparts
-     resources :imageplaces
-     resources :imagetowns
+     resources :imageplaces do
+       collection do
+         get '/count', to: 'imageplaces#count', as: 'imageplacescount'
+      end
+     end
+     resources :imagetowns do
+       collection do
+         get '/count', to: 'imagetowns#count', as: 'imagetownscount'
+       end
+     end 
      resources :schedules
      resources :imageusers
 

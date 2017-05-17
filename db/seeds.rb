@@ -66,7 +66,7 @@ User.destroy_all
 
 30.times do |index|
   User.create!(id:index+1,
-                name: "NameUser #{index+1}",
+                name: Faker::StarWars.unique.character,
                 kind: "KindUser #{index+1}",
                 password: "password#{index+1}",
                 email: "mail#{index+1}@gmail.com",
@@ -131,6 +131,19 @@ Commentplace.destroy_all
 end
 
 p "Created #{Commentplace.count} commentplaces"
+
+
+Valoration.destroy_all
+
+100.times do |index|
+  Valoration.create!(id:index+1,
+                val: Faker::Number.between(1, 5),
+                place_id: Faker::Number.between(1, 32),
+                user_id: Faker::Number.between(1, 30))
+end
+
+p "Created #{Valoration.count} valorations"
+
 
 Commenttown.destroy_all
 
