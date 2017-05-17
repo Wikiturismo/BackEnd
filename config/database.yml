@@ -3,11 +3,7 @@ connection: &connection
   encoding: unicode
   pool: 5
   username: postgres
-<<<<<<< HEAD
   password: abcd1234
-=======
-  password: 1234
->>>>>>> Ultima_Iteracion
 
 development:
   <<: *connection
