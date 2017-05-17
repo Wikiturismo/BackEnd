@@ -60,8 +60,16 @@ Rails.application.routes.draw do
      end
 
      resources :imagedeparts
-     resources :imageplaces
-     resources :imagetowns
+     resources :imageplaces do
+       collection do
+         get '/count', to: 'imageplaces#count', as: 'imageplacescount'
+      end
+     end
+     resources :imagetowns do
+       collection do
+         get '/count', to: 'imagetowns#count', as: 'imagetownscount'
+       end
+     end
      resources :schedules
      resources :imageusers
 
