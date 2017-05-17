@@ -44,7 +44,7 @@ class Commenttown < ApplicationRecord
     columns=columns ? columns+", town_id" : "commenttowns.*, town_id"
     joins(:town).select("commenttowns.*,towns.id,commenttowns.id")
       .select(columns)
-        .where("lower(towns.name) = ? AND commenttowns.town_id=towns.id", town.downcase)
+        .where("commenttowns.town_id= ?", town)
         .includes(town:[:places,:imagetowns],user:[:places])
         .where(state:1)
             .paginate(:page => page,:per_page => per_page)
@@ -54,7 +54,7 @@ class Commenttown < ApplicationRecord
     columns=columns ? columns+", depart_id" : "commenttowns.*, depart_id"
     joins(:depart).select("commenttowns.*, departs.id,commenttowns.id")
       .select(columns)
-        .where("lower(departs.name) = ? AND commenttowns.depart_id=departs.id", depart.downcase)
+        .where("commenttowns.depart_id= ?", depart)
         .where(state:1)
         .includes(town:[:places,:imagetowns],user:[:places], state:1)
             .paginate(:page => page,:per_page => per_page)

@@ -105,7 +105,7 @@ class Api::V1::CommenttownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment= Commenttown.commenttowns_by_town(nam.tr('+', ' '),params[:page],columns2)
+      comment= Commenttown.commenttowns_by_town(nam,params[:page],columns2)
       renderCommenttowns(params[:sort],comment,columns)
     else
       render status: 400,json: {
@@ -119,7 +119,7 @@ class Api::V1::CommenttownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commenttown.commenttowns_by_depart(nam.tr('+', ' '),params[:page],columns2)
+      comment = Commenttown.commenttowns_by_depart(nam,params[:page],columns2)
       renderCommenttowns(params[:sort],comment,columns)
     else
       render status: 400,json: {

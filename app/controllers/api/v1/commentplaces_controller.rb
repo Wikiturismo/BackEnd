@@ -112,7 +112,7 @@ class Api::V1::CommentplacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commentplace.commentplaces_by_place(nam.tr('+', ' '),params[:page],columns2)
+      comment = Commentplace.commentplaces_by_place(nam,params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
@@ -126,7 +126,7 @@ class Api::V1::CommentplacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment= Commentplace.commentplaces_by_town(nam.tr('+', ' '),params[:page],columns2)
+      comment= Commentplace.commentplaces_by_town(nam,params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {

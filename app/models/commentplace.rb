@@ -43,7 +43,7 @@ class Commentplace < ApplicationRecord
     columns=columns ? columns+", place_id" : "commentplaces.*, place_id"
     joins(:place).select("commentplaces.*, places.id,commentplaces.id")
       .select(columns)
-        .where("lower(places.name) = ? AND commentplaces.place_id=places.id", place.downcase)
+        .where("commentplaces.place_id= ?", place)
         .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
@@ -52,7 +52,7 @@ class Commentplace < ApplicationRecord
     columns=columns ? columns+", town_id" : "commentplaces.*, town_id"
     joins(:town).select("commentplaces.*, towns.id,commentplaces.id")
       .select(columns)
-        .where("lower(towns.name) = ? AND commentplaces.town_id=towns.id", town.downcase)
+        .where("commentplaces.town_id= ? ", town)
         .where(state:1)
         .includes(place:[:imageplaces,:schedules],town:[:places,:imagetowns],user:[:places])
             .paginate(:page => page,:per_page => per_page)
