@@ -96,7 +96,7 @@ class Place < ApplicationRecord
       columns=columns ? columns+", user_id, town_id" : "places.*, user_id, town_id"
         joins(:town).select("places.*, towns.id,places.id")
           .select(columns)
-            .where("lower(towns.name) = ? AND places.town_id=towns.id", name.downcase)
+            .where("places.town_id=?", name)
             .where(state:1)
                 .paginate(:page => page,:per_page => per_page)
     end
