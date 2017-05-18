@@ -28,7 +28,7 @@ class Api::V1::PlacesController < ApplicationController
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    place= columns ? Place.lawea(columns2) : Place.lawea(columns2)
+    place= columns ? Place.lawea(params[:page],columns2) : Place.lawea(params[:page],columns2)
     renderPlaces(params[:sort], place, columns)
   end
 

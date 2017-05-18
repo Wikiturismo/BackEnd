@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
       resources :valorations do
         collection do
+          get '/count', to: 'valorations#count', as: 'valorationcount'
           get '/val', to: 'valorations#val', as: 'valorations'
           get '/userplace', to: 'valorations#userplace', as: 'userplace'
         end

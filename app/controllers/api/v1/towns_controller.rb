@@ -28,7 +28,7 @@ class Api::V1::TownsController < ApplicationController
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    town= columns ? Town.lawea(columns2) : Town.lawea(columns2)
+    town= columns ? Town.lawea(params[:page],columns2) : Town.lawea(params[:page],columns2)
     renderTowns(params[:sort],town,columns)
   end
 
