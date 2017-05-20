@@ -18,6 +18,12 @@ capitals = ["Leticia","Medellín","Arauca","Barranquilla","Cartagena",
   "Neiva","Riohacha","Santa Marta","Villavicencio","Pasto","Cúcuta",
   "Mocoa","Armenia","Pereira","San Andrés","Bucaramanga",
   "Sincelejo","Ibagué","Cali","Mitú","Puerto Carreño"]
+capstempers = [26.0, 21.6, 26.8, 27.8, 27.5,
+  12.8, 16.4, 19.9, 26.3, 17.8, 27.9,
+  26.6, 27.4, 13.5, 27.2, 28.1,
+  27.1, 28.3, 28.3, 25.5, 13.8, 26.6,
+  24.0, 19.4, 20.6, 27.0, 23.4,
+  26.6, 21.1, 24.0, 25.9, 28.3]
 capsalts = [96, 1495, 15, 18, 2,
   2822, 2200, 242, 2532, 1760, 168,
   43, 18, 2640, 95, 175,
@@ -57,7 +63,7 @@ Town.destroy_all
   Town.create!(id:index+1,
                 name: capitals[index],
                 weather: "Weather #{index+1}",
-                avertemper: Faker::Number.between(-10, 50),
+                avertemper: capstempers[index],
                 altitude: capsalts[index],
                 demonym: demotowns[index],
                 airport: Faker::Number.between(0,1),
@@ -67,13 +73,12 @@ end
 
 32.times do |index|
   n = Town.towns_by_id(index+1,nil)
-  valor = Faker::Number.between(1, 3)
-  if valor==1.0
-    n.update_column(:weather,"Cálido")
-  elsif valor==2.0
-    n.update_column(:weather,"Templado")
-  elsif valor==3.0
+  if n.avertemper<15.0
     n.update_column(:weather,"Frío")
+  elsif n.avertemper<25.0
+    n.update_column(:weather,"Templado")
+  elsif
+    n.update_column(:weather,"Cálido")
   end
 end
 
