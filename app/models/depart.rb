@@ -26,7 +26,7 @@ class Depart < ApplicationRecord
     columns=columns ? columns : "departs.*"
     load_departs(page,per_page)
       .select(columns)
-      .where("unaccent(lower(departs.name)) = ?", name.downcase)
+      .where("unaccent(lower(departs.name)) like ?", "%#{name.downcase}%")
   end
 
 end

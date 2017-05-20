@@ -105,9 +105,15 @@ class Api::V1::PlacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      nam=I18n.transliterate(nam).tr('+', ' ')
-      place = Place.places_by_name(nam,columns2)
-      render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      if (nam=="")
+        render json: {
+          data:[]
+        }
+      else
+        nam=I18n.transliterate(nam).tr('+', ' ')
+        place = Place.places_by_name(nam,columns2)
+        render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      end
     else
       render status: 400,json: {
         message: "Name param(q) missing"
