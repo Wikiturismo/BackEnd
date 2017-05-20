@@ -36,7 +36,7 @@ class Api::V1::UsersController < ApplicationController
   def count
     comment = User.count
     render json: {
-      data:{, status: :created
+      data:{
         count: comment
       }
     }
