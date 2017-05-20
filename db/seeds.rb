@@ -1,10 +1,10 @@
-departments =["Amazonas","Antioquia","Arauca","Atlantico","Bolivar",
-  "Boyaca","Caldas","Caqueta","Casanare","Cauca","Cesar",
-  "Choco","Cordoba","Cundinamarca","Guainia","Guaviare",
+departments =["Amazonas","Antioquia","Arauca","Atlántico","Bolívar",
+  "Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar",
+  "Chocó","Córdoba","Cundinamarca","Guainía","Guaviare",
   "Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander",
-  "Putumayo", "Quindio", "Risaralda","San Andres y Providencia","Santander",
-  "Sucre","Tolima", "Valle del Cauca", "Vaupes","Vichada"]
-placenames = ["Reserva Natural Marasha","Edificio Coltejer","Parque Zoologico Matecaña","Museo del Caribe","Las Bovedas",
+  "Putumayo", "Quindío", "Risaralda","San Andrés y Providencia","Santander",
+  "Sucre","Tolima", "Valle del Cauca", "Vaupés","Vichada"]
+placenames = ["Reserva Natural Marasha","Edificio Coltejer","Parque Zoológico Matecaña","Museo del Caribe","Las Bóvedas",
   "Puente de Boyacá","Recinto del Pensamiento","Parque Natural Chiribiquete","Parque Natural la Iguana","Parque Arqueológico de Tierradentro","Centro Histórico de Valledupar",
   "Catedral de Quibdó","Parque Ecológico de Montelíbano","Museo Nacional","Cerros de Mavecure","Parque Guaviare",
   "Desierto de la Tatacoa","Hotel Taroa","Parque Natural Tayrona","Monumento a Los Fundadores","Plaza del Carnaval","Parque Grancolombiano",
@@ -12,28 +12,33 @@ placenames = ["Reserva Natural Marasha","Edificio Coltejer","Parque Zoologico Ma
   "Plaza de Majagual","Vereda Veraguas","Parque Poetas","Parque Caraná","Parque Natural El Tuparro"]
   placid = [1,1,1,2,2,3,3,4,4,4,5,5,6,6,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,18,19,19,20,20,21,21,22,23,24,24,
     25,25,26,27,27,28,28,29,29,30,30,31,31,32,32]
-capitals = ["Leticia","Medellin","Arauca","Barranquilla","Cartagena",
-  "Tunja","Manizales","Florencia","Yopal","Popayan","Valledupar",
-  "Quibdo","Monteria","Bogota","Puerto Inirida","San Jose del Guaviare",
-  "Neiva","Riohacha","Santa Marta","Villavicencio","Pasto","Cucuta",
-  "Mocoa","Armenia","Pereira","San Andres","Bucaramanga",
-
-  "Sincelejo","Ibague","Cali","Mitu","Puerto Carreño"]
-demonyms = ["Amazonicos","Antioquenos","Araucanos","Atlanticenses","Bolivarienses",
-  "Boyacenses","Caldenses","Caquetenos","Casanarenos","Caucanos","Cesarences",
+capitals = ["Leticia","Medellín","Arauca","Barranquilla","Cartagena",
+  "Tunja","Manizales","Florencia","Yopal","Popayán","Valledupar",
+  "Quibdó","Montería","Bogotá","Puerto Inírida","San José del Guaviare",
+  "Neiva","Riohacha","Santa Marta","Villavicencio","Pasto","Cúcuta",
+  "Mocoa","Armenia","Pereira","San Andrés","Bucaramanga",
+  "Sincelejo","Ibagué","Cali","Mitú","Puerto Carreño"]
+capsalts = [96, 1495, 15, 18, 2,
+  2822, 2200, 242, 2532, 1760, 168,
+  43, 18, 2640, 95, 175,
+  442, 5, 15, 467, 2527, 320,
+  604, 1551, 1411, 0, 959,
+  213, 1285, 1018, 183, 51]
+demonyms = ["Amazónicos","Antioqueños","Araucanos","Atlanticenses","Bolivarenses",
+  "Boyacenses","Caldenses","Caqueteños","Casanareños","Caucanos","Cesarenses",
   "Chocoanos","Cordobeses","Cundinamarqueses","Guainarenses","Guaviarenses",
   "Huilenses","Guajiros","Magdalenenses","Metenses","Nariñenses","Nortesantandereanos",
   "Putumayenses","Quindianos","Risaraldenses","Sanandresanos","Santandereanos",
-  "Sucrenos","Tolimenses","Vallecaucanos","Vaupenses","Vichadense"]
+  "Sucreños","Tolimenses","Vallecaucanos","Vaupenses","Vichadenses"]
 demotowns = ["Leticianos","Medellinenses","Araucanos","Barranquilleros","Cartageneros",
-   "Tunjanos","Manizalenos","Florencianos","Yopalenos","Payaneses","Valduparenses",
-   "Quibdosenos","Monterianos","Bogotanos","Iniridenses","Guaviarenses",
-   "Opitas","Riohacheros","Samarios","Villavicenciunos","Pastuso","Cucutenos",
+   "Tunjanos","Manizaleños","Florencianos","Yopaleños","Payaneses","Valduparenses",
+   "Quibdoseños","Monterianos","Bogotanos","Iniridenses","Guaviarenses",
+   "Opitas","Riohacheros","Samarios","Villavicenciunos","Pastusos","Cucuteños",
    "Mocoanos","Armenios","Pereiranos","Sanandresanos","Bumangueses",
-   "Sincelejanos","Ibaguerenos","Caleños","Mituanos","Carrenenses"]
-descrip = ["Hermoso lugar con buena atencion a los turistas, con comodidades que lo hacen sobresalir sobre los demas.",
+   "Sincelejanos","Ibaguereños","Caleños","Mituanos","Carreñenses"]
+descrip = ["Hermoso lugar con buena atención a los turistas, con comodidades que lo hacen sobresalir sobre los demás.",
    "Lugar alejado y tranquilo que merece la pena visitar, bueno, bonito y barato.",
-   "Ejemplo de buena atencion y amabilidad para con la gente, imposible perderse el visitarlo, es mucho mas que un sitio para vacacionar, tu nuevo segundo hogar."]
+   "Ejemplo de buena atención y amabilidad para con la gente, imposible perderse el visitarlo, es mucho mas que un sitio para vacacionar, tu nuevo segundo hogar."]
 
 Depart.destroy_all
 
@@ -53,11 +58,23 @@ Town.destroy_all
                 name: capitals[index],
                 weather: "Weather #{index+1}",
                 avertemper: Faker::Number.between(-10, 50),
-                altitude: Faker::Number.between(0, 5000),
+                altitude: capsalts[index],
                 demonym: demotowns[index],
                 airport: Faker::Number.between(0,1),
                 transpterminal: Faker::Number.between(0,1),
                 depart_id: index+1)
+end
+
+32.times do |index|
+  n = Town.towns_by_id(index+1,nil)
+  valor = Faker::Number.between(1, 3)
+  if valor==1.0
+    n.update_column(:weather,"Cálido")
+  elsif valor==2.0
+    n.update_column(:weather,"Templado")
+  elsif valor==3.0
+    n.update_column(:weather,"Frío")
+  end
 end
 
 p "Created #{Town.count} towns"
@@ -84,7 +101,6 @@ end
     n.update_column(:kind,"dueño")
   end
 end
-
 
 p "Created #{User.count} users"
 
@@ -131,7 +147,6 @@ Commentplace.destroy_all
 end
 
 p "Created #{Commentplace.count} commentplaces"
-
 
 Valoration.destroy_all
 
@@ -227,8 +242,6 @@ end
 end
 
 p "Created #{Imageuser.count} imageusers"
-
-
 
 Imagetown.destroy_all
 
