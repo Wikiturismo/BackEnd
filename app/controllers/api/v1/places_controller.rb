@@ -94,7 +94,7 @@ class Api::V1::PlacesController < ApplicationController
   def create
     @places = Place.new(places_params)
     if @places.save
-      render json: @places, root: "data"
+      render json: @places, root: "data", status: :created
     else
       render json: @places.errors
     end

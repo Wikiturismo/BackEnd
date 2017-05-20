@@ -75,7 +75,7 @@ class Api::V1::ValorationsController < ApplicationController
   def create
     @valoration = Valoration.new(valorations_params)
     if @valoration.save
-      render json: @valoration, root: "data"
+      render json: @valoration, root: "data", status: :created
     else
       render json: @valoration.errors
     end

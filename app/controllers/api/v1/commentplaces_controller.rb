@@ -65,7 +65,7 @@ class Api::V1::CommentplacesController < ApplicationController
   def create
     @comment = Commentplace.new(commentplace_params)
     if @comment.save
-      render json: @comment, root: "data"
+      render json: @comment, root: "data", status: :created
     else
       render json:@comment.errors
     end

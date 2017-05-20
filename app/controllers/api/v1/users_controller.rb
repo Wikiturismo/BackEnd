@@ -36,7 +36,7 @@ class Api::V1::UsersController < ApplicationController
   def count
     comment = User.count
     render json: {
-      data:{
+      data:{, status: :created
         count: comment
       }
     }
@@ -56,7 +56,7 @@ class Api::V1::UsersController < ApplicationController
    def create
      @user = User.new(users_params)
      if @user.save
-       render json: @user, root: "data"
+       render json: @user, root: "data", status: :created
      else
        render json: @user.errors
      end

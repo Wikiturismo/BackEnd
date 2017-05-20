@@ -60,7 +60,7 @@ class Api::V1::CommenttownsController < ApplicationController
    def create
      @comment = Commenttown.new(commenttown_params)
      if @comment.save
-       render json: @comment, root: "data"
+       render json: @comment, root: "data", status: :created
      else
        render json:@comment.errors
      end

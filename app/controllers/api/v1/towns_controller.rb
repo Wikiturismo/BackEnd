@@ -75,7 +75,7 @@ class Api::V1::TownsController < ApplicationController
   def create
     @town = Town.new(towns_params)
     if @town.save
-      render json: @town, root: "data"
+      render json: @town, root: "data", status: :created
     else
       render json: @town.errors
     end

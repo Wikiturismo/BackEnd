@@ -19,7 +19,7 @@ class Api::V1::SchedulesController < ApplicationController
       end
     else
       pages=schedule.total_entries/10 +1
-      render json: {data:schedule, pages: pages} 
+      render json: {data:schedule, pages: pages}
     end
   end
 
@@ -60,7 +60,7 @@ class Api::V1::SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedules_params)
     if @schedule.save
-      render json: @schedule, root: "data"
+      render json: @schedule, root: "data", status: :created
     else
       render json: @schedule.errors
     end
