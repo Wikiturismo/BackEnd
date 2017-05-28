@@ -28,8 +28,15 @@ class Api::V1::DepartsController < ApplicationController
     columns= params[:columns] ? params[:columns]: nil
     if(params[:q])
       nam=params[:q]
-      @departs = Depart.departs_by_name(nam.tr('+', ' '),columns)
-      render json: @departs,each_serializer: DepartSerializer, columns: columns || "all", root: "data"
+      if (nam=="")
+        render json: {
+          data:[]
+        }
+      else
+        nam=I18n.transliterate(nam).tr('+', ' ')
+        @departs = Depart.departs_by_name(nam,columns)
+        render json: @departs,each_serializer: DepartSerializer, columns: columns || "all", root: "data"
+      end
     else
       render status: 400,json: {
         message: "Name param(q) missing"

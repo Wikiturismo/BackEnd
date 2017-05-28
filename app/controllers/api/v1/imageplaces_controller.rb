@@ -44,6 +44,15 @@ class Api::V1::ImageplacesController < ApplicationController
      end
    end
 
+   def count
+     comment = Imageplace.count
+     render json: {
+       data:{
+         count: comment
+       }
+     }
+   end
+
   def byplace
     if(params[:q])
       name=params[:q]

@@ -5,7 +5,7 @@ class UserSerializer < ActiveModel::Serializer
   attribute :email, if: :render_mail?
   attribute :ubication, if: :render_ubication?
 
-  has_many :imageusers, if: :render_hasmany?
+  has_many :imageusers
   has_many :commentplaces, if: :render_hasmany?
   has_many :commenttowns, if: :render_hasmany?
   has_many :places, if: :render_hasmany?

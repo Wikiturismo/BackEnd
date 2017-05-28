@@ -10,21 +10,25 @@ class Api::V1::TownsController < ApplicationController
             sort="towns.id DESC"
           end
         town = town.order (sort)
-        render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+        pages=town.total_entries/10 +1
+        #render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+        render json: town ,each_serializer: TownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+    pages=town.total_entries/10 +1
+    #render json: {data:town, pages: pages} ,each_serializer: TownSerializer, columns: columns || "all"
+    render json: town ,each_serializer: TownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    town= columns ? Town.all.select(columns2) : Town.all
+    town= columns ? Town.lawea(params[:page],columns2) : Town.lawea(params[:page],columns2)
     renderTowns(params[:sort],town,columns)
   end
 
@@ -71,7 +75,7 @@ class Api::V1::TownsController < ApplicationController
   def create
     @town = Town.new(towns_params)
     if @town.save
-      render json: @town, root: "data"
+      render json: @town, root: "data", status: :created
     else
       render json: @town.errors
     end
@@ -82,8 +86,15 @@ class Api::V1::TownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      town = Town.towns_by_name(nam.tr('+', ' '),columns)
-      render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+      if (nam=="")
+        render json: {
+          data:[]
+        }
+      else
+        nam=I18n.transliterate(nam).tr('+', ' ')
+        town = Town.towns_by_name(nam,columns)
+        render json: town,each_serializer: TownSerializer, columns: columns || "all", root: "data"
+      end
     else
       render status: 400,json: {
         message: "Name param(q) missing"
@@ -144,6 +155,21 @@ class Api::V1::TownsController < ApplicationController
         }
     end
   end
+
+  def lastbydepart
+    columns= params[:columns] ? params[:columns]: nil
+    columns2=renameColumns(columns)
+    if(params[:q])
+      nam=params[:q]
+      town = Town.towns_by_depart(nam.tr('+', ' '),params[:page],columns2).order("towns.created_at DESC").limit(5)
+      renderTowns(params[:sort],town,columns)
+    else
+      render status: 400,json: {
+        message: "Name depart param(q) missing"
+        }
+    end
+  end
+
 def renameColumns(columns)
     if columns
       aux=columns.split(",")

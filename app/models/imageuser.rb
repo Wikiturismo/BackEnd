@@ -13,9 +13,9 @@ class Imageuser < ApplicationRecord
     .find_by_id(id)
   end
 
-  def self.imageusers_by_user(name,page, per_page = 10)
+  def self.imageusers_by_user(id,page, per_page = 10)
       joins(:user).select("imageusers.*, users.id,imageusers.id")
-          .where("lower(users.name) = ? AND imageusers.user_id=users.id", name.downcase)
+          .where("imageusers.user_id=?", id)
             .includes(user:[:places])
                   .paginate(:page => page,:per_page => per_page)
   end

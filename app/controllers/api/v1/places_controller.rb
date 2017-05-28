@@ -10,21 +10,25 @@ class Api::V1::PlacesController < ApplicationController
             sort="places.id DESC"
           end
         place = place.order (sort)
-        render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+        pages=place.total_entries/10 +1
+        #render json: {data: place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+        render json: place ,each_serializer: PlaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      pages=place.total_entries/10 +1
+      #render json: {data:place, pages: pages} ,each_serializer: PlaceSerializer, columns: columns || "all"
+      render json: place ,each_serializer: PlaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    place= columns ? Place.all.select(columns2) : Place.all
+    place= columns ? Place.lawea(params[:page],columns2) : Place.lawea(params[:page],columns2)
     renderPlaces(params[:sort], place, columns)
   end
 
@@ -78,9 +82,9 @@ class Api::V1::PlacesController < ApplicationController
    end
 
    def update
-     @place = Place.places_by_id(params[:id])
-     if @place.update_attributes(places_params)
-       @place = Place.places_by_id(params[:id])
+     @place = Place.places_by_id(params[:id],nil)
+     if @place.update(places_params)
+       @place = Place.places_by_id(params[:id],nil)
        render json: @place, root: "data"
      else
        render json: @place.errors
@@ -90,7 +94,7 @@ class Api::V1::PlacesController < ApplicationController
   def create
     @places = Place.new(places_params)
     if @places.save
-      render json: @places, root: "data"
+      render json: @places, root: "data", status: :created
     else
       render json: @places.errors
     end
@@ -101,8 +105,15 @@ class Api::V1::PlacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      place = Place.places_by_name(nam.tr('+', ' '),columns2)
-      render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      if (nam=="")
+        render json: {
+          data:[]
+        }
+      else
+        nam=I18n.transliterate(nam).tr('+', ' ')
+        place = Place.places_by_name(nam,columns2)
+        render json: place,each_serializer: PlaceSerializer, columns: columns || "all", root: "data"
+      end
     else
       render status: 400,json: {
         message: "Name param(q) missing"
@@ -186,6 +197,20 @@ class Api::V1::PlacesController < ApplicationController
     if(params[:q])
       nam=params[:q]
       place = Place.places_by_town(nam.tr('+', ' '),params[:page],columns2)
+      renderPlaces(params[:sort],place,columns)
+    else
+      render status: 400,json: {
+        message: "Name depart param(q) missing"
+        }
+    end
+  end
+
+  def lastbytown
+      columns= params[:columns] ? params[:columns]: nil
+      columns2=renameColumns(columns)
+    if(params[:q])
+      nam=params[:q]
+      place = Place.places_by_town(nam.tr('+', ' '),params[:page],columns2).order("places.created_at DESC").limit(5)
       renderPlaces(params[:sort],place,columns)
     else
       render status: 400,json: {

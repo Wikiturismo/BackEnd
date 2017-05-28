@@ -24,7 +24,7 @@ class Place < ApplicationRecord
     end
 
     def self.places_by_id(id, columns)
-      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
+      columns=columns ? columns : "places.*"
         includes(:imageplaces,:commentplaces,user:[:commentplaces,:commenttowns],depart:[:imagedeparts,:towns],town:[:commenttowns,:imagetowns])
         .select(columns)
        .find_by_id(id)
@@ -38,11 +38,17 @@ class Place < ApplicationRecord
       .where(id: random_ids, state:1)
     end
 
+    def self.lawea(page = 1, per_page = 10,columns)
+      columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
+      load_places(page,per_page)
+      .select(columns)
+    end
+
     def self.places_by_name(name,page = 1, per_page = 10, columns)
       columns=columns ? columns+", user_id, depart_id, town_id" : "places.*, user_id, depart_id, town_id"
         load_places(page,per_page)
         .select(columns)
-        .where("lower(places.name) = ?", name.downcase)
+        .where("unaccent(lower(places.name)) like ?", "%#{name.downcase}%")
     end
 
     def self.places_by_valoration(valoration,page=1, per_page = 10, columns)
@@ -90,7 +96,7 @@ class Place < ApplicationRecord
       columns=columns ? columns+", user_id, town_id" : "places.*, user_id, town_id"
         joins(:town).select("places.*, towns.id,places.id")
           .select(columns)
-            .where("lower(towns.name) = ? AND places.town_id=towns.id", name.downcase)
+            .where("places.town_id=?", name)
             .where(state:1)
                 .paginate(:page => page,:per_page => per_page)
     end

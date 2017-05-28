@@ -10,21 +10,25 @@ class Api::V1::CommentplacesController < ApplicationController
             sort="commentplaces.id DESC"
           end
         comment = comment.order (sort)
-        render json: comment,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data"
+        pages=comment.total_entries/10 +1
+        #render json: {data:comment, pages: pages} ,each_serializer: CommentplaceSerializer, columns: columns || "all"
+        render json: comment ,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: comment, root: "data", columns: columns || "all"
+      pages=comment.total_entries/10 +1
+      #render json: {data:comment, pages: pages}, columns: columns || "all"
+      render json: comment ,each_serializer: CommentplaceSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
     columns2=renameColumns(columns)
-    comment= columns ? comment = Commentplace.all.select(columns2) : comment = Commentplace.all
+    comment= columns ? Commentplace.lawea(columns2) : Commentplace.lawea(columns2)
     renderCommentplaces(params[:sort], comment, columns)
   end
 
@@ -61,7 +65,7 @@ class Api::V1::CommentplacesController < ApplicationController
   def create
     @comment = Commentplace.new(commentplace_params)
     if @comment.save
-      render json: @comment, root: "data"
+      render json: @comment, root: "data", status: :created
     else
       render json:@comment.errors
     end
@@ -108,7 +112,7 @@ class Api::V1::CommentplacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commentplace.commentplaces_by_place(nam.tr('+', ' '),params[:page],columns2)
+      comment = Commentplace.commentplaces_by_place(nam,params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {
@@ -122,7 +126,7 @@ class Api::V1::CommentplacesController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment= Commentplace.commentplaces_by_town(nam.tr('+', ' '),params[:page],columns2)
+      comment= Commentplace.commentplaces_by_town(nam,params[:page],columns2)
       renderCommentplaces(params[:sort],comment,columns)
     else
       render status: 400,json: {

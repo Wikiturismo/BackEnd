@@ -36,6 +36,12 @@ class User < ApplicationRecord
     .find_by_id(id)
   end
 
+  def self.lawea(page = 1, per_page = 10,columns)
+    columns=columns ? columns : "users.*"
+    load_users(page,per_page)
+    .select(columns)
+  end
+
   def self.users_by_name(name,page = 1, per_page = 10, columns)
     columns=columns ? columns : "users.*"
     load_users(page,per_page)

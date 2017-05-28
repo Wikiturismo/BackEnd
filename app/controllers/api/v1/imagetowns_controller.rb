@@ -9,6 +9,14 @@ class Api::V1::ImagetownsController < ApplicationController
     render json: @images, root: "data"
   end
 
+  def count
+    comment = Imagetown.count
+    render json: {
+      data:{
+        count: comment
+      }
+    }
+  end
 
   def show
     @images = Imagetown.imagetowns_by_id(params[:id])

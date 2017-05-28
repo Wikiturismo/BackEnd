@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427030438) do
+ActiveRecord::Schema.define(version: 20170517213742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "commentplaces", force: :cascade do |t|
     t.integer  "state",      default: 0,                       null: false
@@ -175,6 +176,16 @@ ActiveRecord::Schema.define(version: 20170427030438) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
+  create_table "valorations", force: :cascade do |t|
+    t.integer  "val"
+    t.integer  "place_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_valorations_on_place_id", using: :btree
+    t.index ["user_id"], name: "index_valorations_on_user_id", using: :btree
+  end
+
   add_foreign_key "commentplaces", "departs"
   add_foreign_key "commentplaces", "places"
   add_foreign_key "commentplaces", "towns"
@@ -191,4 +202,6 @@ ActiveRecord::Schema.define(version: 20170427030438) do
   add_foreign_key "places", "users"
   add_foreign_key "schedules", "places"
   add_foreign_key "towns", "departs"
+  add_foreign_key "valorations", "places"
+  add_foreign_key "valorations", "users"
 end

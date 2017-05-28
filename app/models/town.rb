@@ -18,6 +18,12 @@ class Town < ApplicationRecord
       .paginate(:page => page, :per_page => per_page)
   end
 
+  def self.lawea(page = 1, per_page = 10,columns)
+    columns=columns ? columns+",depart_id" : "towns.*,depart_id"
+    load_towns(page,per_page)
+    .select(columns)
+  end
+
   def self.towns_by_id(id,columns)
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     includes(:imagetowns,:commenttowns,:places,depart:[:imagedeparts])
@@ -29,7 +35,7 @@ class Town < ApplicationRecord
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     load_towns(page,per_page)
     .select(columns)
-      .where("lower(towns.name) = ?", name.downcase)
+      .where("unaccent(lower(towns.name))  like ?", "%#{name.downcase}%")
   end
 
   def self.towns_by_airport(airport,page=1, per_page = 10,columns)
@@ -46,11 +52,11 @@ class Town < ApplicationRecord
       .where('towns.transpterminal = ?', transpterminal)
   end
 
-  def self.towns_by_depart(name,page=1, per_page = 10,columns)
+  def self.towns_by_depart(depart,page=1, per_page = 10,columns)
     columns=columns ? columns+",depart_id" : "towns.*,depart_id"
     joins(:depart).select("towns.*,departs.id, towns.id")
       .select(columns)
-        .where("lower(departs.name) = ? AND towns.depart_id=departs.id", name.downcase)
+        .where("towns.depart_id=?", depart)
           .includes(:imagetowns,:commenttowns,:places,depart:[:imagedeparts])
             .paginate(:page => page,:per_page => per_page)
   end

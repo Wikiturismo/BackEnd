@@ -9,21 +9,25 @@ class Api::V1::CommenttownsController < ApplicationController
         elsif (sort=="id DESC")
           sort="commenttowns.id DESC"
         end
-        comment = comment.order (sort)
-        render json: comment,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data"
+        pages=comment.total_entries/10 +1
+        #render json: {data:comment, pages: pages} ,each_serializer: CommenttownSerializer, columns: columns || "all"
+        render json: comment ,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
       else
         render status: 400, json: {
           message: options
           }
       end
     else
-      render json: comment, root: "data", columns: columns || "all"
+      pages=comment.total_entries/10 +1
+      #render json: {data:comment, pages: pages}, columns: columns || "all"
+      render json: comment ,each_serializer: CommenttownSerializer, columns: columns || "all", root: "data", meta: {pages: pages}
     end
   end
 
   def index
     columns= params[:columns] ? params[:columns].split(",") : nil
-    comment= columns ? comment = Commenttown.all.select(columns) : comment = Commenttown.all
+    columns2=renameColumns(columns)
+    comment= columns ? Commenttown.lawea(columns2) : Commenttown.lawea(columns2)
     renderCommenttowns(params[:sort], comment, columns)
   end
 
@@ -56,7 +60,7 @@ class Api::V1::CommenttownsController < ApplicationController
    def create
      @comment = Commenttown.new(commenttown_params)
      if @comment.save
-       render json: @comment, root: "data"
+       render json: @comment, root: "data", status: :created
      else
        render json:@comment.errors
      end
@@ -101,7 +105,7 @@ class Api::V1::CommenttownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment= Commenttown.commenttowns_by_town(nam.tr('+', ' '),params[:page],columns2)
+      comment= Commenttown.commenttowns_by_town(nam,params[:page],columns2)
       renderCommenttowns(params[:sort],comment,columns)
     else
       render status: 400,json: {
@@ -115,7 +119,7 @@ class Api::V1::CommenttownsController < ApplicationController
     columns2=renameColumns(columns)
     if(params[:q])
       nam=params[:q]
-      comment = Commenttown.commenttowns_by_depart(nam.tr('+', ' '),params[:page],columns2)
+      comment = Commenttown.commenttowns_by_depart(nam,params[:page],columns2)
       renderCommenttowns(params[:sort],comment,columns)
     else
       render status: 400,json: {
