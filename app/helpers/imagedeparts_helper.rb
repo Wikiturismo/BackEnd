@@ -1,0 +1,2 @@
+module ImagedepartsHelper
+end
